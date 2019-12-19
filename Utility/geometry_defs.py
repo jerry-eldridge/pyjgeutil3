@@ -1,0 +1,10 @@
+width = 800
+height = 800
+depth = 1
+N1 = 20
+N2 = 20
+N3 = 1
+dx = 1.0*width/N1
+dy = 1.0*height/N2
+dz = 1.0*depth/N3
+N4 = 1
