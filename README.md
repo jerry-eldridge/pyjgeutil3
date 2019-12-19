@@ -13,7 +13,8 @@ for viewing 3D .obj files for 3D graphics.
 Requirements
 
 Windows 10 command shell for commands like: 'pip install opencv-python' and 'pip install tripy' by searching for
-"cmd" in Windows 10 search box. 
+"cmd" in Windows 10 search box. Also, numpy and scipy is installed currently with
+"pip install numpy scipy matplotlib ipython jupyter pandas sympy nose" or see numpy/scipy website for install instructions.
 
 The Utility folder "C:\_PythonJGE\Utility" is assumed to exist containing this library unzipped there by default
 in the samples scripts. This is pointed to in commands "import sys" and "sys.path.insert(0,r"C:\_PythonJGE\Utility")
