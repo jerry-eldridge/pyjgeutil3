@@ -1,5 +1,5 @@
 # pyjgeutil3
-Collection of Python3 Utility libraries utility tools relating to math, physics, computer science by Jerry Gerard Eldridge.
+Collection of Python3 Utility libraries utility tools relating to math, physics, computer science by Jerry G. Eldridge.
 
 Download samples elsewhere and run pointing to Utility3 folder.
 To use download the folder Utility into "c:\_PythonJGE\Utility3" and create a folder BIGDATA = r"C:\_BigData\_3D\my_scenes\"
