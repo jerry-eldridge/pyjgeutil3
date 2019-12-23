@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,r"C:\_PythonJGE\Utility")
+sys.path.insert(0,r"C:\_PythonJGE\Utility3")
 import mapto
 
 import cv2
@@ -14,7 +14,7 @@ def im2poly(fnimage,fnpoly='polygon.txt',thlo=50,thhi=127):
     th = cv2.Canny(thresh1,100,200)
     connectivity = 8 # 8
     labels = cv2.connectedComponents(th, connectivity, cv2.CV_32S)
-    im2, contours, hierarchy = cv2.findContours(th,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(th,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     area_min = 10 # square pixels
     cont = [contour for contour in contours if cv2.contourArea(contour)>=area_min]
     f = open(fnpoly,'w')

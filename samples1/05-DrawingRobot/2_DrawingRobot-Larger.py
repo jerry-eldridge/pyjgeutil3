@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,r"C:\_PythonJGE\Utility")
+sys.path.insert(0,r"C:\_PythonJGE\Utility3")
 import SCARA as RA
 from copy import deepcopy
 import graphics_cv as racg
@@ -145,7 +145,7 @@ for i in range(len(idxs)-1,-1,-1):
         pts0 = pts[a:]
     n0 = len(pts0)
     v = 3
-    for j in range(n0/v+1):
+    for j in range(int(n0/v)+1):
         if j == n0/v:
             z = z_up
         else:
