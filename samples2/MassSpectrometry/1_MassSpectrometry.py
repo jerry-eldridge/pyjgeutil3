@@ -5,7 +5,7 @@ from scipy.interpolate import interp1d
 from scipy.optimize import bisect
 
 import sys
-sys.path.insert(0,r"C:\_PythonJGE\Utility")
+sys.path.insert(0,r"C:\_PythonJGE\Utility3")
 import mapto
 import line_intersection as li
 
@@ -122,7 +122,8 @@ print("Press any key to continue")
 
 use_graphics = True
 if use_graphics:
-    import graphics_pygame as racg
+    #import graphics_pygame as racg
+    import graphics_cv as racg
 q0 = 1
 
 def CreateFunction(q0):

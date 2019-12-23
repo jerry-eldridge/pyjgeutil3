@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0,r"C:\_PythonJGE\Utility3")
 import polygon_area as pa
 import QuaternionGroup as QG
 

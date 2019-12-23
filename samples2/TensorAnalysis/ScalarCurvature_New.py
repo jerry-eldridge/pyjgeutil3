@@ -1,7 +1,6 @@
-from sympy import Matrix, Symbol,sin,cos, simplify, Function, solve,det,sqrt
+from sympy.matrices import Matrix,det,zeros
+from sympy import Symbol,sin,cos,simplify,Function,solve,sqrt
 from math import pi
-
-from zeros_fix import zeros
 
 def Christoffel1_s(g,c,a,b):
     return 0.5*(g[c,a].diff(Symbol(x[b])) +
@@ -128,7 +127,7 @@ def FindScalarCurvature(reset=True):
     print("\nX=%s" % (str(X)))
     N = len(X)
 
-    J = zeros( (len(x), len(X)))
+    J = zeros( len(x), len(X))
     for i in range(N):
         for j in range(n):
             J[i,j] = X[i].diff(Symbol(x[j]))
