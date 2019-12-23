@@ -2,11 +2,11 @@
 #sys.path.insert(0,r"C:\_PythonJGE\Utility")
 
 ########################## Begin Previous routines
-from . import graph as g
-from . import mapto
-from . import affine as aff
-from . import polygon_area as pa
-from . import a_star_digraph as asd
+import graph as g
+import mapto
+import affine as aff
+import polygon_area as pa
+import a_star_digraph as asd
 
 import numpy as np
 from copy import deepcopy
@@ -141,11 +141,7 @@ def AddNormals(G):
          V1 = A-B
          V2 = C-B
          N = np.cross(V1,V2)
-         aa = np.linalg.norm(N)
-         epsilon = 1e-5
-         if abs(aa) < epsilon:
-              aa = 1.
-         N = list(N/aa)
+         N = list(N/np.linalg.norm(N))
          G['N'].append(N)
      return G
 
@@ -320,7 +316,7 @@ def AxisObj(Gs,G,t0,q0):
 
 #import sys
 #sys.path.insert(0,r"C:\_PythonJGE\Utility")
-from . import QuaternionGroup as HH
+import QuaternionGroup as HH
 
 import numpy as np
 from math import acos,pi

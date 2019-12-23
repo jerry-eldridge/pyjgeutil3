@@ -1,7 +1,7 @@
 #import sys
 #sys.path.insert(0,r"C:\_PythonJGE\Utility")
-from . import vectors
-from . import QuaternionGroup as HH
+import vectors
+import QuaternionGroup as HH
 
 from math import cos,sin,pi,acos
 import numpy as np

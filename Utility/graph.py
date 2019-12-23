@@ -1,7 +1,7 @@
 from copy import deepcopy
 import itertools
 from math import pi,cos,sin
-from . import mapto
+import mapto
 
 import time # cartesian product
 import datetime
