@@ -83,9 +83,14 @@ def HealthDemo(mass_lb_cur=208,height_in=5*12+8,age=49,maturity=adult,sex=male,l
         N = Newtons(kg)
         body_fat = BodyFat(bmi,age,sex,adult)
         bmr = BMR_Mifflin(mass_lb, height_in, age, sex)
-        goal = bmr-500
         ibw = IdealBodyWeight(height_in, sex)
         LbsOver = mass_lb - ibw
+        if LbsOver >= 1:
+            goal = bmr-500
+        elif LbsOver <= -1:
+            goal = bmr+500
+        else:
+            goal = bmr
         s = '%5d %7.2f %7.1f %7.2f %7.3f %12s %8.1f %7.2f %7.2f' % (mass_lb, kg, N, body_fat, bmi, status[:12], LbsOver, bmr, goal)
         print(s)
         if mass_lb == mass_lb_cur:
