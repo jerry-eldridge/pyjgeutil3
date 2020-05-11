@@ -109,6 +109,7 @@ class NN:
             V = matrix.Mat([U[idx:idx2]])
             Wl = V.reshape((n,m))
             W.append(Wl)
+            idx = idx2
         self.W = W
         return
     def train(self,pat,eps=1e-5,eta=0.5,N=100,verbose=False,
@@ -197,6 +198,7 @@ class NN:
             if line[0] == 'u':
                 x = float(line[1:])
                 U.append(x)
-        nn = NN(S,A=A)
+        #print(U)
+        nn = NN(S,A=A,init=False)
         nn.F2(U)
         return nn
