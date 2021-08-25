@@ -1,4 +1,4 @@
-from . import graph as g
+import graph as g
 import numpy as np
 
 # Laplacian of a graph
