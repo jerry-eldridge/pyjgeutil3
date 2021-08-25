@@ -1,5 +1,5 @@
-from . import graph as g
-from . import a_star_doc_nd as asdn
+import graph as g
+import a_star_doc_nd as asdn
 from copy import deepcopy
 
 
