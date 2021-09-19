@@ -1,0 +1,33 @@
+20210918 - My github repository pyjgeutil3 - cgeom - ConvexHull - QuadTree added
+
+In my github repository pyjgeutil3:
+
+[1] https://github.com/jerry-eldridge/pyjgeutil3
+
+by clicking on "Code" > Download ZIP one can get Utility and copy it
+to "C:\_PythonJGE\Utility3" as well as other scripts in the other folders
+within the ZIP file.
+
+I added today:
+
+[2] https://github.com/jerry-eldridge/pyjgeutil3/tree/master/cgeom
+
+which contains so far ConvexHull and MyQuadTree. My old NLTK grammar
+for the QuadTree which was replaced by a better syntax was:
+
+[3] https://github.com/jerry-eldridge/pyjgeutil3/tree/master/cgeom/MyQuadTree/SYNTAX_OLD
+
+The wikipedia links related to these:
+
+[4]https://en.wikipedia.org/wiki/Quadtree
+QuadTree
+
+[5] https://en.wikipedia.org/wiki/Convex_hull
+Convex Hull
+
+[6] https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+Backus-Naur form (grammar)
+
+
+
+

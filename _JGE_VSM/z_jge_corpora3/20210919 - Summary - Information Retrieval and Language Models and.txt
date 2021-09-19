@@ -1,0 +1,102 @@
+20210919 - Summary - Information Retrieval and Language Models and Exploration
+
+The previous essay on "20210919 - QuadTree - YouTube - Google Scholar and
+Quadtree Image Compression" was a summary of the last few days on Quadtrees.
+
+We might be able to summarize that essay and the previous few days with:
+"Information Retrieval and Language Models and Exploration".
+
+Suppose we have a graph G = (V,E) of vertices v in V and edges pairs of
+vertices (u,v) in E. A path is a sequence v1,v2,...,vn of vertices.
+
+But models for languages are grammars describing syntax and meanings describing
+semantics. Understanding is knowing syntax and semantics. A phrase or word
+in the language is a sequence of tokens from the alphabet of that language.
+The previous paragraph had the concept of a path which was also just a sequence
+of tokens vertices in that example.
+
+A model for information retrieval is the "vector space model".
+
+[1] https://en.wikipedia.org/wiki/Vector_space_model
+
+for searching with a query of a smaller amount of words in a natural language
+
+[2] https://en.wikipedia.org/wiki/Path_(graph_theory)
+
+for describing a sequence of vertices in a graph
+
+[3] https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+Backus-Naur form
+
+for describing a language of words or phrases which are sequences of symbols
+in an alphabet.
+
+[4] https://en.wikipedia.org/wiki/Automata_theory
+
+for describing abstract machines and natural language and general languages:
+
+[5] https://en.wikipedia.org/wiki/Language
+
+For example, search engines like Google Search, YouTube, and Google Scholar:
+
+[6] https://www.google.com/
+[7] https://www.youtube.com/
+[8] https://scholar.google.com/
+
+implement search of text information retrieval systems much like the
+vector space model [1]. Words from the language written are searched in the
+search engine based on query and documents are retrieved based on distance
+between query and document.
+
+[9] https://en.wikipedia.org/wiki/Metric_space
+Metric space, the concept of a distance function d(x,y)
+[10] https://en.wikipedia.org/wiki/Ball_(mathematics)
+The set B(x,r) = {y: d(x,y) < r} for example. Ball (mathematics)
+
+or listing the closest k documents y to query x.
+
+That is, we have some way of describing language, understanding a language
+of syntax and semantics. We might look at a word and expand that word based
+on semantics.
+
+How do we describe semantics? One way by the Oxford English Dictionary (OED)
+is to write example concordances of a phrase in an language:
+
+[11] https://en.wikipedia.org/wiki/Agreement_(linguistics)
+concordance
+[12] https://en.wikipedia.org/wiki/Concordance_(publishing)
+
+where we mean more sense [12] which is "a concordance is an alphabetical
+list of the principal words used in a book or body of work, listing every
+instance of each word with its immediate context".
+
+Another way is the American Heritage Dictionary which mentions definitions
+or rephrasing in terms of other words the meaning of a word.
+
+In BNF (Backus-Naur Form), a token is described by a rule of a left hand
+side LHS and a right hand side RHS where the LHS can be replaced by the
+RHS. For example S := NP VP where a sentence is a noun phrase and a verb
+phrase. And VP := V NP and a verb phrase is a verb and a noun phrase as
+two possible rules in a simple grammar for natural language English.
+The NLTK (Natural Language Toolkit) expands upon the concept.
+
+Parsing a grammar, or exploring a graph G with paths of vertices, are
+ways of Exploration. In Dynamic Programming and Optimal Control by Bertsekas,
+models for decision making were mentioned. At any state there might
+be several possible decisions to a next state that could explored like
+a chess player trying to decide on a chess move decision in a given chess
+board position state to explore a game tree.
+
+---
+
+The main concluding concept is that once generating a language or a path
+of symbols from an alphabet that of using a search engine to get more
+words. One starts with a query word or phrase and then they find top
+documents in a language.
+
+A model of the search or user is that of a machine or an animal with a brain
+and nervous system. Neuroscience explains the nervous system. Artificial
+Intelligence tries to model animal and human intelligence. Examples are
+computer vision trying to implement the animal visual system.
+
+

@@ -1,0 +1,112 @@
+20210808 - Working with NLTK Context Free Grammar trees to Get Flattened Subtrees
+
+In the IDLE after running 13_use_nltk-2.py, I first convert the grammar we
+created to a grammar that works with NLTK (natural language toolkit), and
+then do
+
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+sent = list("^+123.56$")
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(list(tree))
+
+which is done by running the script. Before closing the script after
+running it, I type in these commands into the IDLE session:
+
+>>> tree.draw()
+>>> tree.flatten()
+Tree('REAL', ['^', '+', '1', '2', '3', '.', '5', '6', '$'])
+>>> tree[1][0].flatten()
+Tree('SINTEGER', ['+', '1', '2', '3'])
+>>> tree[1][1].flatten()
+Tree('DOT', ['.'])
+>>> tree[1][2].flatten()
+Tree('INTEGER', ['5', '6'])
+>>> list(tree[1][0].flatten())
+['+', '1', '2', '3']
+>>> list(tree[1][1].flatten())
+['.']
+>>> list(tree[1][2].flatten())
+['5', '6']
+>>> ''.join(list(tree[1][0].flatten()))
+'+123'
+>>> ''.join(list(tree[1][1].flatten()))
+'.'
+>>> ''.join(list(tree[1][2].flatten()))
+'56'
+
+where the tree.draw() figure drawn is attached as CFG_real-1.png .
+I did this by running tree.draw(), and then pressing the "Print Screen"
+key on a computer keyboard. Then in the Windows 10 search box, I typed
+"Paint" and in that app clicked "Paste". Then I selected a rectangle
+int he paint app for the region of the drawn tree and then clicked
+"Crop". I saved the file to CFG_real-1.png and attached it in this
+essay.
+
+The above shows how to create a parse tree for a sentence (a word) from
+a language defined by a grammar of rules. And from the parse tree how to
+get subparts as lists of symbols or a string (consisting of symbols).
+
+==================== 13_use_nltk-2.py
+import nltk
+s = """
+REAL := START SREAL END
+REAL := START INTEGER END
+REAL := START INTEGER DOT END
+REAL := START INTEGER DOT INTEGER END
+START := ^
+END := $
+SREAL := SINTEGER DOT INTEGER
+SREAL := SINTEGER DOT
+SREAL := SINTEGER
+SINTEGER := SIGN INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+SIGN := +
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+"""
+s = s.replace(":=", "->")
+lines = s.split('\n')
+M = []
+for line in lines:
+     if len(line) <= 3:
+         continue
+     a,b = line.split('->')
+     a = a.strip()
+     b = b.strip()
+     L = b.split(' ')
+     if len(L) == 1:
+         c = L[0]
+         if c == c.lower():
+             c = "'%s'" % c
+         b = c
+     s2 = '%s -> %s' % (a,b)
+     M.append(s2)
+s = '\n'.join(M)
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+sent = list("^+123.56$")
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(list(tree))
+===========================================
+
+
+

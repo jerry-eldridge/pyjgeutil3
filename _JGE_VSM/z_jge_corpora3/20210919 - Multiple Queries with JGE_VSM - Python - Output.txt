@@ -1,0 +1,155 @@
+20210919 - Multiple Queries with JGE_VSM - Python - Output
+
+Attached again is _JGE_VSM.zip (8 KB) containing
+3_Search_VectorSpace.py. Also if changing the index,
+one can remove the pickle .p files in the Z_Pickles folder
+and re-run the indexer with 0_Index_First.py . Doing
+that rebuilds the index.
+
+====================== 3_Search_VectorSpace.py
+import sys
+sys.path.insert(0,r"C:\_JGE_VSM")
+import indexer as idxr
+
+def Query(query,k=10):
+     idxr.Search(query, idxr.index, idxr.L, k)
+     return
+
+def Search():
+     done = False
+     while not done:
+         print("type 'quit' to quit.")
+         query = input("query> ")
+         if query == "quit":
+             done = True
+             break
+         else:
+             try:
+                 Query(query, k = 3)
+             except:
+                 continue
+     return
+
+Search()
+#Query("physics",k=3)
+============================
+
+implements a multi-search loop. Type "quit" to exit loop. Or one could
+use the first script 1_ . The try-except lines make it display no error
+when searching for a word out of the dimensions.
+
+I think I said last time there were about 75 words but only about 45 of them
+are unique. Actually, hence the dimensions of query and documents are
+then 45-dimensional. When using "algebra" as a word, it does not occur
+in the vocabulary and hence it is not a valid dimension. So when the
+scripts encounter that word it complains of an error. Try different things.
+I do not know if "physics algebra" is an error.
+
+====================== output
+type 'quit' to quit.
+query> physics
+
+>>>Search("physics", index, L, 2)
+
+['C:\\_JGE_VSM\\my_corpora2\\essay-physics.txt', 7.742402021815782]
+['C:\\_JGE_VSM\\my_corpora1\\essay-1.txt', 7.742402021815782]
+
+
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+PY Filename: C:\_JGE_VSM\my_corpora2\essay-physics.txt
+PY last modified: Sun Sep 19 11:13:21 2021
+PY created: Sun Sep 19 11:12:23 2021
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+
+A while back, I read about University Physics. It mentioned
+mechanics, electricity and magnetism, thermodynamics, modern
+physics, and quantum mechanics.
+
+
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+PY Filename: C:\_JGE_VSM\my_corpora1\essay-1.txt
+PY last modified: Sun Sep 19 10:54:10 2021
+PY created: Sun Sep 19 10:53:34 2021
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+
+I like solid state physics.
+
+Reading physics is fun.
+
+
+type 'quit' to quit.
+query> geometry
+
+>>>Search("geometry", index, L, 2)
+
+['C:\\_JGE_VSM\\my_corpora1\\essay-3.txt', 3.871201010907891]
+['C:\\_JGE_VSM\\my_corpora1\\essay-2.txt', 3.871201010907891]
+
+
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+PY Filename: C:\_JGE_VSM\my_corpora1\essay-3.txt
+PY last modified: Sun Sep 19 10:55:27 2021
+PY created: Sun Sep 19 10:54:55 2021
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+
+Last week and today is 9/19/2021, I read about
+Riemann-Finsler geometry.
+
+
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+PY Filename: C:\_JGE_VSM\my_corpora1\essay-2.txt
+PY last modified: Sun Sep 19 10:54:52 2021
+PY created: Sun Sep 19 10:54:13 2021
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+
+The other day I learned about Quadtrees while reading de Berg's
+textbook on Computational Geometry.
+
+
+
+type 'quit' to quit.
+query> algebra
+
+>>>Search("algebra", index, L, 0)
+
+
+
+type 'quit' to quit.
+query> electricity algebra
+
+>>>Search("electricity algebra", index, L, 1)
+
+['C:\\_JGE_VSM\\my_corpora2\\essay-physics.txt', 2.737352486149188]
+
+
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+PY Filename: C:\_JGE_VSM\my_corpora2\essay-physics.txt
+PY last modified: Sun Sep 19 11:13:21 2021
+PY created: Sun Sep 19 11:12:23 2021
+PYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPYPY
+
+A while back, I read about University Physics. It mentioned
+mechanics, electricity and magnetism, thermodynamics, modern
+physics, and quantum mechanics.
+
+
+type 'quit' to quit.
+query> quit
+>>> 
+=======================
+
+If you contain a word not in vocabulary like "algebra", it just exits.
+Instead one needs to replace all non-vocabulary words with "" by pre-processing
+the query. That way query would be a valid vector in the vector space.
+
+query> electricity algebra
+
+where I modified _JGE_VSM.zip so that a query containing "algebra" just
+removes "algebra" from the query if it is not in the vocabulary of the essays.
+That is, "algebra" does not occur in the essays. The query "electricity algebra"
+is replaced by "electricity" in this instance. But once one adds an essay
+mentioning "algebra" word, after indexing with 0_ script, it will also be
+part of the vocabulary.
+
+
+

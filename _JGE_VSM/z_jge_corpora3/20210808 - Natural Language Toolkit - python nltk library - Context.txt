@@ -1,0 +1,136 @@
+20210808 - Natural Language Toolkit - python nltk library - Context Free Grammar Example
+
+To install python3, do
+
+[1] https://www.python.org/downloads/
+
+and specify to install to say "C:\_Python38-64-tf\" by not choosing
+the default setting. If you choose the default setting it might install
+in a folder you cannot easily look at the contents and here navigating
+the folders is important. The instructions of [1] downloads an install file
+which would need to be run to install python3.
+
+To install the natural language toolkit (nltk), then one does
+
+cmd> pip install --user -U nltk
+cmd> pip install --user -U numpy
+
+which I do by:
+
+[2] https://www.nltk.org/install.html
+
+cmd> cd c:\_Python38-64-tf\
+cmd> .\python -m pip install numpy
+cmd> .\python -m pip install nltk
+
+and in IDLE (C:\_Python38-64-tf\Lib\idlelib\idle.bat which is an executable
+batch file), I run the .bat file and type:
+
+>>> import nltk
+>>> nltk.download()
+
+and download the usual corpora.
+
+[3] https://www.nltk.org/book/ch08.html
+
+which I use in this python3 script 12_use_nltk.py by specifying .py files
+open when clicked upon with the idle.bat command. For this the way I do
+things is that I coped idle.bat to idle-python3-1.bat and then I copy and
+paste as a shortcut idle-python3-1.bat to my C:\users\jerry\desktop as
+an icon. Then I open .py files by double clicking on 12_use_nltk.py and
+specifying to open with idle-python3-1.bat file which is called "python"
+or "python3" in the selections. I use that as the default setting for opening
+.py files.
+
+The output is:
+
+For
+
+sent = list("^+123.56$")
+
+and using the "real.txt" grammar from previous which I have included
+here in the script is this output parse tree using nltk.
+
+==================================
+(REAL
+   (START ^)
+   (SREAL
+     (SINTEGER
+       (SIGN +)
+       (INTEGER (INTEGER (INTEGER 1) (INTEGER 2)) (INTEGER 3)))
+     (DOT .)
+     (INTEGER (INTEGER 5) (INTEGER 6)))
+   (END $))
+==================================
+
+============================== 12_use_nltk.py
+import nltk
+s = """
+REAL := START SREAL END
+REAL := START INTEGER END
+REAL := START INTEGER DOT END
+REAL := START INTEGER DOT INTEGER END
+START := ^
+END := $
+SREAL := SINTEGER DOT INTEGER
+SREAL := SINTEGER DOT
+SREAL := SINTEGER
+SINTEGER := SIGN INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+SIGN := +
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+"""
+s = s.replace(":=", "->")
+lines = s.split('\n')
+M = []
+for line in lines:
+     if len(line) <= 3:
+         continue
+     a,b = line.split('->')
+     a = a.strip()
+     b = b.strip()
+     L = b.split(' ')
+     if len(L) == 1:
+         c = L[0]
+         if c == c.lower():
+             c = "'%s'" % c
+         b = c
+     s2 = '%s -> %s' % (a,b)
+     M.append(s2)
+s = '\n'.join(M)
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+sent = list("^+123.56$")
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(tree)
+=========================
+
+
+arser.parse(sent))
+if len(Alpha) &lt; 1:
+    print("Does not parse")
+else:
+    tree = Alpha[0]
+    print(tree)
+=========================
+
+
+</pre>
+  </body>
+</html>
+

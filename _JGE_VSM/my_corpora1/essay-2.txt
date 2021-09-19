@@ -1,0 +1,3 @@
+The other day I learned about Quadtrees while reading de Berg's
+textbook on Computational Geometry.
+

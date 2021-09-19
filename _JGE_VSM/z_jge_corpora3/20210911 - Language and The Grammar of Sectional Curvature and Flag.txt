@@ -1,0 +1,253 @@
+20210911 - Language and The Grammar of Sectional Curvature and Flag Curvature
+
+Here we do not mention mathematics per se but instead mention language
+and grammar. For example,
+
+[1] https://en.wikipedia.org/wiki/Sectional_curvature
+
+mentions that the sectional curvature K(u,v) is
+
+K(u,v) = <R(u,v)v,u>/(<u,u>*<v,v> - <u,v>^2)
+
+but what does this mean. First K(u,v) is a real number. u and v are
+tangent vectors or vector fields.
+
+We mention the grammar of the above statement and how much simple language
+can tell us without knowing mathematics.
+
+We use the grammar below where there are rules LHS := RHS (left hand side
+derives from right hand side) where the first rule is the kind of object
+being parsed. Also, we needed to make "R" a little letter "r" for it
+to parse which was specific to the NLTK (Natural Language Toolkit) parser.
+
+The printout of the parsing:
+
+==============================
+The sentence being parsed uses list:
+sent = list("<r(u,v)v,u>/(<u,u>*<v,v>-<u,v>^2)")
+
+['<', 'r', '(', 'u', ',', 'v', ')', 'v', ',', 'u', '>', '/', '(', '<', 'u', ',',
+'u', '>', '*', '<', 'v', ',', 'v', '>', '-', '<', 'u', ',', 'v', '>', '^', '2',
+')']
+
+The parse tree is:
+
+(REAL
+   (REAL
+     (INNER
+       (LANGBRACKET <)
+       (VECTORFIELD
+         (VARIABLE r)
+         (LPAREN ()
+         (VECTORFIELD u)
+         (COMMA ,)
+         (VECTORFIELD v)
+         (RPAREN ))
+         (VECTORFIELD v))
+       (COMMA ,)
+       (VECTORFIELD u)
+       (RANGBRACKET >)))
+   (DIV /)
+   (REAL
+     (LPAREN ()
+     (REAL
+       (REAL
+         (INNER
+           (LANGBRACKET <)
+           (VECTORFIELD u)
+           (COMMA ,)
+           (VECTORFIELD u)
+           (RANGBRACKET >)))
+       (MUL *)
+       (REAL
+         (REAL
+           (REAL
+             (INNER
+               (LANGBRACKET <)
+               (VECTORFIELD v)
+               (COMMA ,)
+               (VECTORFIELD v)
+               (RANGBRACKET >)))
+           (SUB -)
+           (REAL
+             (INNER
+               (LANGBRACKET <)
+               (VECTORFIELD u)
+               (COMMA ,)
+               (VECTORFIELD v)
+               (RANGBRACKET >))))
+         (POW ^)
+         (REAL (INTEGER 2))))
+     (RPAREN ))))
+=============================
+
+Reading Differential Geometry, Riemannian Manifolds, or Riemann-Finsler
+Geometry, grammatical meaning (that is grammar rules) are implicit
+from reading which states formulas like
+
+REAL := < VECTORFIELD , VECTORFIELD >
+
+like <u,v> compute to a real number. That is so for real inner products.
+The exact nature of what a vector field depends on vector space terminology.
+A vector field is a vector:
+
+VECTORFIELD := VECTOR
+VECTOR := LINEAR_COMBINATION_OF_BASIC_VECTORS
+
+is something like the grammar though I made the concept too long. Basically
+a vector is something like b = Sum(b_i*e_i) where b_i are the coordinates
+and e_i are the basis vectors. So something like:
+
+VECTOR := VECTOR + COORDINATE * BASIS_VECTOR
+VECTOR := COORDINATE * BASIS_VECTOR
+
+where COORDINATE := b_i (although this will not parse because we assumed
+single letter symbols) and BASIS_VECTOR := e_i.
+
+The Riemann-Finsler Geometry textbook started by mentioning types of
+basis vectors and they are numerous. But then it started to work with
+coordinates instead of vectors.
+
+Flag curvature on Finsler manifolds is a generalization of sectional curvature
+on riemannian manifolds. The next chapter I read is when flag curvature
+is a constant for the manifold.
+
+=====================================
+REAL := CURVATURE
+CURVATURE := VARIABLE LPAREN VECTORFIELD COMMA VECTORFIELD RPAREN VECTORFIELD
+VARIABLE := r
+LPAREN := (
+RPAREN := )
+VECTORFIELD := VARIABLE LPAREN VECTORFIELD COMMA VECTORFIELD RPAREN VECTORFIELD
+VECTORFIELD := u
+VECTORFIELD := v
+VECTORFIELD := w
+INNER := LANGBRACKET VECTORFIELD COMMA VECTORFIELD RANGBRACKET
+INNER := LANGBRACKET REAL COMMA REAL RANGBRACKET
+REAL := INNER
+LANGBRACKET := <
+RANGBRACKET := >
+COMMA := ,
+REAL := LPAREN REAL RPAREN
+REAL := REAL ADD REAL
+REAL := REAL SUB REAL
+REAL := REAL MUL REAL
+REAL := REAL DIV REAL
+REAL := REAL POW REAL
+POW := ^
+ADD := +
+SUB := -
+MUL := *
+DIV := /
+REAL := SREAL
+REAL := INTEGER
+REAL := INTEGER DOT
+REAL := INTEGER DOT INTEGER
+START := ^
+END := $
+SREAL := SINTEGER DOT INTEGER
+SREAL := SINTEGER DOT
+SREAL := SINTEGER
+SINTEGER := SIGN INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+SIGN := +
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+=====================================
+
+======================== 14_use_nltk-2-Curvature.py
+import nltk
+s = """
+REAL := CURVATURE
+CURVATURE := VARIABLE LPAREN VECTORFIELD COMMA VECTORFIELD RPAREN VECTORFIELD
+VARIABLE := r
+LPAREN := (
+RPAREN := )
+VECTORFIELD := VARIABLE LPAREN VECTORFIELD COMMA VECTORFIELD RPAREN VECTORFIELD
+VECTORFIELD := u
+VECTORFIELD := v
+VECTORFIELD := w
+INNER := LANGBRACKET VECTORFIELD COMMA VECTORFIELD RANGBRACKET
+INNER := LANGBRACKET REAL COMMA REAL RANGBRACKET
+REAL := INNER
+LANGBRACKET := <
+RANGBRACKET := >
+COMMA := ,
+REAL := LPAREN REAL RPAREN
+REAL := REAL ADD REAL
+REAL := REAL SUB REAL
+REAL := REAL MUL REAL
+REAL := REAL DIV REAL
+REAL := REAL POW REAL
+POW := ^
+ADD := +
+SUB := -
+MUL := *
+DIV := /
+REAL := SREAL
+REAL := INTEGER
+REAL := INTEGER DOT
+REAL := INTEGER DOT INTEGER
+START := ^
+END := $
+SREAL := SINTEGER DOT INTEGER
+SREAL := SINTEGER DOT
+SREAL := SINTEGER
+SINTEGER := SIGN INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+SIGN := +
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+"""
+s = s.replace(":=", "->")
+lines = s.split('\n')
+M = []
+for line in lines:
+     if len(line) <= 3:
+         continue
+     a,b = line.split('->')
+     a = a.strip()
+     b = b.strip()
+     L = b.split(' ')
+     if len(L) == 1:
+         c = L[0]
+         if c == c.lower():
+             c = "'%s'" % c
+         b = c
+     s2 = '%s -> %s' % (a,b)
+     M.append(s2)
+s = '\n'.join(M)
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+sent = list("<r(u,v)v,u>/(<u,u>*<v,v>-<u,v>^2)")
+sent = list("<r(u,v)v,u>/(<u,u>*<v,v>-<u,v>^2)")
+print(sent)
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(tree)
+==============================
+
+

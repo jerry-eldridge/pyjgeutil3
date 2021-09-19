@@ -1,0 +1,125 @@
+20210919 - QuadTree - YouTube - Google Scholar and Quadtree Image Compression
+
+A few days ago, we were learning about QuadTrees. Then last night, I looked
+at YouTube and learned of the topic "QuadTree Image Compression". So today, I am
+looking for more information by searching Google Scholar for that application
+of QuadTrees.
+
+[1] https://en.wikipedia.org/wiki/Quadtree
+[2] https://en.wikipedia.org/wiki/Image_compression
+
+and
+
+[3] https://scholar.google.com/
+
+and searching [3] for "quadtree image compression"
+
+[4] "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C19&
+q=quadtree+image+compression&btnG="
+
+and so far I do not know which research paper to look at. Example titles are:
+
+* "Image compression via improved quadtree decomposition algorithms",
+   Shusterman, Feder, 1994
+* "Fractal image compression with quadtrees", Fisher, 1995
+* "Wavelet image compression-the quadtree coding approach", Munteanu, Cornelis, 1999
+* Quad tree structures for image compression applications, Markas, Reif, 1992
+...
+
+where the above were the top 4 papers sorted by relevance.
+
+Yesterday night, I searched YouTube for "quadtree":
+
+[5] https://www.youtube.com/
+[6] https://www.youtube.com/results?search_query=quadtree
+
+The previous few days, I was trying to figure out the grammar for quadtree
+data structure after learning about quadtrees in de Berg's Computational
+Geometry.
+
+QT := Q LPAREN QT COMMA QT COMMA QT COMMA QT RPAREN
+QT := P LPAREN PTS RPAREN
+QT := N LPAREN RPAREN
+Q := q
+P := p
+N := n
+PTS := LBRACK PLIST RBRACK
+
+though the actual data structure ended up parsing like:
+
+c =
+  q(
+    q(n(),n(),n(),n(),pts=[[213, 10]]),
+    q(n(),n(),n(),n(),pts=[[470, 245]]),
+    q(n(),n(),n(),n(),pts=[[59, 279], [91, 335]]),
+    q(n(),n(),n(),n(),pts=[[428, 472], [298, 382]]),
+    pts=[[58, 348], [276, 438], [404, 309], [33, 22]]
+   )
+
+which has grammar like:
+
+QT := Q LPAREN QT COMMA QT COMMA QT COMMA QT COMMA LABEL EQUAL PTS PAREN
+QT := N LPAREN RPAREN
+LABEL := p
+EQUAL := =
+Q := q
+N := n
+PTS := LBRACK PLIST RBRACK
+PLIST := PLIST COMMA PT | PT
+PT := LPAREN IDX RPAREN
+IDX := INTEGER
+
+and based on wikipedia [1], the python3 data structure has form:
+
+class q:
+     def __init__(self,boundary,str_maxd=10):
+         self.QT_max = 4
+         self.boundary = boundary
+         self.points = []
+         self.QT = [n(),n(),n(),n()]
+         self.str_maxd = str_maxd
+         self.L = ""
+     def __str__(self):
+...
+         return self.L
+     def insert(self, pt):
+...
+         return flag
+     def subdivide(self):
+...
+         return
+     def query(self, x):
+...
+         return pts
+
+used like:
+
+x = q(boundary)
+x.QT[0]
+x.QT[1]
+x.QT[2]
+x.QT[3]
+x.points
+
+is the grammar:
+
+QT := Q LPAREN QT COMMA QT COMMA QT COMMA QT COMMA LABEL EQUAL PTS PAREN
+
+basically. I was reading the other day from de Berg:
+  
+[6] Books(idx=286, author='de Berg, Mark & Cheong, Otfried & van Kreveld, Marc &
+Overmars, Mark', title='Computational Geometry: Algorithms and Applications, 3rd
+Ed', pub='Springer', year=2008, cost=1000000.0, lcn='QA448.D38', pred=126,
+barcode=9783540779735, pages=386
+
+and before I started implementing anything, I "pip install pyqtree" because
+it was quicker trying out a pre-made software than making one's own.
+I then implemented my own based on trying to figure out the grammar and
+reading quadtrees at wikipedia.
+
+[7]https://github.com/karimbahgat/Pyqtree
+
+cmd> cd C:\_Python38-64-tf
+cmd> .\python -m pip install pyqtree
+
+

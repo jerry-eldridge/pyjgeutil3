@@ -1,0 +1,466 @@
+20210917 - Grammar for QuadTree but How to Implement - Python - Output
+
+ From Concept to Grammar to Implementation of Quadtrees.
+
+Below, we outline how to explore the concept of QuadTrees from a grammar
+and how to use the grammar to implement the quadtree. We do not mention
+how to search the QuadTree but the most difficult part maybe is implementing
+the data structure. Then say if we were using bounding boxes like in
+the previous examples, we could use 00,01,10,11 to mean the four possible
+sub-quadtrees we call NE,NW,SE,SW or QT0,QT1,QT2,QT3 below. But it is not
+a full implementation since one needs to define how to search the structure,
+how to insert in the structure, and how to remove an leaf pointlist from
+the structure.
+
+See the grammar parses to see what the structures look like below.
+
+I read some of the chapter on QuadTrees in de Berg's Computational Geometry.
+Simply stated a quadtree consists of a NE, NW, SE, and SW quadtree and
+at any time a quadtree can be a list of points which is of zero,one, or two or
+more points). The point would maybe contain an identifier plus a tuple.
+As a grammar, I used a name for the tuple, but the identifier key could in
+an implementation refer to a SQL database tuple for example.
+
+The parse output for string:
+
+sent = list("[[[(1,abc),(2,cad)],[],[],[]],[(3,aa)],[],[]]")
+
+where every time a '[',']' exists it is a quadtree. A leaf of a quadtree
+is either '[]' or '[PLIST]' where PLIST is a list of points separated
+by commas. A point is (idx,name). All that is really neeed is (idx), or simply
+a PLIST could be a list of integers.
+
+============================
+
+While this is a valid grammar that implements the quadtree, de Berg has
+a further structure called a Balanced QuadTree that balances the tree.
+The discussion is in terms of rectangles and rectangle sizes as the name concept.
+sizes of rectangles could be 2**n and a balanced QuadTree has rectangles
+or squares with sizes 2**n and 2**(n-1) adjacent to each other. It is used
+for generating a Mesh for Finite Element Method.
+
+Doing Meshes and Finite Element Method is too complicated which would have
+applications to electrical engineering and modeling the heat of electrical
+components on a circuit board. Instead, just implementing the QuadTree
+and not Balanced QuadTree is what we discuss now.
+
+A grammar rule like:
+
+QT := LBRACK QT COMMA QT COMMA QT COMMA QT RBRACK
+QT := LBRACK PTS RBRACK | LBRACK RBRACK
+
+might have a python class implementation as:
+  
+class QT:
+	def __init__(self, L):
+		if len(L) == 4:
+			self.QT0 = QT(L[0])
+			self.QT1 = QT(L[1])
+			self.QT2 = QT(L[2])
+			self.QT3 = QT(L[3])
+		if len(L) == 1:
+			self.PTS = L
+		if len(L) == 0:
+			self.PTS = L
+
+and so trying to use this:
+
+>>> class QT:
+	def __init__(self, L):
+		self.L = L
+		if len(L) == 4:
+			self.QT0 = QT(L[0])
+			self.QT1 = QT(L[1])
+			self.QT2 = QT(L[2])
+			self.QT3 = QT(L[3])
+		if len(L) == 1:
+			self.PTS = L
+		if len(L) == 0:
+			self.PTS = L
+	def __str__(self):
+		return str(L)
+>>> Q = QT([[[(1,'abc'),(2,'cad')],[],[],[]],[(3,'aa')],[],[]])
+>>> Q.QT0.QT0.L
+[(1, 'abc'), (2, 'cad')]
+
+and we see that Q.QT0.QT0 is a list as well that has length len(L) = 2.
+This is not a good implementation because of the ambiguity. We cannot
+tell the difference between a QuadTree QT list with brackets and
+a PointList PLIST of Points.
+
+Possibly in the QuadTree list we use LPAREN AND RPAREN instead
+of LBRACK and RBRACK but we define FQT := Q QT with Q := q
+of FQT := P QT with P := p.
+
+A new grammar for 18_use_nltk-2-Quadtree2.py
+is
+
+================================
+s = """
+QT := Q LPAREN QT COMMA QT COMMA QT COMMA QT RPAREN
+QT := P LPAREN PTS RPAREN
+QT := N LPAREN RPAREN
+Q := q
+P := p
+N := n
+PTS := LBRACK PLIST RBRACK
+...
+"""
+===============================
+
+and so on sentence to parse:
+
+ss = """
+q(
+     q(
+         p([(1,!abc!),(2,!cad!)]),
+         n(),
+         n(),
+         n()
+     ),
+     p([(3,!aa!)]),
+     n(),
+     n()
+)
+"""
+
+ss = ss.replace(" ","")
+ss = ss.replace("\t","")
+ss = ss.replace("\n","")
+
+which is more readable. Maybe we can implement the above language.
+
+We can implement the above grammar in python3 programming language:
+
+>>> class n:
+	def __init__(self):
+		self.PTS = None
+		self.L = str("n()")
+	def __str__(self):
+		return self.L
+>>> class p:
+	def __init__(self,L):
+		self.PTS = L
+		self.L = 'p(%s)' % str(L)
+	def __str__(self):
+		return self.L
+>>> class q:
+	def __init__(self,a,b,c,d):
+		self.QT0 = a
+		self.QT1 = b
+		self.QT2 = c
+		self.QT3 = d
+		self.L = 'q(%s,%s,%s,%s)' % (str(a),str(b),str(c),str(d))
+	def __str__(self):
+		return self.L
+>>> a = q(
+     q(
+         p([(1,'abc'),(2,'cad')]),
+         n(),
+         n(),
+         n()
+     ),
+     p([(3,'aa')]),
+     n(),
+     n()
+)
+>>> print(a)
+q(q(p([(1, 'abc'), (2, 'cad')]),n(),n(),n()),p([(3, 'aa')]),n(),n())
+>>> str(a.QT0)
+"q(p([(1, 'abc'), (2, 'cad')]),n(),n(),n())"
+>>> str(a.QT0.QT1)
+'n()'
+>>> str(a.QT0.QT0)
+"p([(1, 'abc'), (2, 'cad')])"
+
+
+====================== 17_use_nltk-2-Quadtree.py
+import nltk
+s = """
+QT := LBRACK QT COMMA QT COMMA QT COMMA QT RBRACK
+QT := LBRACK PTS RBRACK | LBRACK RBRACK
+PTS := PLIST
+PLIST := PLIST COMMA PT | PT
+PT := LPAREN IDX COMMA QNAME RPAREN
+IDX := INTEGER
+QNAME := QUOTE NAME QUOTE
+QUOTE := !
+NAME := NAME CHAR | CHAR
+LBRACK := [
+RBRACK := ]
+LPAREN := (
+RPAREN := )
+COMMA := ,
+REAL := SIGN REAL
+REAL := INTEGER | INTEGER DOT | INTEGER DOT INTEGER
+SINTEGER := SIGN INTEGER | INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+CHAR := a
+CHAR := b
+CHAR := c
+CHAR := d
+CHAR := e
+
+"""
+s = s.replace(":=", "->")
+lines = s.split('\n')
+M = []
+for line in lines:
+     if len(line) <= 3:
+         continue
+     a,b = line.split('->')
+     a = a.strip()
+     b = b.strip()
+     L = b.split(' ')
+     if len(L) == 1:
+         c = L[0]
+         if c == c.lower():
+             c = "'%s'" % c
+         b = c
+     s2 = '%s -> %s' % (a,b)
+     M.append(s2)
+s = '\n'.join(M)
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+sent = list("[[[(1,!abc!),(2,!cad!)],[],[],[]],[(3,!aa!)],[],[]]")
+print(sent)
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(tree)
+=========================
+
+============================
+(QT
+   (LBRACK [)
+   (QT
+     (LBRACK [)
+     (QT
+       (LBRACK [)
+       (PTS
+         (PLIST
+           (PLIST
+             (PT
+               (LPAREN ()
+               (IDX (INTEGER 1))
+               (COMMA ,)
+               (QNAME
+                 (QUOTE !)
+                 (NAME (NAME (NAME (CHAR a)) (CHAR b)) (CHAR c))
+                 (QUOTE !))
+               (RPAREN ))))
+           (COMMA ,)
+           (PT
+             (LPAREN ()
+             (IDX (INTEGER 2))
+             (COMMA ,)
+             (QNAME
+               (QUOTE !)
+               (NAME (NAME (NAME (CHAR c)) (CHAR a)) (CHAR d))
+               (QUOTE !))
+             (RPAREN )))))
+       (RBRACK ]))
+     (COMMA ,)
+     (QT (LBRACK [) (RBRACK ]))
+     (COMMA ,)
+     (QT (LBRACK [) (RBRACK ]))
+     (COMMA ,)
+     (QT (LBRACK [) (RBRACK ]))
+     (RBRACK ]))
+   (COMMA ,)
+   (QT
+     (LBRACK [)
+     (PTS
+       (PLIST
+         (PT
+           (LPAREN ()
+           (IDX (INTEGER 3))
+           (COMMA ,)
+           (QNAME (QUOTE !) (NAME (NAME (CHAR a)) (CHAR a)) (QUOTE !))
+           (RPAREN )))))
+     (RBRACK ]))
+   (COMMA ,)
+   (QT (LBRACK [) (RBRACK ]))
+   (COMMA ,)
+   (QT (LBRACK [) (RBRACK ]))
+   (RBRACK ]))
+============================
+
+============================= 18_use_nltk-2-QuadTree2.py
+import nltk
+s = """
+QT := Q LPAREN QT COMMA QT COMMA QT COMMA QT RPAREN
+QT := P LPAREN PTS RPAREN
+QT := N LPAREN RPAREN
+Q := q
+P := p
+N := n
+PTS := LBRACK PLIST RBRACK
+PLIST := PLIST COMMA PT | PT
+PT := LPAREN IDX COMMA QNAME RPAREN
+IDX := INTEGER
+QNAME := QUOTE NAME QUOTE
+QUOTE := !
+NAME := NAME CHAR | CHAR
+LBRACK := [
+RBRACK := ]
+LPAREN := (
+RPAREN := )
+COMMA := ,
+REAL := SIGN REAL
+REAL := INTEGER | INTEGER DOT | INTEGER DOT INTEGER
+SINTEGER := SIGN INTEGER | INTEGER
+INTEGER := INTEGER INTEGER
+DOT := .
+SIGN := -
+INTEGER := 0
+INTEGER := 1
+INTEGER := 2
+INTEGER := 3
+INTEGER := 4
+INTEGER := 5
+INTEGER := 6
+INTEGER := 7
+INTEGER := 8
+INTEGER := 9
+CHAR := a
+CHAR := b
+CHAR := c
+CHAR := d
+CHAR := e
+"""
+s = s.replace(":=", "->")
+lines = s.split('\n')
+M = []
+for line in lines:
+     if len(line) <= 3:
+         continue
+     a,b = line.split('->')
+     a = a.strip()
+     b = b.strip()
+     L = b.split(' ')
+     if len(L) == 1:
+         c = L[0]
+         if c == c.lower():
+             c = "'%s'" % c
+         b = c
+     s2 = '%s -> %s' % (a,b)
+     M.append(s2)
+s = '\n'.join(M)
+g = nltk.CFG.fromstring(s)
+parser = nltk.ChartParser(g)
+ss = """
+q(
+     n(),
+     n(),
+     n(),
+     n()
+)
+"""
+ss = """
+q(
+     q(
+         p([(1,!abc!),(2,!cad!)]),
+         n(),
+         n(),
+         n()
+     ),
+     p([(3,!aa!)]),
+     n(),
+     n()
+)
+"""
+
+ss = ss.replace(" ","")
+ss = ss.replace("\t","")
+ss = ss.replace("\n","")
+print(ss)
+sent = list(ss)
+print(sent)
+Alpha = list(parser.parse(sent))
+if len(Alpha) < 1:
+     print("Does not parse")
+else:
+     tree = Alpha[0]
+     print(tree)
+=================================
+
+===================== parse output of script 18
+(QT
+   (Q q)
+   (LPAREN ()
+   (QT
+     (Q q)
+     (LPAREN ()
+     (QT
+       (P p)
+       (LPAREN ()
+       (PTS
+         (LBRACK [)
+         (PLIST
+           (PLIST
+             (PT
+               (LPAREN ()
+               (IDX (INTEGER 1))
+               (COMMA ,)
+               (QNAME
+                 (QUOTE !)
+                 (NAME (NAME (NAME (CHAR a)) (CHAR b)) (CHAR c))
+                 (QUOTE !))
+               (RPAREN ))))
+           (COMMA ,)
+           (PT
+             (LPAREN ()
+             (IDX (INTEGER 2))
+             (COMMA ,)
+             (QNAME
+               (QUOTE !)
+               (NAME (NAME (NAME (CHAR c)) (CHAR a)) (CHAR d))
+               (QUOTE !))
+             (RPAREN ))))
+         (RBRACK ]))
+       (RPAREN )))
+     (COMMA ,)
+     (QT (N n) (LPAREN () (RPAREN )))
+     (COMMA ,)
+     (QT (N n) (LPAREN () (RPAREN )))
+     (COMMA ,)
+     (QT (N n) (LPAREN () (RPAREN )))
+     (RPAREN )))
+   (COMMA ,)
+   (QT
+     (P p)
+     (LPAREN ()
+     (PTS
+       (LBRACK [)
+       (PLIST
+         (PT
+           (LPAREN ()
+           (IDX (INTEGER 3))
+           (COMMA ,)
+           (QNAME (QUOTE !) (NAME (NAME (CHAR a)) (CHAR a)) (QUOTE !))
+           (RPAREN ))))
+       (RBRACK ]))
+     (RPAREN )))
+   (COMMA ,)
+   (QT (N n) (LPAREN () (RPAREN )))
+   (COMMA ,)
+   (QT (N n) (LPAREN () (RPAREN )))
+   (RPAREN )))
+========================
+
+

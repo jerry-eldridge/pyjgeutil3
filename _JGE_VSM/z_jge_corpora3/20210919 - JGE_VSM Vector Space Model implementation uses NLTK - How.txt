@@ -1,0 +1,41 @@
+20210919 - JGE_VSM Vector Space Model implementation uses NLTK - How to Install NLTK
+
+Recently, I mentioned how I long ago installed python3 and libraries:
+
+"""
+The last script 8 is text only and displays a graph of memory usage
+for a large quadtree and plots with matplotlib python3 library.
+
+[3]https://www.python.org/
+[4]https://www.python.org/downloads/
+
+where long ago, I did this:
+
+cmd> cd c:\_Python38-64-tf\
+cmd> .\python -m pip install opencv-python
+cmd> .\python -m pip install matplotlib
+
+to install.
+""", "20210918 - MyQuadTree Implementation - Zip - Python - Image", 9/18/2021
+
+The previous essays today on 20210919 (9/19/2021) on
+"20210919 - Multiple Queries with JGE_VSM - Python - Output", J. G. Eldridge,
+Personal Communications, 9/19/2021 mentioned the indexer.py in a
+_JGE_VSM.zip (8 KB) zip file. That indexer.py uses the NLTK library which
+is imported "import nltk". Specifically, to tokenize essays and natural
+language. In Python3, do if not already done before:
+
+  >>> import nltk
+  >>> nltk.download()
+
+and to install the nltk to be able to "import nltk" one does
+"pip install nltk" so for me this is in the Windows cmd shell:
+
+cmd> cd C:\_Python38-64-tf\
+cmd> .\python -m pip install nltk
+
+The JGE_VSM script like indexer.py may or not work after "pip install nltk"
+above. But if not, then one does in python "import nltk" and "nltk.download()"
+and downloads the usual nltk corporas.
+
+
