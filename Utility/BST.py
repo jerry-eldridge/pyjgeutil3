@@ -112,3 +112,12 @@ class BST:
         else:
             self.replace_node_in_parent(None)
         return
+    def get(self,key):
+        L = []
+        def Accum_M(val):
+            if val[0] == key:
+                L.append(val)
+            return L
+        self.traverse_callback(Accum_M)
+        self.L = L
+        return self.L        
