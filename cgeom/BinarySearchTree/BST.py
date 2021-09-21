@@ -31,6 +31,37 @@ def BST_insert(T,key,value):
         T.C[1].parent = T
     return T
 
+def find_min(T):
+    current_node = T
+    while current_node.C[0]:
+        current_node = current_node.C[0]
+    return current_node
+
+####################################
+# [2] https://www.geeksforgeeks.org/binary-search-tree-set-2-delete/
+def BST_delete(T,key):
+    if T is None:
+        return T
+    if BST_LT(key,T.key):
+        T.C[0] = BST_delete(T.C[0],key)
+    elif BST_LT(T.key, key):
+        T.C[1] = BST_delete(T.C[1], key)
+    else:
+        if T.C[0] is None:
+            tmp = T.C[1]
+            T = None
+            return tmp
+        elif T.C[1] is None:
+            tmp = T.C[0]
+            T = None
+            return tmp
+        tmp = find_min(T.C[1])
+        T.key = tmp.key
+        T.C[1] = BST_delete(T.C[1],tmp.key)
+        return T
+#
+#######################################
+
 class BST:
     def __init__(self,key=0,value=None,
                  left=None,right=None):
@@ -93,7 +124,7 @@ class BST:
         while current_node.C[0]:
             current_node = current_node.C[0]
         return current_node
-    def replace_node_in_parent(self, newval=None):
+    def replace_node_in_parent(self, newval=None) -> None:
         if self.parent:
             if self == self.parent.C[0]:
                 self.parent.C[0] = newval
@@ -102,23 +133,27 @@ class BST:
         if newval:
             newval.parent = self.parent
         return
-    def delete(self,key):
-        if BST_LT(key , self.key):
-            self.C[0].delete(key)
-            return
-        if BST_LT(self.key, key):
-            self.C[1].delete(key)
-            return
-        if self.C[0] and self.C[1]:
-            succ = self.C[1].find_min()
-            self.key = succ.key
-            succ.delete(succ.key)
-        elif self.C[0]:
-            self.replace_node_in_parent(self.C[0])
-        elif self.C[1]:
-            self.replace_node_in_parent(self.C[1])
-        else:
-            self.replace_node_in_parent(None)
+#### See [1] Wikipedia article on Binary Search Tree
+##    def delete(self,key) -> None:
+##        if BST_LT(key , self.key):
+##            self.C[0].delete(key)
+##            return
+##        if BST_LT(self.key, key):
+##            self.C[1].delete(key)
+##            return
+##        if self.C[0] and self.C[1]:
+##            succ = self.C[1].find_min()
+##            self.key = succ.key
+##            succ.delete(succ.key)
+##        elif self.C[0]:
+##            self.replace_node_in_parent(self.C[0])
+##        elif self.C[1]:
+##            self.replace_node_in_parent(self.C[1])
+##        else:
+##            self.replace_node_in_parent(None)
+##        return
+    def delete(self, key):
+        self = BST_delete(self,key)
         return
     def get(self,key):
         L = []
