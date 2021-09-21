@@ -27,4 +27,8 @@ min_val = -10000
 max_val = 10000
 print("T2.is_BST(min_val,max_val) = ", T2.is_BST(min_val,max_val))
 print("Lp = ",T2.traverse())
-
+T2.clear()
+print("T2.clear()")
+print("T2 = ", T2)
+print("T2.is_BST(min_val,max_val) = ", T2.is_BST(min_val,max_val))
+print(T2.traverse())
