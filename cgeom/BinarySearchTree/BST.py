@@ -51,7 +51,7 @@ class BST:
         return s
     def insert(self,key,value):
         self = BST_insert(self,key,value)
-        return
+        return self
     def search(self,key,node):
         new_node = node
         while (new_node is not None):
@@ -109,8 +109,16 @@ class BST:
             newval.parent = self.parent
         return
     def delete(self, key):
-        print("Error: delete function unimplemented")
-        return
+        if self is None:
+            return self
+        M = self.traverse()
+        M2 = []
+        for m in M:
+            key_m,val_m = m
+            if key != key_m:
+                M2.append(m)
+        self = self.build(M2)
+        return self
     def get(self,key):
         L = []
         def Accum_M(val):
@@ -121,15 +129,12 @@ class BST:
         return L
     def clear(self):
         M = self.traverse()
-        for x in M:
-            key,value = x
-            self.delete(key)
-        # As it does not delete all, set left and
-        # right trees to None
-        self.C[0] = None
-        self.C[1] = None
-        x = BST_NULL()
-        key,value = x
-        self.key = key
-        self.value = value
-        return
+        while self is not None:
+            M = self.traverse()
+            if len(M) == 0:
+                break
+            m = M[0]
+            key,value = m
+            self = self.delete(key)
+        self = BST()
+        return self
