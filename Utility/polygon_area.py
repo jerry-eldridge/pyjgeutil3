@@ -37,7 +37,7 @@ interior points and 0 for exterior points."
 https://github.com/jerry-eldridge/emma/blob/master/build/core/polygon.cpp
      """
      N = len(p)
-     c = 0
+     c = False
      i = 0
      j = N-1
      while i < N:
