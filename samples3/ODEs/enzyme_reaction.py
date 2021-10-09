@@ -2,6 +2,7 @@ import solve_ode_system as odes
 
 import numpy as np
 
+# https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics
 class EnzymeR:
     def __init__(self,kf,kr,kcat,E,S,ES,P,dt):
         # dy/dt = f(t,y)
