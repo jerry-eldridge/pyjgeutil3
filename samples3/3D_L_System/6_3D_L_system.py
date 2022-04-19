@@ -169,7 +169,7 @@ def draw(s):
 
 BIGDATA = r"C:/_BigData/_3D/my_scenes/"
 
-# Note Sigma is 'A','B','l','r','u','d','f','b','[',
+# Note Sigma is 'A','B','x','i','y','j','z','k','[',
 # and ']'.
 start = "A"
 # A rule is a list (LHS,RHS,p) where
