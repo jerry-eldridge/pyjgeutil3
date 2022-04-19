@@ -9,6 +9,11 @@ from functools import reduce
 
 from math import cos,sin,pi,fmod
 
+import random
+
+seed = 123123123
+random.seed(seed)
+
 # [1] https://en.wikipedia.org/wiki/L-system
 def apply_rule(s,LHS,RHS):
     L = s.split(LHS)
@@ -21,10 +26,46 @@ def r(s):
     s3 = apply_rule(s2,"B","A+[B-A]\n")
     return s3
 
-def S(i):
+def extremely_rapid_growth(i):
     def f(s):
         val = reduce(lambda n,m: r(n), range(i), s)
         return val
+    return f
+
+def apply_rule2(s,LHS,RHS,p):
+    L = s.split(LHS)
+    s2 = RHS
+    s3 = ''
+    flag = False
+    for i in range(len(L)-1):
+        x = L[i]
+        y = RHS
+        px = random.uniform(0,1)
+        if px <= p:
+            s3 = s3 + x + y
+            flag = True
+        else:
+            s3 = s3 + x + LHS
+            flag = False
+    z = L[-1]
+    if flag:
+        s3 = s3 + z
+    else:
+        s3 = s3 + z
+    return s3
+
+def r2(s):
+    s2 = apply_rule2(s,"A","B-[A-B]\n",p=.7)
+    s3 = apply_rule2(s2,"B","A+[B-A]\n",p=.7)
+    return s3
+
+def less_rapid_growth(N):
+    def f(t):
+        s = t
+        for i in range(N):
+            s2 = r2(s)
+            s = s2
+        return s
     return f
 
 def line(G,Gs, A,B,r,q):
@@ -99,7 +140,16 @@ def draw(s):
 BIGDATA = r"C:/_BigData/_3D/my_scenes/"
 
 start = "A"
-s = S(2)(start)
+
+# set the parameters one by one until reasonably
+# too slow. The growth is exponential like.
+# Each character A or B is a cylinder shape which
+# has lots of points and triangles in it.
+
+#s = extremely_rapid_growth(2)(start) # growth burst
+
+s = less_rapid_growth(5)(start) # gradual growth
+
 G,Gs = draw(s)
 
 # Save Scene 1
