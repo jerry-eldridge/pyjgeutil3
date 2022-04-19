@@ -21,14 +21,17 @@ def apply_rule(s,LHS,RHS):
     s3 = s2.join(L)
     return s3
 
-def r(s):
-    s2 = apply_rule(s,"A","B-[A-B]\n")
-    s3 = apply_rule(s2,"B","A+[B-A]\n")
-    return s3
+def r(s,rules):
+    for rule in rules:
+        LHS,RHS, p = rule
+        s2 = apply_rule(s,LHS,RHS)
+        s = s2
+    return s
 
-def extremely_rapid_growth(i):
+def extremely_rapid_growth(i,rules):
     def f(s):
-        val = reduce(lambda n,m: r(n), range(i), s)
+        val = reduce(lambda n,m: r(n,rules),
+                    range(i), s)
         return val
     return f
 
@@ -54,16 +57,18 @@ def apply_rule2(s,LHS,RHS,p):
         s3 = s3 + z
     return s3
 
-def r2(s):
-    s2 = apply_rule2(s,"A","B-[A-B]\n",p=.7)
-    s3 = apply_rule2(s2,"B","A+[B-A]\n",p=.7)
-    return s3
+def r2(s,rules):
+    for rule in rules:
+        LHS,RHS, p = rule
+        s2 = apply_rule2(s,LHS,RHS,p)
+        s = s2
+    return s
 
-def less_rapid_growth(N):
+def less_rapid_growth(N,rules):
     def f(t):
         s = t
         for i in range(N):
-            s2 = r2(s)
+            s2 = r2(s,rules)
             s = s2
         return s
     return f
@@ -140,15 +145,22 @@ def draw(s):
 BIGDATA = r"C:/_BigData/_3D/my_scenes/"
 
 start = "A"
+# A rule is a list (LHS,RHS,p) where
+# LHS -> RHS with probability p.
+rules = [
+    ("A","B-[A-B]\n",.7),
+    ("B","A+[B-A]\n",.7)]
 
 # set the parameters one by one until reasonably
 # too slow. The growth is exponential like.
 # Each character A or B is a cylinder shape which
 # has lots of points and triangles in it.
 
-#s = extremely_rapid_growth(2)(start) # growth burst
+## growth burst
+#s = extremely_rapid_growth(2,rules)(start) 
 
-s = less_rapid_growth(5)(start) # gradual growth
+## gradual growth
+s = less_rapid_growth(5,rules)(start)
 
 G,Gs = draw(s)
 
