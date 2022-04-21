@@ -340,8 +340,8 @@ def draw(s, t, q, flag=False):
     return deepcopy(pos),q,pos_curve,q_curve
 
 def Shape0(s,flag=True):
-    print("|s| = ",len(s))
-    print("s = \"%s\"" % s)
+    #print("|s| = ",len(s))
+    #print("s = \"%s\"" % s)
 
     t0 = [0,0,0]
     axis0 = [0,0,1]
