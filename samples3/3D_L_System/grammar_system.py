@@ -328,26 +328,6 @@ def Grammar_to_line2(start,rules,line,point,
     f = lambda G,Gs,A,B,r,q : line2(G,Gs,A,B,r,q,H0=H0) 
     return f
 
-def Grammar_to_line2(start,rules,line,point,
-            flag=False,n=2):
-    H0,Gs0 = Shape0(start,rules, line,point,
-                flag,n)
-    print("|pts(H0)| =",len(H0['pts']))    
-    def line2(G,Gs, A,B,r,q, H0=None):
-        # Ellipsoid Object
-        rad = 5.
-        height = r
-        t = list(aff.lerp(np.array(A),np.array(B),0.5))
-        q2 = q
-        scale = 1.
-        s = [scale,scale,scale] # the same scale as previous for caps
-        H1 = Shape1(H0,t,q2,s)
-        Gs = ext.Append(Gs,H1)
-        G = ext.GraphUnionS(G,H1)
-        return G,Gs
-    f = lambda G,Gs,A,B,r,q : line2(G,Gs,A,B,r,q,H0=H0) 
-    return f
-
 def String_to_line2(s,line,point,
             flag=False,n=2):
     H0,Gs0 = Shape2(s, line,point,
