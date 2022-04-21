@@ -384,7 +384,7 @@ def PathSystem(shapes,joint_angles):
         else:
             c = "k"
             nz = -nz
-        v2 = "%s**%d*%s**%d*%s**%d" % (a,nx,b,ny,c,nz)
+        v2 = "%s**%d*%s**%d*%s**%d" % (c,nz,b,ny,a,nx)
         v = v1 + "*" + v2
         s = s + "*" + v
     s = s + "*" + shapes[-1]
