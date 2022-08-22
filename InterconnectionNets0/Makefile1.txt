@@ -1,0 +1,8 @@
+all:
+	iverilog -g2012 -o butterfly.exe ButterflyNodeD.v \
+		test_ButterflyNodeD.v
+	vvp butterfly.exe
+clean:
+	rm butterfly.exe
+
+

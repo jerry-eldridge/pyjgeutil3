@@ -1,0 +1,31 @@
+7_Butterfly_Verilog.py
+
+Number of processors |V(G)| = 80
+
+Possible vertices are:
+(i,j) where i in range(stages) and
+j in range(p) where p = radix**(stages-1).
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 15)
+start: proc = 7
+goal: proc = 11
+Using start =  (0, 7)
+Using goal =  (4, 11)
+At node u decide on switch d from N
+u = (0, 7), d = 1, N = [(1, 7), (1, 15)]
+u = (1, 15), d = 1, N = [(2, 15), (2, 11)]
+u = (2, 11), d = 0, N = [(3, 11), (3, 9)]
+u = (3, 11), d = 0, N = [(4, 11), (4, 10)]
+Reached u =  (4, 11)
+0 packet =  ([1, 1, 0, 0], [0, 0], [1])
+1 packet =  ([1, 1, 0, 0], [0, 1], [1])
+2 packet =  ([1, 1, 0, 0], [1, 0], [0])
+3 packet =  ([1, 1, 0, 0], [1, 1], [0])
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 15)
+start: proc = q
+

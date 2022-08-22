@@ -1,0 +1,49 @@
+Number of processors |V(G)| = 108
+
+Possible vertices are:
+(i,j) where i in range(stages) and
+j in range(p) where p = radix**(stages-1).
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 26)
+start: proc = 11
+goal: proc = 20
+Using start =  (0, 11)
+Using goal =  (3, 20)
+At node u decide on switch d from N
+u = (0, 11), d = 1, N = [(1, 11), (1, 20), (1, 2)]
+u = (1, 20), d = 0, N = [(2, 20), (2, 23), (2, 26)]
+u = (2, 20), d = 0, N = [(3, 20), (3, 18), (3, 19)]
+Reached u =  (3, 20)
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 26)
+start: proc = 0
+goal: proc = 26
+Using start =  (0, 0)
+Using goal =  (3, 26)
+At node u decide on switch d from N
+u = (0, 0), d = 2, N = [(1, 0), (1, 9), (1, 18)]
+u = (1, 18), d = 2, N = [(2, 18), (2, 21), (2, 24)]
+u = (2, 24), d = 2, N = [(3, 24), (3, 25), (3, 26)]
+Reached u =  (3, 26)
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 26)
+start: proc = 5
+goal: proc = 14
+Using start =  (0, 5)
+Using goal =  (3, 14)
+At node u decide on switch d from N
+u = (0, 5), d = 1, N = [(1, 5), (1, 14), (1, 23)]
+u = (1, 14), d = 0, N = [(2, 14), (2, 17), (2, 11)]
+u = (2, 14), d = 0, N = [(3, 14), (3, 12), (3, 13)]
+Reached u =  (3, 14)
+
+Input 'proc' for start and goal
+Enter 'q' to quit
+proc range:  (0, 26)
+start: proc = q
