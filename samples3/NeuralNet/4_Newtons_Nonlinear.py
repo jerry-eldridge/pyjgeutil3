@@ -113,14 +113,17 @@ if 1:
         ]
     import sympy # pip install sympy
     x = sympy.symbols('x[0:%d]'%n)
+    print(f"x = {x}")
     print("F(x)=",F(x))
     x0 = [-5,1]
     x = opt.Newtons_nonlinear(F,x0,N=200,epsilon=.01)
+    x = list(map(list,x))[0]
     print("x =",x,
           "\nF(x)=",str(F(x)))
         
     x0 = [4,-4]
     x = opt.Newtons_nonlinear(F,x0,N=200,epsilon=.01)
+    x = list(map(list,x))[0]
     print("x =",x,
           "\nF(x)=",str(F(x)))
     print('='*30)
