@@ -114,9 +114,9 @@ def rotation_matrix(degrees,x,y,z):
     v = array([[x,y,z]]).T
     u = v/norm(v)
     S = array([
-        [0,-u[2],u[1]],
-        [u[2],0,-u[0]],
-        [-u[1],u[0],0]])
+        [0,-u[2,0],u[1,0]],
+        [u[2,0],0,-u[0,0]],
+        [-u[1,0],u[0,0],0]])
     I = array([
         [1,0,0],
         [0,1,0],
