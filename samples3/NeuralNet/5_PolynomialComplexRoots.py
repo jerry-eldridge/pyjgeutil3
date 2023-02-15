@@ -35,6 +35,8 @@ def Display(f,X):
     for xi in X:
         print("xi =",xi)
         yi = opt.Newtons_nonlinear(G,xi,N=20,epsilon=0.001)
+        yi = list(yi[0])
+        print(f"yi = {yi}")
         y = yi[0]+I*yi[1]
         Y.append(y)
         print("yi =",y)
