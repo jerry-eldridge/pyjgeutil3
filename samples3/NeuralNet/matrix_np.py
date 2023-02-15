@@ -14,8 +14,12 @@ class Mat:
     def identity(self, n):
         return Mat(list(np.identity(n)))
     def g(self,i,j):
+        i = int(i)
+        j = int(j)
         return self.B[i,j]
     def s(self,i,j,val): # set i,j entry to val
+        i = int(i)
+        j = int(j)
         self.B[i,j] = val
         return
     def __add__(self,B): # A + B
@@ -29,7 +33,7 @@ class Mat:
     def __sub__(self,B):
         return self + -1*B
     def flatten(self): # assumes n x m matrix
-        L = list(self.A.flatten())
+        L = list(self.A)
         return Mat([L])
     def reshape(self,sh):
         B = list(self.B.reshape(sh))
