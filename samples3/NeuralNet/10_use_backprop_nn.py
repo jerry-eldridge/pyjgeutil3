@@ -10,7 +10,7 @@ pat = [[[LO,LO],[LO]],
 import datetime
 t0 = datetime.datetime.now()
 print("Please wait...training...")
-nn.train(pat,eta=20.0, N = 100,verbose=False,
+nn.train(pat,eta=10.0, N = 200,verbose=False,
          method='gd')
 t1 = datetime.datetime.now()
 print("train: Elapsed time:", (t1-t0).total_seconds()*1000, "ms")
@@ -28,7 +28,7 @@ pat = [[[LO,LO],[LO]],
 import datetime
 t0 = datetime.datetime.now()
 print("Please wait...training...")
-nn.train(pat,eta=20.0, N = 100,verbose=False,
+nn.train(pat,eta=10.0, N = 200,verbose=False,
          method='nm')
 t1 = datetime.datetime.now()
 print("train: Elapsed time:", (t1-t0).total_seconds()*1000, "ms")
