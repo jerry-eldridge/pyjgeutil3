@@ -3,6 +3,7 @@ import optimize as opt
 F = lambda x: [[(x[0]-4)**2 - 4**2, (x[1]-3)**2-5**2]]
 x0 = [1,2]
 x = opt.Newtons_nonlinear(F,x0,N=20,epsilon=0.01)
+x = x[0]
 print("x=",x)
 print("F(x)=",F(x))
 
