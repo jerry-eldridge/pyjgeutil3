@@ -60,7 +60,7 @@ class Mat:
     def det(self):
         return np.linalg.det(self.B)
     def tr(self):
-        return np.linalg.tr(self.B)
+        return np.trace(self.B)
     def inner(self,B):
         return (B.adj().dot(self)).tr()
     def copy(self): # B = A.copy()
