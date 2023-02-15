@@ -77,7 +77,7 @@ sp3 = WaveSource(x3,f3,A=255)
 WaveSources = [sp1,sp2,sp3]
 
 t = 0
-b = np.zeros((h,w),dtype=np.float)
+b = np.zeros((h,w),dtype=np.float32)
 im = np.zeros((h,w,3))
 n = len(WaveSources)
 I = 4.
