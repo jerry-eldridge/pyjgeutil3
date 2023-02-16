@@ -10,7 +10,7 @@ def lerp(A,B,t):
 # [1] https://en.wikipedia.org/wiki/Microtubule
 # which is similar in functions to Actin
 class Microtubule:
-    def __init__(self,O=[0,0]):
+    def __init__(self,O):
         self.Q = c.deque()
         self.flag_minus = False
         self.flag_plus = False
@@ -56,13 +56,15 @@ class Microtubule:
     def curve(self,t):
         t2 = fmod(t,1) # map t to [0,1] by modulo 1
         L = list(self.Q)
-        O = L[0]
         L2 = []
+        O = np.array(self.O)
         for i in range(len(L)):
-            vi = list(np.array(L[i]) - \
-                      np.array(O) + \
-                      np.array(self.O))
-            L2.append(vi)
+            noise = (np.random.rand(len(L[0]))-\
+                     0.5)*.1
+            vi = np.array(L[i])+noise
+            vv = O + vi
+            O = vv
+            L2.append(list(vv))
         n = len(L2)
         i1 = floor(t2*(n-1))
         i2 = ceil(t2*(n-1))

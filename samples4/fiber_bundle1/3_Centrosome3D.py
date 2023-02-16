@@ -1,16 +1,24 @@
+import centrosome as ce
+
 import sys
 sys.path.insert(0,r"C:\_PythonJGE\Utility3")
 import affine as aff
 import extrusion as ext
-import wire as wi
 import BasicShapes as ba
+import wire as wi
 
 import numpy as np
 
 from copy import deepcopy
-from math import pi,sin,cos,acos,sqrt
+from math import pi,sin,cos,acos,sqrt,fmod
 
-import centrosome as ce
+import random
+import time
+
+seed = 12345
+
+#seed = time.time()
+random.seed(seed)
 
 BIGDATA = r"C:/_BigData/_3D/my_scenes/"
 
@@ -65,7 +73,7 @@ def AddCentrosomeShape(G,Gs,C,r):
     # create 3D objects for each fiber and add to scene
     for i in range(N):
         # Ellipsoid Object
-        r = 1 # radius of cross section
+        ri = 3 # radius of cross section
 
         ppath = GetFiber(C,i,dt,tmin,tmax)
         t = C.B[i].O
@@ -73,10 +81,10 @@ def AddCentrosomeShape(G,Gs,C,r):
         axis = [0,1,0]
         q = aff.HH.rotation_quaternion(degrees,
                         axis[0],axis[1],axis[2])
-        scale = 1.
+        scale = .2
         s = [scale,scale,scale] # the same scale as previous for caps
         # n is length
-        H0 = wi.Wire(r,ppath,t,q,s,m=10,n=50)
+        H0 = wi.Wire(ri,ppath,t,q,s,m=10,n=40)
         Gs = ext.Append(Gs,H0)
         G = ext.GraphUnionS(G,H0)
     return G,Gs
@@ -115,40 +123,44 @@ tmax = 1
 dt = .1
 
 C = ce.Centrosome(O=[0,0,0])
-
 r = 20
 
-theta = Deg2Rad(30)
-phi = Deg2Rad(110)
-O_F = Spherical2Cartesian(r,theta,phi)
+nfibers = 30
+nsubunits = 30
+dr = 10
 
-C.add_fiber(O=O_F)
-C.B[0].push_plus([10,30,10])
-C.B[0].push_plus([20,35,20])
-C.B[0].push_plus([30,50,10])
-C.B[0].push_plus([65,30,10])
-#ce.DisplayFiber(C,0,dt,tmin,tmax)
-C.B[0].pop_minus()
-#ce.DisplayFiber(C,0,dt,tmin,tmax)
+nfibers = 10
+nsubunits = 70
+dr = 10
 
-theta = Deg2Rad(130)
-phi = Deg2Rad(150)
-O_F = Spherical2Cartesian(r,theta,phi)
-
-C.add_fiber(O=O_F)
-C.B[1].push_plus([30,10,10])
-C.B[1].push_plus([30,25,0])
-C.B[1].push_plus([40,50,20])
-C.B[1].push_plus([75,20,30])
-#ce.DisplayFiber(C,1,dt,tmin,tmax)
+for i in range(nfibers):
+    theta = random.uniform(0,180)
+    phi = random.uniform(0,360)
+    O_F = Spherical2Cartesian(r,
+                Deg2Rad(theta),Deg2Rad(phi))
+    C.add_fiber(O=O_F)
+    C.B[i].push_plus(O_F)
+    for j in range(nsubunits):
+        theta_j = random.uniform(-15,15)
+        phi_j = random.uniform(-15,15)
+        theta2 = theta + theta_j
+        phi2 = phi + phi_j
+        theta2 = fmod(theta2,180)
+        phi2 = fmod(phi2,360)
+        pt_j = Spherical2Cartesian(dr,
+                    Deg2Rad(theta2),Deg2Rad(phi2))
+        C.B[i].push_plus(pt_j)
+        theta = theta2
+        phi = phi2
+    #ce.DisplayFiber(C,i,dt=.1,tmin=0,tmax=1)
 
 G,Gs = AddCentrosomeShape(G,Gs,C,r)
 
 #################################
 
 # Save Scene 1
-ext.Graphs2OBJ(BIGDATA+"Centrosome1.obj",Gs,"scene")
+ext.Graphs2OBJ(BIGDATA+"Centrosome2.obj",Gs,"scene")
 
 # Double-Click on OBJ file
 import os
-os.system(BIGDATA+"Centrosome1.obj")
+os.system(BIGDATA+"Centrosome2.obj")
