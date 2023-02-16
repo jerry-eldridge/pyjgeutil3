@@ -1,0 +1,5 @@
+0: si = 'oranges are fun they are spherical shaped'
+1: si = 'oranges are spherical shaped like a ball'
+2: si = 'oranges are spherical shaped like to eat'
+3: si = 'oranges are spherical shaped like to eat'
+4: si = 'oranges are fun to eat cheese sometimes'
