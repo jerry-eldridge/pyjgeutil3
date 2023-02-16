@@ -71,6 +71,8 @@ class Quaternion:
     def __str__(S):
         s = '[%.4f,%.4f,%.4f,%.4f]' % tuple(S.q)
         return s
+    def __repr__(S):
+        return str(S)
     # conjugate of a quaternion
     def conjugate(S):
         q2 = Quaternion([S.q[0],-S.q[1],-S.q[2],-S.q[3]])
