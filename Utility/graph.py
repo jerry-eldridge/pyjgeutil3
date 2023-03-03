@@ -1535,6 +1535,14 @@ def TensorProduct(G1,G2):
     return G
 
 def QuotientGraph0(G, R):
+    S = []
+    for L in R:
+        for x in L:
+            S.append(x)
+
+    I = list(set(G['V']) - set(S))
+    for x in I:
+        R.append([x])
     V = range(len(R))
     E = []
     for e in G['E']:
