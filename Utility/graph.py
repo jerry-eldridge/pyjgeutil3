@@ -127,7 +127,7 @@ def Isomorphic(doc1,doc2):
     i = 0
     for tup in permute_in_place(list(range(n1))):
         if tup == None:
-            "tup is none"
+            print("tup is none")
             break
         flag = True
         for e in E1:
@@ -1148,7 +1148,7 @@ def det(A):
     numpy.linalg.det(A) with the Numpy python library.
     """
     from numpy import array,zeros,ones,identity
-    from . import generalized_cross_product as gcp
+    import generalized_cross_product as gcp
     sh = A.shape
     n = sh[1]
     def chi(tup):
@@ -1163,7 +1163,7 @@ def SubdivideEdges(doc,S,midpt=False, undirected=True):
     It assumes undirected edges, with undirected=True,
     else you need to set to false.
     """
-    from . import vectors
+    import vectors
     doc1 = deepcopy(doc)
     for e in S:
         if e in doc1["E"]:
@@ -1534,3 +1534,38 @@ def TensorProduct(G1,G2):
     G = PseudoToGraph(G)
     return G
 
+def QuotientGraph0(G, R):
+    V = range(len(R))
+    E = []
+    for e in G['E']:
+        u,v = e
+        for i in range(len(R)):
+            if u in R[i]:
+                break
+        for j in range(len(R)):
+            if v in R[j]:
+                break
+        f = [i,j]
+        if f not in E:
+            E.append(f)
+    G2 = {}
+    G2['V'] = V
+    G2['E'] = E
+    return G2
+
+def RemoveLoops(G):
+    F = []
+    for e in G['E']:
+        u,v = e
+        if not (u == v):
+            F.append(e)
+    G2 = {}
+    G2['V'] = deepcopy(G['V'])
+    G2['E'] = F
+    return G2
+
+def QuotientGraph(G, R):
+    G2 = MakeUndirected(G)
+    G3 = QuotientGraph0(G2,R)
+    G4 = RemoveLoops(G3)
+    return G4
