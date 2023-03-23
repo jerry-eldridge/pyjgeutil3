@@ -124,3 +124,6 @@ class Rational:
         self.a = q.a
         self.b = q.b
         return q
+    def __repr__(self):
+        return str(self)
+
