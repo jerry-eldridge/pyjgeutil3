@@ -1,6 +1,6 @@
 #import sys
 #sys.path.insert(0,r"C:\_PythonJGE\Utility")
-from . import set_bits as sb
+import set_bits as sb
 import random
 from copy import deepcopy
 
