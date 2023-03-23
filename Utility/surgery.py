@@ -1,9 +1,9 @@
-from . import graph
-from . import line_intersection
+import graph
+import line_intersection
 from copy import deepcopy
-from . import generalized_cross_product
-from . import vectors
-from . import line_intersection
+import generalized_cross_product
+import vectors
+import line_intersection
 from numpy import array
 
 def RemoveEdgesWithKnife(doc, Ax, Ay, Bx, By):
