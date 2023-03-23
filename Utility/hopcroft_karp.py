@@ -1,5 +1,5 @@
-from . import graph
-from . import queue
+import graph
+import myqueue as queue
 
 # https://en.wikipedia.org/wiki/Hopcroft%E2%80%93Karp_algorithm
 # finds a maximum matching in a bipartite graph (Dom,Ran) with edges Bi.
