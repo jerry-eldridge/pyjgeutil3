@@ -1,6 +1,6 @@
 #import sys
 #sys.path.insert(0,r"C:\_PythonJGE\Utility")
-from . import vectors as v
+import vectors as v
 
 import numpy as np
 from math import sqrt,atan2,pi
