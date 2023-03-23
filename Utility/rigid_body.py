@@ -1,9 +1,7 @@
-import sys
-sys.path.insert(0,r"C:\_PythonJGE\Utility")
-from . import line_intersection as li
-from . import graph
-from . import timer
-from . import affine as aff
+import line_intersection as li
+import graph
+import timer
+import affine as aff
 
 from math import cos,sin,pi,acos
 import numpy as np
