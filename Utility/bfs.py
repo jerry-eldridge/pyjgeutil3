@@ -1,6 +1,6 @@
-from . import graph
-from . import stack
-from . import queue
+import graph
+import stack
+import myqueue
 
 def AllPaths(G,start,goal,nedges):
     depth = nedges+2
