@@ -175,22 +175,18 @@ def rotation_quaternion(degrees,x,y,z):
     A0 = np.linalg.norm(beta)
     epsilon = 1e-8
     if A0 > epsilon:
-        a,b,c = beta/A0
-    else:
-        a,b,c = beta
+        beta = beta/A0
     q = Quaternion([
          cos(alpha/2.0),
-         sin(alpha/2.0)*a,
-         sin(alpha/2.0)*b,
-         sin(alpha/2.0)*c])
+         sin(alpha/2.0)*beta[0],
+         sin(alpha/2.0)*beta[1],
+         sin(alpha/2.0)*beta[2]])
     return q
 
 def FromEuler(X,Y,Z):
-    alpha,beta,gamma = X,Y,Z
-    roll,yaw,pitch = alpha,beta,gamma
+    roll,pitch,yaw = X,Y,Z
     RQ = rotation_quaternion
-    roll,yaw,pitch = pitch,yaw,roll
-    q = RQ(roll,0,0,1)*RQ(yaw,0,1,0)*RQ(pitch,1,0,0)
+    q = RQ(yaw,0,0,1)*RQ(pitch,0,1,0)*RQ(roll,1,0,0)
     return q
 
 # https://en.wikipedia.org/wiki/Aircraft_principal_axes
@@ -199,10 +195,9 @@ def FromEuler(X,Y,Z):
 # Z is roll axis (front of aircraft)
 def RollYawPitch(L):
     roll,yaw,pitch = L
-    alpha,beta,gamma = roll,yaw,pitch 
-    X,Y,Z = alpha,beta,gamma
-    q = FromEuler(X,Y,Z)
-    return q
+    X,Y,Z = roll,pitch,yaw
+    q2 = FromEuler(X,Y,Z)
+    return q2
 
 Q = Quaternion
 # you can right scalar multiply by reals these basis quaternions
