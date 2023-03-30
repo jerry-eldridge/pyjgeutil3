@@ -1,7 +1,7 @@
-from . import extrusion as ext
-from . import graph as g
-from . import affine as aff
-from . import mapto
+import extrusion as ext
+import graph as g
+import affine as aff
+import mapto
 
 from math import cos,sin,pi
 import numpy as np

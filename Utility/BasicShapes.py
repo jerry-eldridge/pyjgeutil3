@@ -1,9 +1,9 @@
-from . import RevolveCurve as rc
-from . import extrusion as ext
-from . import affine as aff
-from . import mapto
+import RevolveCurve as rc
+import extrusion as ext
+import affine as aff
+import mapto
 import numpy as np
-from . import graph as gra
+import graph as gra
 
 from copy import deepcopy
 
