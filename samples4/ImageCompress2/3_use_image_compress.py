@@ -76,7 +76,7 @@ def Do_Decoding(fn_imdat_save):
 ext = ".jpg"
 fn_jpg1 = r"./microscope-7.jpg"
 
-M = [5,10,15,20,25,30]
+M = [10]
 files = []
 for i in range(len(M)):
     nc = M[i]
@@ -93,11 +93,8 @@ for i in range(len(files)):
     im = Do_Decoding(fn_save_nc)
     imgs.append(im)
     print("===")
-
-im2a = np.hstack((imgs[0],imgs[1],imgs[2]))
-im2b = np.hstack((imgs[3],imgs[4],imgs[5]))
-im2 = np.vstack((im2a,im2b))
-cv2.imwrite("imdat-collage-01.jpg",im2)
+    
+cv2.imwrite("imdat-collage-01.jpg",imgs[0])
 
 CloseWindows()
 
