@@ -3,8 +3,8 @@ import play_audio_data as pad
 
 root = r"./"
 wavroot = r"./"
-fn_wav = wavroot + "hello-1.wav"
-fn_cog = root + "hello-1b.cog2"
+fn_wav = wavroot + "demo-1a.wav"
+fn_cog = root + "demo-1.cog2" # created from record audio
 fn_tmp_wav = root + "20221220-tmp-512405.wav"
 
 chunk = 1024
