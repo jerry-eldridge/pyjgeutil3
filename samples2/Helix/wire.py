@@ -38,16 +38,19 @@ def Wire0(r,ppath,m=10,n=40):
         pt = B(t,ppath)
         path.append(pt)
         t = t + dt
-    H = ext.Extrusion(H1,path,bcap=True,ecap=True,closed=True)
-    return H
+    H = ext.Extrusion(H1,path,bcap=True,ecap=True,
+                      closed=True)
+    A = B(0,ppath)
+    return H,A
 
 def Wire(r,ppath,t,q,s,m=10,n=40):
-    H = Wire0(r,ppath,m=m,n=n)
+    H,C = Wire0(r,ppath,m=m,n=n)
     pts = H['pts']
-    C = aff.Center(pts)
-    pts = aff.Translate(pts,-C[0],-C[1],-C[2],align=False)
+    pts = aff.Translate(pts,-C[0],-C[1],-C[2],
+                        align=False)
     pts = aff.Rotate(pts,q,align=False)
     pts = aff.Scale(pts,s[0],s[1],s[2],align=False)
-    pts = aff.Translate(pts,t[0],t[1],t[2],align=False)
+    pts = aff.Translate(pts,t[0],t[1],t[2],
+                        align=False)
     H['pts'] = pts
     return H
