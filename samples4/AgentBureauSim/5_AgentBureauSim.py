@@ -183,11 +183,11 @@ for t in range(N):
     for i in range(len(C)):
         print(f"{C[i]}")
         s_names = C[i].get_portfolio().stock_names()
-        C[i].strategize(["FAKE_MSFT"],
+        C[i].strategize(["FAKE_TKR_1"],
             expires=4,budget=1000.00,
             price_option=327.59,
             wealth_thresh=2000.0) # previous day
-        C[i].strategize(["FAKE_WMT"],
+        C[i].strategize(["FAKE_TKR_2"],
             expires=4,
             budget=1000.00,
             price_option=154.32,
