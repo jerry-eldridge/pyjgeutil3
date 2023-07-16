@@ -1,0 +1,339 @@
+﻿20230716 - Concurrency - processes - tasks - threads - actors - fibers - filaments
+
+In this FUN essay, we write about concurrency or multi-tasking.
+
+A lot of the important programming languages use the Von Neumann architecture:
+
+[1] https://en.wikipedia.org/wiki/Von_Neumann_architecture
+
+where there are:
+
+a) a processing unit with both an arithmetic logic unit (ALU) and 
+processor registers
+b) a control unit that includes an instruction register (IR) and a 
+program counter (PC)
+c) Memory that stores data and instructions
+d) exernal mass storage
+e) input and output mechanisms (I/O mechanisms). 
+
+The Input device sends into the machine and output device receives output
+from the machine. The Central Processing Unit (CPU) communicates between
+control unit and arithmetic logic unit (ALU) with a memory unit.
+
+This architecture of the Von Neumann architecture is mentioned in [2].
+
+[2] @book{Hennessy90,
+author = "Hennessy, John L  and  Patterson, David A.",
+title = "Computer architecture: a quantitative approach",
+publisher = "Morgan Kaufmann, San Mateo, CA",
+year = "1990"
+}
+
+And what I was reading about this morning on Concurrency is mentioned in [3]
+
+[3] @book{Scott15,
+author = "Scott, Michael L.",
+title = "Programming Language Pragmatics",
+publisher = "Morgan Kaufmann",
+year = "2015"
+}
+
+Scott [3] mentions how multiprocessor architectures have processors with
+a local memory storage, and there was the example of a BUS that communicates
+between each processors local memory storage. Each processor a Von Neumann
+machine but the whole multiprocessor system is not.
+
+You could think of this as a deck of cards. Each deck of cards contains
+the sequence of instructions for the Von Neumann machine that executes
+its instructions in a sequence. The instructions or statements make assignments
+
+<statement> := <variable> '=' <value> ';'
+
+for example where there is a memory storage. Each <variable> has semantics
+in this syntax of a numerical address into memory, where the
+<variable> is an address number idx, and
+
+variable = address
+memory[address] = value
+
+which is a sequence of microcode instructions to define variable = value.
+
+The idea is similar to what I was reading about Communication in:
+
+[4] @book{Bollig06,
+author = "Bollig, Benedikt",
+title = "Formal Models of Communicating Systems : Languages, Automata, 
+and Monadic Second-Order Logic",
+publisher = "Springer",
+year = "2006"
+}
+
+where a partial order is used for each process in a Message Sequence
+Chart (MSC) for communication. In Message Passing Interface (MPI) and
+other systems which use message passing, there is something like
+
+<message> := <sender> '!' <receiver> ';' <sync_tag> ';' <data>
+<message> := <receiver> '?' <sender> ';' <sync_tag>
+
+where each communication message is something like this:
+
+A!B;hello;how_are_you
+B?A;hello
+
+and in the Market Simulation we had this syntax:
+
+<message> := <sender> '!' <receiver> ';' <amount> ';' <description>
+
+where <sender> and <receiver> actually were both routing numbers:
+
+<sender> := <routing_number>
+<receiver> := <routing_number>
+<message> := <sender> '!' <receiver> ';' <amount> ';' <description>
+
+and we had modeled a domain for each, and used semantics of some input 
+
+address = '(' <agent_id> ',' <account_id> ')'
+
+to form the <routing_number> semantics. There was also a <domain>
+specified which as the currency units for that <agent_id>.
+
+We have seen this concept of each process (also called 'processes',
+'tasks', 'threads', 'actors', 'fibers', or 'filaments' [3]) which is
+made of a sequence of instructions that affect a memory.
+
+The idea of a curve(t) = (x(t), y(t), z(t)) in 3D space, or 
+say curve(t) = (x1(t), ..., xn(t)) in n-dimensional space. In the topic
+of Smooth Manifolds or Differential Geometry for example, there is
+a manifold which is locally like RR**n of n-dimensional points. That is,
+there is a mapping from the manifold M to RR**n. Then at each x in M
+in the manifold, there is a tangent vector v_x in T(M) in the tangent
+bundle consisting of tangent vectors at x. Then this describes an
+integral curve, and vector field:
+
+[5] https://en.wikipedia.org/wiki/Vector_field
+
+of tangent vectors at each point in space (2D, 3D, etc n-dimensional space,
+etc), and then one can think of placing an object guided in motion
+by that vector field and it traces out an integral curve:
+
+[6] https://en.wikipedia.org/wiki/Integral_curve
+
+described by:
+
+d/dt x(t) = f(x(t))
+
+for some function f and unknown x(t). The curve(t) is defined by this
+x(t). We had seen this concept in the Fiber Bundle example at:
+
+[7] https://github.com/jerry-eldridge/pyjgeutil3
+[8] https://github.com/jerry-eldridge/pyjgeutil3/tree/master/samples4/fiber_bundle1
+
+where "HairyBall-03-s.jpg" showed the 3D geometry shape of a ball with
+fibers attached at its surface which trace out integral curves or
+actually fibers.
+
+[9] @book{Lee11,
+author = "Lee, John",
+title = "Introduction to Topological Manifolds (Graduate Texts in 
+Mathematics), 2nd Ed. 2011",
+publisher = "Springer",
+year = "2011"
+}
+
+
+[10] @book{Lee12,
+author = "Lee, John",
+title = "Introduction to Smooth Manifolds (Graduate Texts in Mathematics, 
+Vol 218)",
+publisher = "Springer",
+year = "2012"
+}
+
+[11] @book{Lee18,
+author = "Lee, John",
+title = "Introduction to Riemannian Manifolds (Graduate Texts in
+ Mathematics) 2nd ed.",
+publisher = "Springer",
+year = "2018"
+}
+
+where the idea is that while there might not be a global time s which
+all processes or fibers keep track of time with, there is for each fiber
+its own local time parameter s:
+
+pt = fiber(idx)(s)
+
+and in the context of processes, fibers, actors, threads, process, etc
+in message passing charts, the idea is similar. This parameter s is
+the index or parameter unit to indicate a sequence of instructions. say
+pt refers to an instruction (such as for finite discrete pt = [instruction])
+located at in memory: instruction = memory[address] where s = idx and
+address = fetch[idx] or some concept like this. Say there is a program
+
+1. instruction1 at address1
+2. instruction2 at address2
+3. instruction3 at address3
+...
+N. instruction_N at address_N
+
+then if there were a mapping from {1,2,3,...,N} to {1*ds, 2*ds, 3*ds, ...,
+N*ds} to {s: 0 <= s <= 1} via s = (i-1)*ds where ds = 1/(N-1). Then
+this program is like a curve, with curve(s) = instruction[s] at address[s]
+except its discrete time, not continuous time. That is, the curve(s)
+represents a sequence of instructions at addresses.
+
+So these fibers for the processes compute in their own local time parameter
+s, not some global time for all the processes.
+
+[12] https://en.wikipedia.org/wiki/Message_Passing_Interface
+[13] https://en.wikipedia.org/wiki/Message_sequence_chart
+[14] https://en.wikipedia.org/wiki/Message_passing
+
+where concepts like:
+
+[15] https://en.wikipedia.org/wiki/Producer%E2%80%93consumer_problem
+Producer-consumer problem
+
+mention a producer who produces via:
+
+count = count + 1
+
+which increments the value of the count variable by one. That is, it
+produces an extra unit of count. The consumer does:
+
+count = count - 1
+
+but if there were multiple fibers or actors or processes or threads
+running this, and if they all used a global memory address called count,
+then there would be some confusion. To fix this problem, mutual exclusion
+or critical regions are added:
+
+[16] https://en.wikipedia.org/wiki/Mutual_exclusion
+[17] https://en.wikipedia.org/wiki/Concurrency_control
+[18] https://en.wikipedia.org/wiki/Lock_(computer_science)
+
+where the idea is something like one defines the critical section
+and puts a lock on the region and then unlocks when done:
+
+// producer
+lock1.lock()
+count = count + 1
+lock1.unlock()
+
+// consumer
+lock1.lock()
+count = count - 1
+lock1.unlock()
+
+so that if each fiber or thread or process or actor etc did this, then
+the count data memory address would be protected while a particular
+fiber were accessing it.
+
+For example, [18] mentions a C# (C sharp, .cs files), of an example
+Account class object with a Deposit member and Withdraw member
+that adds an amount:
+
+private decimal _balance = 0;
+private object _balanceLock = new object();
+
+// deposit
+_balance = _balance + amount ;
+
+// withdraw
+_balance = _balance - amount ;
+
+where note this is using syntax
+
+<math_expression> := <math_expression> <operator> <math_expression>
+<expression> := <math_expression | ...
+<statement> := <variable> '=' <expression> ';'
+ 
+or something like this as syntax. The point is that the amount is
+either added to or subtracted from the balance. And that one needs
+to add a lock and unlock before and after that to protect each fiber or
+actor or process or thread or filament whichever it is called.
+For me I recognize this most as being called a thread or process but
+other programming languages might use all these terms.
+
+[19] https://en.wikipedia.org/wiki/Fiber_(computer_science)
+'In computer science, a fiber is a particularly lightweight thread of
+execution.'
+[20] https://en.wikipedia.org/wiki/Thread_(computing)
+[21] https://en.wikipedia.org/wiki/Thread_pool
+[22] https://en.wikipedia.org/wiki/Process_(computing)
+[23] https://en.wikipedia.org/wiki/Concurrent_computing
+
+and that which runs processes or these concepts, a processor
+
+[24] https://en.wikipedia.org/wiki/Processor_(computing)
+
+where a processor is from computer architecture. The topic of processes
+is mentioned in textbooks on Operating Systems like [25] (Tanenbaum):
+
+[25] @book{Tanenbaum92,
+author = "Tanenbaum, Andrew S.",
+title = "Modern Operating Systems",
+publisher = "Prentice Hall, Englewood Cliffs, NJ",
+year = "1992"
+}
+
+and for example MSYS or WSL or Ubuntu is mentioned in [26] (Bach)
+
+[26] @book{Bach90,
+author = "Bach, Maurice J.",
+title = "The Design of the Unix Operating System",
+publisher = "Prentice Hall",
+year = "1990"
+}
+
+and where there are job control 
+
+[27] https://en.wikipedia.org/wiki/Job_Control_Language
+[28] https://en.wikipedia.org/wiki/Scripting_language
+[29] https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+
+where there are applications that run sequences of instructions, like .exe
+files. These applications carry out a fiber or thread or process
+although some .exe applications might use MPI for example and thus
+use several threads or fibers within it. That is, this is called a job
+control.
+
+[30] https://en.wikipedia.org/wiki/Job_control_(computing)
+[31] https://en.wikipedia.org/wiki/Job_(computing)
+[32] https://en.wikipedia.org/wiki/Job_control_(Unix)
+
+where job control in Unix / Linux is controlled by a shell. Also Windows 10
+/ 11 also a command shell.
+
+[33] https://en.wikipedia.org/wiki/Unix_shell
+
+where a sequence of jobs is specified by a shell script that runs for
+example 'bash' jobs or commands:
+
+[34] https://en.wikipedia.org/wiki/Shell_script
+
+and command line interface:
+
+[35] https://en.wikipedia.org/wiki/Command-line_interface
+
+so that in Microsoft, it has its command shell, and the newer PowerShell:
+
+[36] https://en.wikipedia.org/wiki/Cmd.exe
+"Command Prompt" in Microsoft
+
+[36] https://en.wikipedia.org/wiki/PowerShell
+"Power Shell" in Microsoft
+
+In the Unix / Linux operating system, the sequence of job commands
+is described by:
+
+[37] @book{Frisch91,
+author = "Frisch, AEleen",
+title = "Essential System Administration",
+publisher = "O'Reilly, Sebastapol, CA",
+year = "1991"
+}
+
+
+
+

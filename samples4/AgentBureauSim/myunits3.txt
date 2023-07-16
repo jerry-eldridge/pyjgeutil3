@@ -1,0 +1,7 @@
+currency = 1
+A = 1 * currency
+B = 10 * currency
+C = 100 * currency
+
+
+
