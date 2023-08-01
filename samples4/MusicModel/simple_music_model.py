@@ -429,7 +429,7 @@ def demo5(m,r,
         length = 10,
         I = 3,
           ):
-    m2,r2 = process4(m,r)
+    m2,r2 = process5(m,r)
     
     N01 = nstem1
     M1 = slm.SimpleLanguageModel(N=N01)
@@ -461,3 +461,119 @@ def demo5(m,r,
         music = music + d_music[q]
     create_song5(music,fn_save, tempo)
     return
+
+def process6(m,r):
+    s = m
+    s2 = s.replace('\n',' ')
+    song = list(map(int,s2.strip().split(' ')))
+    ctl = [13,14]
+    song2 = []
+    memory = [1] # key
+    for i in range(len(song)):
+        v = song[i]
+        if v in ctl:
+            song2.append(v)
+            continue
+        if v in range(1,12+1):
+            w = v - memory[0]
+            memory[0] = v
+            song2.append(w)
+    s3 = ' '.join(list(map(str,song2)))
+
+    s = r
+    s4 = s.replace('\n',' ')
+    return s3,s4
+
+def create_song6(L, fn_save, tempo=140):
+    degs = [60,62,64,65,67,69,71,72]
+    track = 0
+    channel = 0
+    time = 0
+    duration0 = 4 # beats
+    volume = 120 # 0-127    
+    m = MIDIFile(1)
+    m.addTempo(track, time, tempo)
+    d = [0]*len(degs)
+    for i in range(len(degs)):
+        d[i] = degs[i]
+    memory = [0]
+    memory[0] = 1
+    ctl = [13,14]
+    for i in range(len(L)):
+        tup = L[i]
+        #print(i, tup)
+        q,v,dur = tup
+        if dur in ctl:
+            duration = duration0
+        else:
+            duration = duration0*(1.0/dur)
+        if v in ctl:
+            pitch = 60
+            vol = 0
+            duration = 1/8
+            m.addNote(track,channel,pitch,
+                time, duration, vol)
+            time = time + duration
+            continue
+        pitch = d[(memory[0] + v + len(d))%len(d)]
+        memory[0] = v
+        vol = volume
+        #print((q,track,channel,pitch,
+        #    time, duration, vol))
+        m.addNote(track,channel,pitch,
+            time, duration, vol)
+        time = time + duration
+    with open(fn_save,"wb") as f:
+        m.writeFile(f)
+    return
+
+def demo6(m,r,
+        fn_save,
+        pattern="AAAA",
+        tempo = 60,
+        S = [],
+        length = 10,
+        I = 3,
+          ):
+    P = list(set(list(pattern)))
+    P.sort()
+    Q = list(pattern)
+    if len(S) != len(P):
+        print(f"|S| = {len(S)}, |P| = {len(P)}"+\
+              f" must be equal.")
+        print("Error: S must be provided a list of "+\
+              "[....(stem1,nstem1,stem2,nstem2).]")
+        return
+    m2,r2 = process6(m,r)
+    
+    melody = []
+    rhythm = []
+    d_music = {}
+    for i in range(len(P)):
+        d_music[P[i]] = []
+        stem1,stem2 = S[i]
+        nstem1 = len(stem1.split(' '))
+        nstem2 = len(stem2.split(' '))
+        N01 = nstem1
+        M1 = slm.SimpleLanguageModel(N=N01)
+        M1.train(m2)
+        
+        N02 = nstem2
+        M2 = slm.SimpleLanguageModel(N=N02)
+        M2.train(r2)
+        for j in range(I):
+            si1 = M1.predict(stem1,nwords=nstem1)
+            melody = list(map(int,si1.split(' ')))
+            si2 = M2.predict(stem2,nwords=nstem2)
+            rhythm = list(map(float,si2.split(' ')))
+            pat = [P[i]]*len(melody)
+            mus = list(zip(pat,melody,rhythm))
+            d_music[P[i]] = d_music[P[i]] + mus
+            #print()
+    print()
+    music = []
+    for q in Q:
+        music = music + d_music[q]
+    create_song6(music,fn_save, tempo)
+    return
+
