@@ -10,11 +10,11 @@ r = """
 13 4 4 4 4 8 8 8 8 8 8 8 8 16 16 16 16 14
 13 4 2.67 8 2.67 8  8 2.67 8 2.67 8 16 14
 """
-fn_save = "model7-001.mid" 
+fn_save = "model8-001.mid" 
 smm.demo6(m,r,
       fn_save,
-      pattern = "ABABACA",
-      tempo= 200,
+      pattern = "ABABACAA",
+      tempo= 120,
       # stem1 is the melody stem and stem2 is
       # the rhythm stem.
       #(stem1,stem2) for each unique
