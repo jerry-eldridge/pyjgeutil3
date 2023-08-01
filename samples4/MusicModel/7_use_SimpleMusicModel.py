@@ -15,6 +15,8 @@ smm.demo6(m,r,
       fn_save,
       pattern = "ABABACA",
       tempo= 200,
+      # stem1 is the melody stem and stem2 is
+      # the rhythm stem.
       #(stem1,stem2) for each unique
       #letter in the pattern in order, A, B, C
       # where nstem1 is number of tokens in stem1
