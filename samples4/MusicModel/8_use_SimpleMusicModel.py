@@ -156,15 +156,16 @@ r9 = """
 13 16 16 16 16 8 8 8 8 8 8 8 8 16 16 16 16 14
 """
 pattern_9 = "ABACADA"
-tempo_9_A = 120
-tempo_9_B = 100
-tempo_9_C = 180
-tempo_9_D = 130
+slow=50
+tempo_9_A = 120-slow
+tempo_9_B = 100-slow
+tempo_9_C = 180-slow
+tempo_9_D = 130-slow
 S_9_A = [("13 1 1 3","13 16 16 8 8 4",m9,r9,tempo_9_A)]
 S_9_B = [("13 1 3 3 1","4 8 4 8",m2,r9,
           tempo_9_B)]
 S_9_C = [("13 1 2 1","4 4 8",m4,r9,tempo_9_C)]
-S_9_D = [("13 1 1 2 2","8 8 8 8",m9,r9,tempo_9_C)]
+S_9_D = [("13 1 1 2 2","8 8 8 8",m9,r9,tempo_9_D)]
 # S_9 = A + B + C # alphabetic order
 S_9 = S_9_A + S_9_B + S_9_C + S_9_D
 
@@ -186,4 +187,4 @@ if flag3:
           length = 10,
           I = 3,
           )
-    #os.system(fn_save_9)
+    os.system(fn_save_9)
