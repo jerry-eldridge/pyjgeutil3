@@ -26,7 +26,7 @@ def process7(m,r):
     s = m
     s2 = s.replace('\n',' ')
     song = list(map(int,s2.strip().split(' ')))
-    ctl = [13,14]
+    ctl = [130,140]
     song2 = []
     memory = [1] # key
     for i in range(len(song)):
@@ -59,7 +59,7 @@ def create_song7(L, fn_save):
         d[i] = degs[i]
     memory = [0]
     memory[0] = 1
-    ctl = [13,14]
+    ctl = [130,140]
     for i in range(len(L)):
         tup = L[i]
         #print(i, tup)
@@ -148,7 +148,7 @@ def process8(m,r):
     s = m
     s2 = s.replace('\n',' ')
     song = list(map(int,s2.strip().split(' ')))
-    ctl = [13,14]
+    ctl = [130,140]
     song2 = []
     memory = [1] # key
     for i in range(len(song)):
@@ -181,7 +181,7 @@ def create_song8(L, fn_save):
         d[i] = degs[i]
     memory = [0]
     memory[0] = 1
-    ctl = [13,14]
+    ctl = [130,140]
     for i in range(len(L)):
         tup = L[i]
         #print(i, tup)
