@@ -12,3 +12,8 @@ files is to create a PlayList with model1-001.mid,
 model2-001.mid, model3-001.mid, model4-001.mid, etc, 
 and save it, and click on Playlists, optionally clicking
 the repeat button on play.
+
+There is also the free app from the Microsoft Store
+searching for "MIDI sheet music viewer" called MuseScore 3
+by MuseScore BVBA.
+
