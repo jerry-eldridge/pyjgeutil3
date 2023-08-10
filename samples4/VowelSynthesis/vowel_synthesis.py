@@ -8,6 +8,9 @@ import os
 
 from cmath import exp as expc
 
+#[1] https://en.wikipedia.org/wiki/Linear_predictive_coding
+#[2] https://en.wikipedia.org/wiki/Speech_synthesis
+
 # two-point form of line
 #
 # With x1 -> y1 and x2 -> y2, given x, return y using linear map
@@ -59,18 +62,24 @@ chunk = 1024 # number of bytes to sample at a time
 fft_freq = lambda i: 1.0*sampling_rate*i/chunk
 dt = 1/sampling_rate # time increment
 
-# [1] Flanagan, J. L, "Some Properties of the Glottal
+# [3] Flanagan, J. L, "Some Properties of the Glottal
 # Sound Source", J. Sp. Hrng. Dis., 1, 1958, 99-116
 # t is seconds and u(t) is volume flow in
 # cm**3 per second. volume flow of air through
 # the glottis per second from lungs to lips.
-# [2] Willard R. Zemlin, "Speech and Hearing Science:
+# [4] Willard R. Zemlin, "Speech and Hearing Science:
 # Anatomy and Physiology", Fourth Ed., Allyn and
 # Bacon, 1997, pg 295-302
 
-# (glottal area and derived volume velocity. [1]
+# [5] Ray D. Kent, Charles Read, "The Acoustic Analysis of Speech",
+#Singular Publishing Group, Inc, 1992
+
+# [6] Alan V. Oppenheim, Ronald W. Schafer, "Discrete-Time Signal
+#Processing", Prentice-Hall, 1989
+
+# (glottal area and derived volume velocity. [3]
 # Flanagan, 1958). We approximate with line segments
-# below the u(t) curve. [2] We also add a modification
+# below the u(t) curve. [4] We also add a modification
 # so that freq0 = 124 Hz could be used or some
 # other frequency but this modifies Flanagan to
 # unknown interpretation.
