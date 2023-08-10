@@ -1,0 +1,118 @@
+Python 3.11.3 (tags/v3.11.3:f3909b8, Apr  4 2023, 23:49:59) [MSC v.1934 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+
+= RESTART: C:\Users\jerry\Desktop\projects1\FindRhythm\audio_clf\5_get_musical_note.py
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sad.wav"
+  0.9290022675736962,"D6 A5 C5","Ftup(F1=1204, V1=1171, F2=464, V2=1856, F3=547, V3=3182)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/said.wav"
+  0.9289909297052155,"D#4 A5 F#5","Ftup(F1=323, V1=1184, F2=464, V2=2147, F3=765, V3=3388)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/say.wav"
+  0.8820068027210884,"A6 G#6 C#5","Ftup(F1=917, V1=1796, F2=1678, V2=2610, F3=567, V3=4050)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/seat.wav"
+  0.27850340136054424,"A2 B4 E4","Ftup(F1=58, V1=324, F2=250, V2=2558, F3=330, V3=2930)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sewed.wav"
+  0.7430045351473923,"E5 A6 A#6","Ftup(F1=694, V1=1162, F2=907, V2=2139, F3=939, V3=3117)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sight.wav"
+  0.6965079365079365,"G#3 E5 A#5","Ftup(F1=217, V1=1730, F2=698, V2=2903, F3=485, V3=3972)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sit.wav"
+  0.8595011337868481,"A6 A6 A6","Ftup(F1=884, V1=1240, F2=930, V2=2032, F3=921, V3=3257)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sod.wav"
+  1.3469954648526077,"G5 F#5 E5","Ftup(F1=812, V1=1192, F2=772, V2=1976, F3=680, V3=3185)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/soot.wav"
+  0.7664965986394557,"C5 C#5 A#6","Ftup(F1=542, V1=1075, F2=559, V2=2207, F3=939, V3=3153)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sought.wav"
+  0.7429931972789116,"C#4 D#5 G#4","Ftup(F1=282, V1=1119, F2=654, V2=2247, F3=434, V3=3315)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/south.wav"
+  0.6504988662131519,"C5 F#6 F#5","Ftup(F1=536, V1=1066, F2=1525, V2=2268, F3=761, V3=3155)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/soy.wav"
+  1.299002267573696,"G#6 A6 F#6","Ftup(F1=1758, V1=1421, F2=884, V2=2524, F3=1528, V3=3876)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/suds.wav"
+  0.3015079365079365,"D#3 E2 A4","Ftup(F1=158, V1=578, F2=87, V2=1519, F3=221, V3=3049)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/suit.wav"
+  0.20900226757369614,"G#2 F4 G#4","Ftup(F1=108, V1=243, F2=351, V2=1495, F3=424, V3=3093)"
+
+====================
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sad.wav"
+  0.4645011337868481,"C#5 D4 G4","Ftup(F1=560, V1=142, F2=308, V2=1722, F3=394, V3=3052)"
+  0.9290022675736962,"D6 A5 C5","Ftup(F1=1204, V1=1171, F2=464, V2=1856, F3=547, V3=3182)"
+  1.3935034013605443,"C5 C6 A7","Ftup(F1=532, V1=1340, F2=1098, V2=2601, F3=1768, V3=3817)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/said.wav"
+  0.46449546485260773,"A#5 D#5 C#5","Ftup(F1=491, V1=142, F2=642, V2=1571, F3=586, V3=2823)"
+  0.9289909297052155,"D#4 A5 F#5","Ftup(F1=323, V1=1184, F2=464, V2=2147, F3=765, V3=3388)"
+  1.393486394557823,"F#4 C5 D5","Ftup(F1=386, V1=1153, F2=554, V2=2234, F3=600, V3=3545)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/say.wav"
+  0.4410034013605442,"E5 G#5 B4","Ftup(F1=683, V1=1226, F2=855, V2=2405, F3=258, V3=3475)"
+  0.8820068027210884,"A6 G#6 C#5","Ftup(F1=917, V1=1796, F2=1678, V2=2610, F3=567, V3=4050)"
+  1.3230102040816327,"C5 C6 C6","Ftup(F1=539, V1=1180, F2=1086, V2=2291, F3=1051, V3=3309)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/seat.wav"
+  0.13925170068027212,"D#7 F5 A#6","Ftup(F1=2495, V1=1555, F2=701, V2=1910, F3=944, V3=3642)"
+  0.27850340136054424,"A2 B4 E4","Ftup(F1=58, V1=324, F2=250, V2=2558, F3=330, V3=2930)"
+  0.41775510204081634,"G5 A4 F#4","Ftup(F1=823, V1=1706, F2=232, V2=2862, F3=385, V3=3994)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sewed.wav"
+  0.37150226757369614,"A3 D6 F#3","Ftup(F1=115, V1=354, F2=1175, V2=883, F3=192, V3=2976)"
+  0.7430045351473923,"E5 A6 A#6","Ftup(F1=694, V1=1162, F2=907, V2=2139, F3=939, V3=3117)"
+  1.1145068027210885,"C5 G4 D5","Ftup(F1=528, V1=1255, F2=402, V2=2028, F3=617, V3=3417)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sight.wav"
+  0.34825396825396826,"D5 F#5 B5","Ftup(F1=613, V1=613, F2=780, V2=2128, F3=510, V3=3211)"
+  0.6965079365079365,"G#3 E5 A#5","Ftup(F1=217, V1=1730, F2=698, V2=2903, F3=485, V3=3972)"
+  1.0447619047619048,"F5 F5 A6","Ftup(F1=714, V1=1166, F2=721, V2=2010, F3=894, V3=3282)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sit.wav"
+  0.42975056689342406,"C6 B6 G5","Ftup(F1=1056, V1=1065, F2=997, V2=2070, F3=814, V3=3200)"
+  0.8595011337868481,"A6 A6 A6","Ftup(F1=884, V1=1240, F2=930, V2=2032, F3=921, V3=3257)"
+  1.2892517006802722,"A#5 G5 C#6","Ftup(F1=468, V1=1205, F2=798, V2=2312, F3=1113, V3=3614)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sod.wav"
+  0.6734977324263038,"F#5 E4 E3","Ftup(F1=779, V1=754, F2=336, V2=1837, F3=166, V3=3187)"
+  1.3469954648526077,"G5 F#5 E5","Ftup(F1=812, V1=1192, F2=772, V2=1976, F3=680, V3=3185)"
+  2.0204931972789115,"G4 E5 E5","Ftup(F1=404, V1=1128, F2=691, V2=2196, F3=672, V3=3316)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/soot.wav"
+  0.38324829931972787,"C5 C6 A#6","Ftup(F1=528, V1=1017, F2=1078, V2=2165, F3=941, V3=3259)"
+  0.7664965986394557,"C5 C#5 A#6","Ftup(F1=542, V1=1075, F2=559, V2=2207, F3=939, V3=3153)"
+  1.1497448979591836,"F#5 B6 A#6","Ftup(F1=780, V1=992, F2=998, V2=2174, F3=982, V3=3435)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/sought.wav"
+  0.3714965986394558,"G5 D#4 D5","Ftup(F1=792, V1=319, F2=317, V2=1300, F3=610, V3=3157)"
+  0.7429931972789116,"C#4 D#5 G#4","Ftup(F1=282, V1=1119, F2=654, V2=2247, F3=434, V3=3315)"
+  1.1144897959183673,"G5 C5 D5","Ftup(F1=814, V1=1061, F2=548, V2=1987, F3=612, V3=3276)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/south.wav"
+  0.32524943310657595,"A5 B6 E4","Ftup(F1=464, V1=864, F2=997, V2=2333, F3=331, V3=3498)"
+  0.6504988662131519,"C5 F#6 F#5","Ftup(F1=536, V1=1066, F2=1525, V2=2268, F3=761, V3=3155)"
+  0.9757482993197278,"B7 G#5 C5","Ftup(F1=2087, V1=761, F2=874, V2=1863, F3=551, V3=3137)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/soy.wav"
+  0.649501133786848,"C7 B6 A6","Ftup(F1=2144, V1=1239, F2=1013, V2=2012, F3=880, V3=3383)"
+  1.299002267573696,"G#6 A6 F#6","Ftup(F1=1758, V1=1421, F2=884, V2=2524, F3=1528, V3=3876)"
+  1.948503401360544,"C#5 G5 D5","Ftup(F1=578, V1=1166, F2=797, V2=2148, F3=605, V3=3541)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/suds.wav"
+  0.15075396825396825,"A#3 F3 A5","Ftup(F1=120, V1=569, F2=184, V2=1296, F3=463, V3=2919)"
+  0.3015079365079365,"D#3 E2 A4","Ftup(F1=158, V1=578, F2=87, V2=1519, F3=221, V3=3049)"
+  0.45226190476190475,"C#5 B6 C#6","Ftup(F1=572, V1=1585, F2=1020, V2=2803, F3=1127, V3=4333)"
+
+fn = "C:/Users/jerry/Desktop/AUDIO/JGE_parker_vowels/suit.wav"
+  0.10450113378684807,"G-1 C#4 C#3","Ftup(F1=6, V1=407, F2=287, V2=1706, F3=146, V3=2864)"
+  0.20900226757369614,"G#2 F4 G#4","Ftup(F1=108, V1=243, F2=351, V2=1495, F3=424, V3=3093)"
+  0.3135034013605442,"G#3 G4 B5","Ftup(F1=219, V1=1138, F2=395, V2=2131, F3=508, V3=3203)"
+
+====================
