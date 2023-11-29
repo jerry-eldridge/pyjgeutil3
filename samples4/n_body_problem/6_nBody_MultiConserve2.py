@@ -163,7 +163,7 @@ def H0(L):
 # conserved quantity
 
 def H(L):
-    return np.linalg.norm(H0(L)-H0_y0)**2
+    return np.linalg.norm(H0(L)-H0_y0)**2+100
 
 #
 # initial conditions y0 = [x0,x1,x2,p0,p1,p2].
@@ -189,7 +189,7 @@ H0_y0 = H0(y0)
 
 tmin = 0 # start time
 tmax = 10 # end time
-dt = .004 # time increment
+dt = .01 # time increment
 sim(tmin,tmax,y0,dt,verbose=True)
 #
 ##############################################
