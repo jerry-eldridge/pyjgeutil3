@@ -148,9 +148,10 @@ def H0(L):
         E = E + E_i
     # add attraction potential between X[0] and X[1]
     # to total energy
-
+    E = E + V(X[0],X[1],m[0],m[1])
+    
     # conserve total energy val
-    val1 = [E + V(X[0],X[1],m[0],m[1])]
+    val1 = [E]
 
     # conserve momentum
     val2 = list(sum(P).flatten())
