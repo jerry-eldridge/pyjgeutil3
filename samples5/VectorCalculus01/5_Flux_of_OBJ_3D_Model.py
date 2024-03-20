@@ -258,46 +258,46 @@ class Container_3D_Object:
         flx = flux_obj(F,self.G)/(4*pi)
         return flx    
 
-# Describe containers
-# Container A
-C_A = [10,3,4]
-C_B = [20,1,3] 
-A = Container(center=C_A,
-              radius=3)
-B = Container(center=C_B,
-              radius=4)
-
-tmin = 0
-tmax = 1
-N = 10
-dx = dist(C_A,C_B)/N
-dt = 1/N
-t = tmin
-# transport quantity qty from center A.C to center B.C
-curve = lambda t: lerp(A.C,B.C,t)
-qty = 10
-while t < tmax:
-    F = F_helper(curve(t),qty)
-    flx_A = A.qty(F)
-    flx_B = B.qty(F)
-    print(f"t = {t}, flx_A = {flx_A}, flx_B = {flx_B}")
-    t = t + dt
-
-#### This is a sphere translated to t = [0,0,50] of
-#### radius r = 20.
-
-##fn_obj_1 = BIGDATA + "Sphere-01.obj"
-##A = Container_3D_Object(fn_obj_1)
-##A.create()
-##AC = A.C
+### Describe containers
+### Container A
+##C_A = [10,3,4]
+##C_B = [20,1,3] 
+##A = Container(center=C_A,
+##              radius=3)
+##B = Container(center=C_B,
+##              radius=4)
 ##
-##def F(r):
-##    x,y,z = r
-##    v = [x*sin(y),x*cos(y),z]
-##    return v
-##
-##flx = A.flux(F)
-##print(f"flux(F) = {flx}")
+##tmin = 0
+##tmax = 1
+##N = 10
+##dx = dist(C_A,C_B)/N
+##dt = 1/N
+##t = tmin
+### transport quantity qty from center A.C to center B.C
+##curve = lambda t: lerp(A.C,B.C,t)
+##qty = 10
+##while t < tmax:
+##    F = F_helper(curve(t),qty)
+##    flx_A = A.qty(F)
+##    flx_B = B.qty(F)
+##    print(f"t = {t}, flx_A = {flx_A}, flx_B = {flx_B}")
+##    t = t + dt
+
+# This is a sphere translated to t = [0,0,50] of
+# radius r = 20.
+
+fn_obj_1 = BIGDATA + "Sphere-01.obj"
+A = Container_3D_Object(fn_obj_1)
+A.create()
+AC = A.C
+
+def F(r):
+    x,y,z = r
+    v = [10*cos(y),10*sin(y), 50]
+    return v
+
+flx = A.flux(F)
+print(f"flux(F) = {flx}")
 
 
 
