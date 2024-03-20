@@ -221,10 +221,14 @@ def flux_obj(F,G_object):
 
 def F_helper(ri,amount):
     def G(r):
+        epsilon = 1e-8
         v = np.array(r) - np.array(ri)
         v_mag = np.linalg.norm(v)
-        v_hat = v/v_mag
-        w = amount*v_hat/v_mag**2
+        if abs(v_mag) > epsilon:
+            v_hat = v/v_mag
+            w = amount*v_hat/v_mag**2
+        else:
+            w = amount*v
         return w
     return G
 
