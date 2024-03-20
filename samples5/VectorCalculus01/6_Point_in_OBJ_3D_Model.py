@@ -9,8 +9,8 @@ A = vc.Container_3D_Object(fn_obj_1)
 A.create()
 AC = A.C
 
-A1 = [0,0,-500]
-A2 = [0,0,500]
+A1 = [0,0,-100]
+A2 = [0,0,150]
 amount = 1000
 tmin = 0
 tmax = 1
