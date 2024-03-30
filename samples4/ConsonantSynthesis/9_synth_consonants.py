@@ -272,7 +272,7 @@ if flag_vowel:
                  fn_save=fn_save_key,
                  freq = freq0,
                  vocal_range = vocal_range0,
-                 fn_spec_save = "20230810-vowel",
+                 fn_spec_save = f"./20230810-vowel.wav",
                  plot=False,
                  create=True)
             #Plot(c=0,key=key)
@@ -332,7 +332,7 @@ if flag_vowel:
                 song0 = pydub.AudioSegment.from_wav(fn_save_key)
                 song = song + song0
             if song is not None:
-                song.export(root+"/speech_synth_03.mp3",format="mp3")
+                song.export(root+"/speech_synth_03.wav",format="wav")
 
 flag_plot_spec = True
 if flag_plot_spec:
