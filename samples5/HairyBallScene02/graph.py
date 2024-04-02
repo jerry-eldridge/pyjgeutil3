@@ -23,18 +23,18 @@ def Degree(doc,v):
     return len(Adj(doc,v))
 
 def Adj(doc,i):
-    """
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V. root is a vertex
-    in V. Eg,
-
-    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-
-    This creates a list of all vertices adjacent to vertex
-    i, incoming or outgoing together in a list.
-    """
+##    """
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V. root is a vertex
+##    in V. Eg,
+##
+##    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##
+##    This creates a list of all vertices adjacent to vertex
+##    i, incoming or outgoing together in a list.
+##    """
     V = doc['V']
     E = doc['E']
     adj = []
@@ -49,19 +49,19 @@ def Adj(doc,i):
     return adj
 
 def permute_in_place(a):
-    """
-http://stackoverflow.com/questions/104420/
-how-to-generate-all-permutations-of-a-list-in-python
-
-This calculates permutations without a memory error, but
-still takes a while when computing n! > threshold amount
-of permutations. The alternate method is:
-
-    import itertools
-    L = list(itertools.permutations(range(n1),n1))
-
-which will run out of memory for n1! large.
-    """
+##    """
+##http://stackoverflow.com/questions/104420/
+##how-to-generate-all-permutations-of-a-list-in-python
+##
+##This calculates permutations without a memory error, but
+##still takes a while when computing n! > threshold amount
+##of permutations. The alternate method is:
+##
+##    import itertools
+##    L = list(itertools.permutations(range(n1),n1))
+##
+##which will run out of memory for n1! large.
+##    """
     a.sort()
     yield list(a)
     if len(a) <= 1:
@@ -144,12 +144,12 @@ def Isomorphic(doc1,doc2):
 
 
 def AdjMatrix(doc):
-    """
-    AdjMatrix(doc) - returns the adjacency matrix
-    of a graph document doc. Uses the Numpy library for
-    array,zeros. If [u,v] in E, then A[u,v] for
-    A = AdjMatrix(doc) where E = doc["E"] and V = doc["V"].
-    """
+##    """
+##    AdjMatrix(doc) - returns the adjacency matrix
+##    of a graph document doc. Uses the Numpy library for
+##    array,zeros. If [u,v] in E, then A[u,v] for
+##    A = AdjMatrix(doc) where E = doc["E"] and V = doc["V"].
+##    """
     from numpy import array,zeros
     V = doc["V"]
     E = doc["E"]
@@ -175,9 +175,9 @@ def GraphFromAdj(A):
     return doc
 
 def GraphPow(doc,k):
-    """
-    The graph power G**n for the graph G in graph document doc
-    """
+##    """
+##    The graph power G**n for the graph G in graph document doc
+##    """
     from numpy import array,identity,zeros
     A = AdjMatrix(doc)
     N = A.shape[0]
@@ -202,14 +202,14 @@ def PathEdges(path):
     return L
 
 def LookupEdge(doc,e):
-    """
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V.  Eg,
-
-    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-    """
+##    """
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V.  Eg,
+##
+##    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##    """
     V = doc['V']
     E = doc['E']
     i = 0
@@ -329,16 +329,16 @@ def SubgraphVPseudo(G,S):
     return G2
 
 def SubgraphV(doc,S):
-    """
-    Subgraph of doc induced by list S of vertices subset of V.
-
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V.  Eg,
-
-    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-    """
+##    """
+##    Subgraph of doc induced by list S of vertices subset of V.
+##
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V.  Eg,
+##
+##    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##    """
     doc2 = deepcopy(doc)
     V = doc2['V']
     E = doc2['E']
@@ -409,51 +409,51 @@ def DeleteVertices(doc,S):
     return G
 
 def SubgraphE(doc,S):
-    """
-    Subgraph of doc induced by list E of edges subset of E.
-
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V.
-
-    Eg,
-
-    from graph import SubgraphV, SubgraphE, PathEdges
-    from a_star_doc import A_star
-
-    doc2 = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-
-    SV = [0,1,3]
-    start = 0
-    goal = 2
-    SE = PathEdges(A_star(doc2,start,goal))
-    # the subgraph relabels the vertex indices
-    # but keeps a subgraph to graph function for V and E
-    subgraph = SubgraphV(doc2,SV)
-
-    # The list L defines a function i -> L[i] where i
-    # is an index in subgraph and L[i] is an index in graph
-    print subgraph['subgraph_to_graph_V']
-    print subgraph['subgraph_to_graph_E']
-
-    L = subgraph['subgraph_to_graph_V']
-    subgraph['labels'] = [0]*len(L)
-    for i in range(len(L)):
-        subgraph['labels'][i] = str(i)+","+str(L[i])
-    L = subgraph['subgraph_to_graph_E']
-    subgraph['Enames'] = ['']*len(L)
-    for i in range(len(L)):
-        w = int(round(doc2['weights'][L[i]]))
-        subgraph['Enames'][i] = str(w)
-
-`   from plot_graph import Show,Plot,End
-    h = w = 800
-    im1 = ones((h,w,3),dtype='uint8')*255
-    im1 = Plot(im1,subgraph)
-    ch = Show("result",im1,-1)
-    End()
-    """
+##    """
+##    Subgraph of doc induced by list E of edges subset of E.
+##
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V.
+##
+##    Eg,
+##
+##    from graph import SubgraphV, SubgraphE, PathEdges
+##    from a_star_doc import A_star
+##
+##    doc2 = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##
+##    SV = [0,1,3]
+##    start = 0
+##    goal = 2
+##    SE = PathEdges(A_star(doc2,start,goal))
+##    # the subgraph relabels the vertex indices
+##    # but keeps a subgraph to graph function for V and E
+##    subgraph = SubgraphV(doc2,SV)
+##
+##    # The list L defines a function i -> L[i] where i
+##    # is an index in subgraph and L[i] is an index in graph
+##    print subgraph['subgraph_to_graph_V']
+##    print subgraph['subgraph_to_graph_E']
+##
+##    L = subgraph['subgraph_to_graph_V']
+##    subgraph['labels'] = [0]*len(L)
+##    for i in range(len(L)):
+##        subgraph['labels'][i] = str(i)+","+str(L[i])
+##    L = subgraph['subgraph_to_graph_E']
+##    subgraph['Enames'] = ['']*len(L)
+##    for i in range(len(L)):
+##        w = int(round(doc2['weights'][L[i]]))
+##        subgraph['Enames'][i] = str(w)
+##
+##`   from plot_graph import Show,Plot,End
+##    h = w = 800
+##    im1 = ones((h,w,3),dtype='uint8')*255
+##    im1 = Plot(im1,subgraph)
+##    ch = Show("result",im1,-1)
+##    End()
+##    """
     V = doc['V']
     E = doc['E']
     pts = doc['pts']
@@ -525,17 +525,17 @@ def SubgraphE(doc,S):
     return doc2
 
 def AddVertex(doc):
-    """
-    Add a vertex to graph document. We assume
-    that doc["V"] is just range(n) for n = |V|.
-    If you want to store non-indices as vertices,
-    create a doc["objects"][i] to store the i-th
-    object.
-
-    doc2,n = AddVertex(doc)
-
-    where n is the new vertex index
-    """
+##    """
+##    Add a vertex to graph document. We assume
+##    that doc["V"] is just range(n) for n = |V|.
+##    If you want to store non-indices as vertices,
+##    create a doc["objects"][i] to store the i-th
+##    object.
+##
+##    doc2,n = AddVertex(doc)
+##
+##    where n is the new vertex index
+##    """
     doc2 = deepcopy(doc)
     V = doc2["V"]
     n = len(V)
@@ -543,9 +543,9 @@ def AddVertex(doc):
     return doc2,n
 
 def AddEdge(doc,e):
-    """
-    Adds an undirected edge [u,v] to graph document
-    """
+##    """
+##    Adds an undirected edge [u,v] to graph document
+##    """
     doc2 = deepcopy(doc)
     E = doc2["E"]
     E.append(e)
@@ -606,19 +606,19 @@ def ContractEdge(doc,e):
     return doc3
 
 def GraphProduct(doc1,doc2):
-    """
-    [Bondy,Murty] Graph Theory with Applications,
-    North-Holland, 1976
-
-    The product of simple graphs G and H is the simple
-    graph G x H with vertex set V(G) x V(H) ('x' cartesian
-    product) in which (u,v) is adjacent to (u',v') if and only
-    if u = u' and [v,v'] in E(H), or v = v' and [u,u']
-    in E(G).
-
-    A simple graph is a graph with no loops [u,u] or
-    two parallel edges [u,v] and [u,v] both in E.
-    """
+##    """
+##    [Bondy,Murty] Graph Theory with Applications,
+##    North-Holland, 1976
+##
+##    The product of simple graphs G and H is the simple
+##    graph G x H with vertex set V(G) x V(H) ('x' cartesian
+##    product) in which (u,v) is adjacent to (u',v') if and only
+##    if u = u' and [v,v'] in E(H), or v = v' and [u,u']
+##    in E(G).
+##
+##    A simple graph is a graph with no loops [u,u] or
+##    two parallel edges [u,v] and [u,v] both in E.
+##    """
     Obj = []
     for el in itertools.product(doc1["V"],doc2["V"]):
         Obj.append(el)
@@ -645,28 +645,28 @@ def GraphProduct(doc1,doc2):
     return doc
 
 def ExtrudeGraph(doc):
-    """
-    Extrude Graph by Multiplying a single edge with the
-    doc: doc2 = edge x doc, with doc2["object"] and vertices
-    ordered so that (0,doc) and (1,doc) are copies of doc
-    and corresponding vertices are edges from (0,doc) and (1,doc).
-    """
+##    """
+##    Extrude Graph by Multiplying a single edge with the
+##    doc: doc2 = edge x doc, with doc2["object"] and vertices
+##    ordered so that (0,doc) and (1,doc) are copies of doc
+##    and corresponding vertices are edges from (0,doc) and (1,doc).
+##    """
     doc1 = {"V":list(range(2)),"E":PathEdges(list(range(2)))}
     doc2 = GraphProduct(doc1,doc)
     return doc2
 
 def ExtrudeVertices(doc,S):
-    """
-    Extrude Vertices using ExtrudeGraph, we assume that
-    ExtrudeGraph has doc2 = edge x doc producing (0,doc) and
-    (1,doc) and edges between corresponding vertices. We
-    obtain the subgraph for vertex set T for u,v in doc2["object"]
-    such that (u == 1 and (v in S)) or (u==0) and lookup vertex
-    index for obj = (u,v). In other words, we remove all vertices
-    of (1,doc) that aren't in S. We use
-    doc2 = graph.SubgraphV(doc1,T) for doc1 = ExtrudeGraph(doc)
-    and T defined above.
-    """
+##    """
+##    Extrude Vertices using ExtrudeGraph, we assume that
+##    ExtrudeGraph has doc2 = edge x doc producing (0,doc) and
+##    (1,doc) and edges between corresponding vertices. We
+##    obtain the subgraph for vertex set T for u,v in doc2["object"]
+##    such that (u == 1 and (v in S)) or (u==0) and lookup vertex
+##    index for obj = (u,v). In other words, we remove all vertices
+##    of (1,doc) that aren't in S. We use
+##    doc2 = graph.SubgraphV(doc1,T) for doc1 = ExtrudeGraph(doc)
+##    and T defined above.
+##    """
     def LookupObj(Obj,v):
         i = 0
         for obj in Obj:
@@ -700,9 +700,9 @@ def CreateCircleGeometry(doc,cx,cy,cz,r):
     return doc2
 
 def Cn(N=3):
-    """
-    https://en.wikipedia.org/wiki/Cycle_graph
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Cycle_graph
+##    """
     if N < 3:
         print("Error: Cycle must have at least 3 vertices")
         return {}
@@ -710,34 +710,34 @@ def Cn(N=3):
     return doc
 
 def Pn(N):
-    """
-    https://en.wikipedia.org/wiki/Path_graph
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Path_graph
+##    """
     doc = {}
     doc["V"] = list(range(N))
     doc["E"] = PathEdges(list(range(N)))
     return doc
 
 def KProduct(doc1,doc2):
-    """
-    KProduct - this is a stub function. For two graph documents,
-    it is create a graph document from V = doc1["V"] \/ doc2["V"]
-    and add edges [u,v] for u in doc1["V"] and for v in doc2["V"]
-    """
+##    """
+##    KProduct - this is a stub function. For two graph documents,
+##    it is create a graph document from V = doc1["V"] \/ doc2["V"]
+##    and add edges [u,v] for u in doc1["V"] and for v in doc2["V"]
+##    """
     doc = {}
     return doc
 
 def MergeTwoVertices(doc,u,v):
-    """
-    MergeTwoVertices(doc,u,v) - will glue two vertices u and
-    v together.
-
-    Creates a graph document doc where vertices u and v
-    in doc["V"] are merged.
-
-    It creates an edge [u,v] if not already in document
-    and then contracts it.
-    """
+##    """
+##    MergeTwoVertices(doc,u,v) - will glue two vertices u and
+##    v together.
+##
+##    Creates a graph document doc where vertices u and v
+##    in doc["V"] are merged.
+##
+##    It creates an edge [u,v] if not already in document
+##    and then contracts it.
+##    """
     doc1 = deepcopy(doc)
     V = doc1["V"]
     E = doc1["E"]
@@ -747,18 +747,18 @@ def MergeTwoVertices(doc,u,v):
     return ContractEdge(doc1,[u,v])
 
 def MergeEdge(doc,e1,e2):
-    """
-    MergeEdge(doc,e1,e2) - will glue two edges e1 and e2
-    together.
-
-    For e1 and e2 in doc["E"], and u1,v1 = e1 and
-    u2,v2 = e2, then do
-
-    doc1 = MergeTwoVertices(doc,u1,u2)
-    doc2 = MergeTwoVertices(doc1,v1,v2)
-
-    and return doc2
-    """
+##    """
+##    MergeEdge(doc,e1,e2) - will glue two edges e1 and e2
+##    together.
+##
+##    For e1 and e2 in doc["E"], and u1,v1 = e1 and
+##    u2,v2 = e2, then do
+##
+##    doc1 = MergeTwoVertices(doc,u1,u2)
+##    doc2 = MergeTwoVertices(doc1,v1,v2)
+##
+##    and return doc2
+##    """
     u1,v1 = e1
     u2,v2 = e2
     doc1 = MergeTwoVertices(doc,u1,u2)
@@ -766,16 +766,16 @@ def MergeEdge(doc,e1,e2):
     return doc2
 
 def MergeVertices(doc,S):
-    """
-    MergeVertices(doc,S) - will glue all vertices from
-    S together.
-
-    For a graph document doc and vertex set S,
-    merge all the vertices in S to one vertex.
-
-    Edited 6/30/2015 to sort S so that when merging,
-    highest labels are merged first.
-    """
+##    """
+##    MergeVertices(doc,S) - will glue all vertices from
+##    S together.
+##
+##    For a graph document doc and vertex set S,
+##    merge all the vertices in S to one vertex.
+##
+##    Edited 6/30/2015 to sort S so that when merging,
+##    highest labels are merged first.
+##    """
     doc1 = deepcopy(doc)
     if len(S) < 2:
         return doc1
@@ -789,20 +789,20 @@ def MergeVertices(doc,S):
     return doc1
 
 def MergeEdges(doc,ES):
-    """
-    MergeEdges(doc,ES) - will glue all edges in ES,
-    keeping ordering, together.
-
-    For a set of edges ES named [ui,vi], two
-    lists S1 = [ui] and S2 = [vi] for i in
-    range(len(ES)). Then do
-
-    doc1 = deepcopy(doc)
-    doc1 = MergeVertices(doc1,S1)
-    doc1 = MergeVertices(doc1,S2)
-
-    and return doc1
-    """
+##    """
+##    MergeEdges(doc,ES) - will glue all edges in ES,
+##    keeping ordering, together.
+##
+##    For a set of edges ES named [ui,vi], two
+##    lists S1 = [ui] and S2 = [vi] for i in
+##    range(len(ES)). Then do
+##
+##    doc1 = deepcopy(doc)
+##    doc1 = MergeVertices(doc1,S1)
+##    doc1 = MergeVertices(doc1,S2)
+##
+##    and return doc1
+##    """
     doc1 = deepcopy(doc)
     S1 = []
     S2 = []
@@ -816,17 +816,17 @@ def MergeEdges(doc,ES):
 
 
 def InAdj(doc,i):
-    """
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V. root is a vertex
-    in V. Eg,
-
-    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-
-    add incoming-vertices to vertex i to list adj
-    """
+##    """
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V. root is a vertex
+##    in V. Eg,
+##
+##    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##
+##    add incoming-vertices to vertex i to list adj
+##    """
     V = doc['V']
     E = doc['E']
     adj = []
@@ -838,17 +838,17 @@ def InAdj(doc,i):
     return adj
 
 def OutAdj(doc,i):
-    """
-    doc is an associative array with keys 'V' and 'E'
-    containing a graph's vertices and edges. Vertices
-    have values from 0 to len(V)-1 and edges are a list of
-    list pairs [u,v] where u,v are in V. root is a vertex
-    in V. Eg,
-
-    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
-
-    add outgoing-vertices to vertex i to list adj
-    """
+##    """
+##    doc is an associative array with keys 'V' and 'E'
+##    containing a graph's vertices and edges. Vertices
+##    have values from 0 to len(V)-1 and edges are a list of
+##    list pairs [u,v] where u,v are in V. root is a vertex
+##    in V. Eg,
+##
+##    doc = {'V':[0,1,2,3],'E':[[2,1],[0,3],[2,3],[3,1]]}
+##
+##    add outgoing-vertices to vertex i to list adj
+##    """
     V = doc['V']
     E = doc['E']
     adj = []
@@ -860,19 +860,19 @@ def OutAdj(doc,i):
     return adj
 
 def SplitVertex(doc,u):
-    """
-    SplitVertex(doc,u) - this tries to be the inverse
-    of edge contraction for [u,u'] though isn't.
-
-    For vertex u, add a new vertex u' not in graph doc
-    and for v in InAdj(doc,u) add edges [v,u'] and
-    for v in OutAdj(doc,u) add edges [u',v'] to a new
-    graph document doc1.
-
-    It adds u' =  len(doc["V"]) as the vertex.
-
-    doc1,u' = SplitVertex(doc,u)
-    """
+##    """
+##    SplitVertex(doc,u) - this tries to be the inverse
+##    of edge contraction for [u,u'] though isn't.
+##
+##    For vertex u, add a new vertex u' not in graph doc
+##    and for v in InAdj(doc,u) add edges [v,u'] and
+##    for v in OutAdj(doc,u) add edges [u',v'] to a new
+##    graph document doc1.
+##
+##    It adds u' =  len(doc["V"]) as the vertex.
+##
+##    doc1,u' = SplitVertex(doc,u)
+##    """
     doc1 = deepcopy(doc)
     n = len(doc1["V"])
     in_neigh = InAdj(doc, u)
@@ -890,13 +890,13 @@ def SplitVertex(doc,u):
     return doc1,u2
 
 def SplitEdge(doc,e):
-    """
-    For an edge e = u,v in doc["E"], do
-    doc1 = deepcopy(doc)
-    doc1,u' = SplitVertex(doc1,u) and
-    doc1,v' = SplitVertex(doc1,v)
-    returning doc1,e' for e' = [u',v'].
-    """
+##    """
+##    For an edge e = u,v in doc["E"], do
+##    doc1 = deepcopy(doc)
+##    doc1,u' = SplitVertex(doc1,u) and
+##    doc1,v' = SplitVertex(doc1,v)
+##    returning doc1,e' for e' = [u',v'].
+##    """
     u,v = e
     doc1 = deepcopy(doc)
     doc1,up = SplitVertex(doc1,u)
@@ -935,13 +935,13 @@ def Complement(doc):
     return doc1
 
 def LexOrder(doc):
-    """
-    We assume that V is just range(n)
-    for n = |V|. If you want to have
-    different numbers for V, then use
-    a doc["V_elem"] or other name to denote
-    the elements of V.
-    """
+##    """
+##    We assume that V is just range(n)
+##    for n = |V|. If you want to have
+##    different numbers for V, then use
+##    a doc["V_elem"] or other name to denote
+##    the elements of V.
+##    """
     doc1 = deepcopy(doc)
     V = list(range(len(doc["V"])))
     E = doc["E"]
@@ -954,10 +954,10 @@ def LexOrder(doc):
     return doc1
 
 def Kn(n):
-    """
-    Complete graph Kn on n vertices.
-    https://en.wikipedia.org/wiki/Complete_graph
-    """
+##    """
+##    Complete graph Kn on n vertices.
+##    https://en.wikipedia.org/wiki/Complete_graph
+##    """
     doc = {}
     doc["V"] = list(range(n))
     E = []
@@ -970,10 +970,10 @@ def Kn(n):
     return doc
 
 def Sk(n):
-    """
-    Star Graph Sk
-    https://en.wikipedia.org/wiki/Star_(graph_theory)
-    """
+##    """
+##    Star Graph Sk
+##    https://en.wikipedia.org/wiki/Star_(graph_theory)
+##    """
     doc = {}
     V = list(range(n))
     E = []
@@ -987,42 +987,42 @@ def Sk(n):
     return doc
 
 def Bp(p):
-    """
-    https://en.wikipedia.org/wiki/Book_(graph_theory)
-    There are p pages of the book with only
-    the corners of a page as vertices and the book
-    being sewn together at a seam.
-
-    Quadrilateral book = Sk(p) x Kn(2)
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Book_(graph_theory)
+##    There are p pages of the book with only
+##    the corners of a page as vertices and the book
+##    being sewn together at a seam.
+##
+##    Quadrilateral book = Sk(p) x Kn(2)
+##    """
     return GraphProduct(Sk(p),Kn(2))
 
 def Ke2(p):
-    """
-    https://en.wikipedia.org/wiki/Book_(graph_theory)
-    Triangular book, p triangles sharing
-    a common edge.
-    Let G,u = SplitVertex(Sk(p),0) and add [0,u] and [u,0]
-    to G["E"] where 0 is the star vertex.
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Book_(graph_theory)
+##    Triangular book, p triangles sharing
+##    a common edge.
+##    Let G,u = SplitVertex(Sk(p),0) and add [0,u] and [u,0]
+##    to G["E"] where 0 is the star vertex.
+##    """
     G,u = SplitVertex(Sk(p),0)
     G["E"].append([0,u])
     G["E"].append([u,0])
     return G
 
 def IntersectionGraph(S,sort=True):
-    """
-    https://en.wikipedia.org/wiki/Intersection_graph
-    https://en.wikipedia.org/wiki/Line_graph_of_a_hypergraph
-
-    S is a set of sets, implemented as a list of lists.
-    IntersectionGraph(S) first sorts each of the sublists
-    with L.sort() if sort=True (the default) which puts
-    it in standard form. For making a set from S,
-    the sublists are converted to strings first, which makes
-    the vertices unique. If two vertices (the sublists)
-    intersect, create an edge between them.
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Intersection_graph
+##    https://en.wikipedia.org/wiki/Line_graph_of_a_hypergraph
+##
+##    S is a set of sets, implemented as a list of lists.
+##    IntersectionGraph(S) first sorts each of the sublists
+##    with L.sort() if sort=True (the default) which puts
+##    it in standard form. For making a set from S,
+##    the sublists are converted to strings first, which makes
+##    the vertices unique. If two vertices (the sublists)
+##    intersect, create an edge between them.
+##    """
     doc = {}
     S2 = deepcopy(S)
     if sort:
@@ -1053,15 +1053,15 @@ def IntersectionGraph(S,sort=True):
     return doc
 
 def LineGraph(doc):
-    """
-    Line Graph of a graph G, L(G), obtained
-    by the intersection graph of its edges.
-    The edge u,v creates [u,v] which is sorted.
-    The list of edges S = [e1...en] has Line Graph
-    of IntersectionGraph(S).
-
-    https://en.wikipedia.org/wiki/Line_graph
-    """
+##    """
+##    Line Graph of a graph G, L(G), obtained
+##    by the intersection graph of its edges.
+##    The edge u,v creates [u,v] which is sorted.
+##    The list of edges S = [e1...en] has Line Graph
+##    of IntersectionGraph(S).
+##
+##    https://en.wikipedia.org/wiki/Line_graph
+##    """
     doc1 = deepcopy(doc)
     E = doc1["E"]
     S = []
@@ -1074,17 +1074,17 @@ def LineGraph(doc):
     return doc1
 
 def IncidenceMatrix(doc):
-    """
-    https://en.wikipedia.org/wiki/Incidence_matrix
-
-    B[i,j] = 1 if vertex i is incident with edge j, and
-    is 0 otherwise.
-
-    The vertices are doc["V"] and edges are doc["E"].
-    A vertex is incident with an edge if it is contained
-    in its set. Eg vertex 2 is incident with edges [3,2]
-    and [2,4] in some graph containing those edges.
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Incidence_matrix
+##
+##    B[i,j] = 1 if vertex i is incident with edge j, and
+##    is 0 otherwise.
+##
+##    The vertices are doc["V"] and edges are doc["E"].
+##    A vertex is incident with an edge if it is contained
+##    in its set. Eg vertex 2 is incident with edges [3,2]
+##    and [2,4] in some graph containing those edges.
+##    """
     from numpy import array,zeros
     V = doc["V"]
     E = doc["E"]
@@ -1104,9 +1104,9 @@ def IncidenceMatrix(doc):
 
 
 def imm(A,chi,verbose=False):
-    """
-    https://en.wikipedia.org/wiki/Immanant_of_a_matrix
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Immanant_of_a_matrix
+##    """
     import itertools
     from numpy import array,zeros,ones,identity
     sh = A.shape
@@ -1125,28 +1125,28 @@ def imm(A,chi,verbose=False):
     return S
 
 def perm(A):
-    """
-    https://en.wikipedia.org/wiki/Permanent
-    https://en.wikipedia.org/wiki/Computing_the_permanent
-
-    This method calculates the permanent of a matrix
-    using the immanant of a matrix with chi = 1
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Permanent
+##    https://en.wikipedia.org/wiki/Computing_the_permanent
+##
+##    This method calculates the permanent of a matrix
+##    using the immanant of a matrix with chi = 1
+##    """
     from numpy import array,zeros,ones,identity
     def chi(tup):
         return 1
     return imm(A,chi)
 
 def det(A):
-    """
-    https://en.wikipedia.org/wiki/Determinant
-
-    This method calculates the determinant of a matrix
-    use the immanant of a matrix with chi = LeviCivita
-
-    The usual method is to though use
-    numpy.linalg.det(A) with the Numpy python library.
-    """
+##    """
+##    https://en.wikipedia.org/wiki/Determinant
+##
+##    This method calculates the determinant of a matrix
+##    use the immanant of a matrix with chi = LeviCivita
+##
+##    The usual method is to though use
+##    numpy.linalg.det(A) with the Numpy python library.
+##    """
     from numpy import array,zeros,ones,identity
     import generalized_cross_product as gcp
     sh = A.shape
@@ -1156,13 +1156,13 @@ def det(A):
     return imm(A,chi)
 
 def SubdivideEdges(doc,S,midpt=False, undirected=True):
-    """
-    Subdivide edges in list S by adding a new vertex in
-    each edge.
-
-    It assumes undirected edges, with undirected=True,
-    else you need to set to false.
-    """
+##    """
+##    Subdivide edges in list S by adding a new vertex in
+##    each edge.
+##
+##    It assumes undirected edges, with undirected=True,
+##    else you need to set to false.
+##    """
     import vectors
     doc1 = deepcopy(doc)
     for e in S:
@@ -1190,43 +1190,43 @@ def SubdivideEdges(doc,S,midpt=False, undirected=True):
     return doc1
 
 def Subdivide(doc,midpt=False,undirected=True):
-    """
-    Subdivide the whole graph using
-    doc1 = SubdivideEdges(doc,doc["E"])
-    """
+##    """
+##    Subdivide the whole graph using
+##    doc1 = SubdivideEdges(doc,doc["E"])
+##    """
     return SubdivideEdges(doc,doc["E"],midpt)
 
 def Gnm(n,m):
-    """
-    Grid graph
-
-    Gnm(n,m) = Pn(n) x Pn(m)
-
-    See also:
-    https://en.wikipedia.org/wiki/Lattice_graph
-    http://mathworld.wolfram.com/LatticeGraph.html
-    for related
-    """
+##    """
+##    Grid graph
+##
+##    Gnm(n,m) = Pn(n) x Pn(m)
+##
+##    See also:
+##    https://en.wikipedia.org/wiki/Lattice_graph
+##    http://mathworld.wolfram.com/LatticeGraph.html
+##    for related
+##    """
     return GraphProduct(Pn(n),Pn(m))
 
 def Lnm(n,m):
-    """
-    Lattice graph
-
-    https://en.wikipedia.org/wiki/Lattice_graph
-    http://mathworld.wolfram.com/LatticeGraph.html
-
-    Lnm(n,m) = Kn(n) x Kn(m)
-    """
+##    """
+##    Lattice graph
+##
+##    https://en.wikipedia.org/wiki/Lattice_graph
+##    http://mathworld.wolfram.com/LatticeGraph.html
+##
+##    Lnm(n,m) = Kn(n) x Kn(m)
+##    """
     return GraphProduct(Kn(n),Kn(m))
     
 def CreateGridGeometry(doc,w,h):
-    """
-    Create a grid geometry of pts size n x n
-
-    It assumes a doc["object"] attribute containing
-    (u,v) the u,v coordinate of a vertex.
-    """
+##    """
+##    Create a grid geometry of pts size n x n
+##
+##    It assumes a doc["object"] attribute containing
+##    (u,v) the u,v coordinate of a vertex.
+##    """
     doc2 = deepcopy(doc)
     doc2["pts"] = []
     umax,vmax = max(doc["object"])
@@ -1241,13 +1241,13 @@ def CreateGridGeometry(doc,w,h):
     return doc2
 
 def TransitiveClosure(doc,K):
-    """
-    Obtains for G = doc, the graph
-    E = (G**0)["E"] + (G**1)["E"] + (G**2)["E"]) + ... + (G**K)["E"]
-    so the transitive closure is TransitiveClosure(doc,infinity)
-    with infinity a large integer n > len(G["V"]),
-    with (G**k) as GraphPow(G,k).
-    """
+##    """
+##    Obtains for G = doc, the graph
+##    E = (G**0)["E"] + (G**1)["E"] + (G**2)["E"]) + ... + (G**K)["E"]
+##    so the transitive closure is TransitiveClosure(doc,infinity)
+##    with infinity a large integer n > len(G["V"]),
+##    with (G**k) as GraphPow(G,k).
+##    """
     doc1 = deepcopy(doc)
     E = []
     for k in range(K):
@@ -1258,11 +1258,11 @@ def TransitiveClosure(doc,K):
     return doc1
 
 def HasseGraph(doc,K):
-    """
-    Obtains the Hasse Graph of graph document G = doc,
-    by subtracting doc - G**0 - G**2 - G**3 - ... -G**K
-    for i != 1
-    """
+##    """
+##    Obtains the Hasse Graph of graph document G = doc,
+##    by subtracting doc - G**0 - G**2 - G**3 - ... -G**K
+##    for i != 1
+##    """
     doc1 = deepcopy(doc)
     for v in doc1["V"]:
         try:
@@ -1320,12 +1320,12 @@ def Image(R,x):
     return Rx 
 
 def Knm(n,m):
-    """
-    Creates a bipartite graph Knm from n vertices on
-    left to m vertices on right where each vertex on left
-    is connected to each vertex on right.
-    https://en.wikipedia.org/wiki/Bipartite_graph
-    """
+##    """
+##    Creates a bipartite graph Knm from n vertices on
+##    left to m vertices on right where each vertex on left
+##    is connected to each vertex on right.
+##    https://en.wikipedia.org/wiki/Bipartite_graph
+##    """
     V = list(range(n+m))
     obj = []
     E = []
@@ -1340,12 +1340,12 @@ def Knm(n,m):
     return doc
 
 def RelationGraph(R):
-    """
-    R is a relation, a list of pairs [r,s]
-    with domain = Domain(R) and range0 = Range(R)
-    then create graph for the relation with
-    relation stored as G["obj"].
-    """
+##    """
+##    R is a relation, a list of pairs [r,s]
+##    with domain = Domain(R) and range0 = Range(R)
+##    then create graph for the relation with
+##    relation stored as G["obj"].
+##    """
     obj = deepcopy(R)
     domain = Domain(R)
     range0 = Range(R)
@@ -1454,11 +1454,11 @@ def PseudoToGraph(G):
     return G2
 
 def Snm(n,m):
-    """
-    Create a sphere graph from Gnm(n,m) by glueing
-    together top vertices and bottom vertices and left
-    side to right side
-    """
+##    """
+##    Create a sphere graph from Gnm(n,m) by glueing
+##    together top vertices and bottom vertices and left
+##    side to right side
+##    """
     # grid graph
     G2 = Gnm(n,m)
     # top side
@@ -1481,9 +1481,9 @@ def Snm(n,m):
     return G3
 
 def Tnm(n,m):
-    """
-    Create torus graph G = GraphProduct(Cn(n),Cn(m)).
-    """
+##    """
+##    Create torus graph G = GraphProduct(Cn(n),Cn(m)).
+##    """
     return GraphProduct(Cn(n),Cn(m))
 
 def GraphUnionPseudo(G1,G2):
@@ -1500,12 +1500,12 @@ def GraphUnion(G1,G2):
     return G
 
 def Tadpole_Tnm(n,m):
-    """
-    Create Tadpole graph Tadpole_Tnm(n,m)
-    G = GraphUnionPseudo(Cn(n),Pn(n))
-    with edge between vertex 0 in Cn(n) and
-    vertex 0 in Pn(n).
-    """
+##    """
+##    Create Tadpole graph Tadpole_Tnm(n,m)
+##    G = GraphUnionPseudo(Cn(n),Pn(n))
+##    with edge between vertex 0 in Cn(n) and
+##    vertex 0 in Pn(n).
+##    """
     G1 = Cn(n)
     G2 = Pn(m)
     H = GraphUnionPseudo(G1,G2)
