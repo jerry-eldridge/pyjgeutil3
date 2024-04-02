@@ -374,7 +374,7 @@ def FloorStickPolygon(Gs,G,poly,width=1.,height=1.,closed=True):
           Gs = Append(Gs,Gk)
           G = GraphUnionS(G,Gk)
      return Gs,G
-def Graphs2OBJ(fn,Gs,name_obj):
+def Graphs2OBJ(fn,Gs,name_obj,names=None):
     ext = fn[-4:]
     name = fn[:-4]
     assert(ext=='.obj')
@@ -405,11 +405,14 @@ g Group1
     f2.write(s)
     for i in range(len(Gs)):
          Gi = Gs[i]
-         name_obj = "obj%03d" % i
+         if names is not None:
+              name_obj_i = names[i]
+         else:
+              name_obj_i = "obj%03d" % i
          t = """
 mtllib %s.mtl
 o %s
-""" % (name,name_obj)
+""" % (name,name_obj_i)
          f2.write(t)
          for pt in Gi['pts']:
              x,y,z = pt
