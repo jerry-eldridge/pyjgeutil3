@@ -122,4 +122,4 @@ Sce.save(fn_save)
 
 # Double-Click on OBJ file
 import os
-os.system(fn_save)
+#os.system(fn_save)
