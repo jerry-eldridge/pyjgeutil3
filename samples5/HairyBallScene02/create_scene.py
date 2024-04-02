@@ -203,12 +203,16 @@ class Scene:
         self.names = []
         self.selected = None
     def add(self, H, name):
+        name2 = name.replace(' ','_')
+        name = name2
         if name not in self.names:
             self.graphs.append(H)
             self.names.append(name)
             self.select(name)
         return
     def select(self, name):
+        name2 = name.replace(' ','_')
+        name = name2
         if name in self.names:
             idx = self.names.index(name)
         else:
