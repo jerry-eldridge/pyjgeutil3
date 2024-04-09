@@ -182,7 +182,7 @@ def calc_F(A):
     F = np.zeros((n,n,*([m]*n)),dtype=np.float16)
     for mu in range(n):
         for nu in range(n):
-            for i in range(m*m*m*m):
+            for i in range(m**n):
                 s = Base(i,m,n)
                 if min(s) == 0:
                     continue
