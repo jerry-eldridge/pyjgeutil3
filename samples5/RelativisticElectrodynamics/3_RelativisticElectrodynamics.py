@@ -237,6 +237,7 @@ def s_to_rs(*s):
 
 # x is source point indices
 x = [1,2,3,2] # spacetime (it,ix,iy,iz) indices
+print(f"spacetime indices x = {x}")
 
 # current density
 J = np.zeros((n, *([m]*n)),dtype=np.float16)
@@ -253,6 +254,7 @@ A = np.zeros((n, *([m]*n)),dtype=np.float16)
 # y is propagated point A(y) = Integral PI(x,y) * J(x)
 # with J(x) = e*dirac_delta(x) and PI = (1/box).
 q = 10
+print(f"Electric charge q = {q} C")
 
 A[1:4,:,:,:,:] = 0 # set vector potential A = [0,0,0]
 # set A0 = (e/(4*pi))*(1/r)
@@ -281,7 +283,9 @@ F = calc_F(A)
 # B at x. This calculates the electric and magnetic
 # fields at spacetime indices y.
 y = [1,3,2,1] # spacetime indices
+print(f"spacetime indices y = {y}")
 E,B = get_E_B(F[:,:,*y])
+print(f"Point charge q at x (Coulomb's Law)")
 print(f"E(y) = {E} V/m")
 print(f"B(y) = {B*c**2} T*c**2")
 
@@ -360,7 +364,9 @@ F = calc_F(A)
 # B at x. This calculates the electric and magnetic
 # fields at spacetime indices y.
 y = [1,3,2,1] # spacetime indices
+print(f"spacetime indices: y = {y}")
 E,B = get_E_B(F[:,:,*y])
+print(f"circular loop carrying current I = {I} A")
 print(f"E(y) = {E} V/m")
 print(f"B(y) = {B*c**2} T*c**2")
 
@@ -368,5 +374,6 @@ v_hat = [1,0,0] # particle unit velocity
 v_mag = 0.7*c # m/s, particle speed
 gamma = 1/sqrt(1-v_mag**2/c**2) # gamma
 
+print(f"Lorentz Boost transform:")
 Transform(v_hat,v_mag,E,B,c)
 
