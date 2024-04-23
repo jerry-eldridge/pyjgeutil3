@@ -1,0 +1,453 @@
+20240422-Leaky Integrate and Fire Net.txt
+
+Attached is 20240422-LIFnet-02.jpg (74 KB) generated
+by attached 2_use_LIF.py (5 KB).
+
+A leaky integrate and fire neuron is modeled by the equation:
+
+C*dv/dt = -v/R + I, t > 0
+
+and so rephrasing this is:
+
+dv/dt = (-v/R + I)/C
+
+and so y = [v] and dy/dt = [dv/dt] which can be solved
+with either Euler's method or Runge-Kutta4 method (RK4). v is
+the voltage on the LIF neuron, C is the membrane potential
+and R is resistance related to it, and I is the injection current.
+R and C are fixed parameters but injection current I varies.
+
+The way we model an electrical current I is to model ions
+with an electric charge q as a dirac delta pulse at time ti.
+Thus several charges of amount q at times T = [...ti...]
+represents an electrical current injection I. You can think
+of this as post-synaptic ions (like Ca, K, etc or whatever)
+flowing into the post-synaptic neuron's neuroreceptors.
+This neuroreceptor is described by its conductance for the
+synapse, called gij from neuron i to neuron j. Then by
+Ohm's law V = I * R_syn and so with g_syn = 1/R, we have 
+I = g_syn*V. Usually though this is written 
+I = g_syn*(V - V0) sometimes. This is dependent on time t
+so g_syn(t) is the conductance. We model here varying g_syn(t)
+with a simple function (defined by an indicator function
+and values g_syn(t) = Sum_n a_n*indicator(interval_n)(t)
+where indicator function is sometimes written Chi(A)(t)).
+
+This injection current is injected into the dendrites
+of a neuron, and by Kirchoff's laws the input currents sum
+to an output current which is the current injection into
+lif3 from lif1 and lif2. That is, we provide an I1_inj injection
+current to lif1 and an I2_inj injection current to lif2. This
+results in a voltage lif1.v and lif2.v action potentials
+on the two input neurons lif1 and lif2. Then a dense
+layer of synapses is described by g00 and g11 which results
+in output currents at lif3 of I30 = g_syn(t)*V1 and I31 =
+g_syn(t)*V2 and I3 = I30 + I31. They sum by Kirchoff's laws 
+to I3_inj injection current for lif3 which then has output
+action potential lif3.v.
+
+# Kirchoff's rule of additive currents
+I3 = lambda net,t: dense.get_g(0,0)*lif1.get_v() +\
+     dense.get_g(1,0)*lif2.get_v()
+
+represents dense(2,1) edges of e1 = [0,0] and e2 = [1,0]
+between lif1 (u=0) and lif3 (v=0) and between lif2 (u=1) 
+and lif3 (v=0). dense(2,1) is edges of form (u,v) where
+u in range(2) and v in range(1). In general, similarly
+for dense(3,1) if having more input LIF neurons.
+
+For example,
+
+# create output neuron using that current I3
+lif3 = LIF(v_init=0,
+          vth=1.0, I = I3, dt=dt0, du=du0,
+          C=.1,R=2)
+
+defines lif3 with initial voltage, v_int, threshold voltage
+vth, injection current I3, time increment (and this should
+be the same for all neurons) dt0, and dirac-delta increment
+interval size du0 (this should be big enough that pulses
+are not too tiny width and infinite height rectanges and
+more like moderately sized width and moderately sized height).
+The dirac-delta function represents a function whose integral
+is 1. Thus I = q*DiracDelta(t-t0) integrates to q*1 and
+I is q at t = t0 and 0 elsewhere approximately, however we
+give it a finite width dx. The area of a rectangle is
+area = width x height and so integrating would produce measure
+area. So we make width small and height = 1/width. But we
+use a fancier cosine implementation than merely a rectangle
+function.
+
+C is capacitance and R is resistance of the LIF membrane.
+
+The conductances for the dense layer are defined by simple
+functions where Js = [...(ai,Ii)...] where ai is value on
+the interval Ii = (x_left, x_right) is an interval on real
+number line. Thus g00(6) = 0.05 and g00(51) = 0 and g00(3) = .1
+for example:
+
+g00 = simple([(.05,[5,50]),(.1,[2,5])])
+g10 = simple([(.1,[0,8]),(.2,[8,11]),(.01,[11,40])])
+
+To simulate the system then:
+
+# simulate probing / monitoring data
+T = []
+V1a = []
+V1b = []
+V2 = []
+G00 = []
+G10 = []
+t = lif3.t
+
+where we set the initial time to the time on lif3. All the
+neurons should step at the same time t.
+
+while t < tmax:
+    dense.set_g(0,0,g00(t))
+    dense.set_g(1,0,g10(t))
+
+and we set the dense(2,1) network dense.g[0,0] and dense.g[1,0] 
+values to their given functions g00(t) and g10(t) and we
+add it to plot the values to G00 and G10:
+
+    G00.append(dense.get_g(0,0))
+    G10.append(dense.get_g(1,0))
+
+we store the time t on lif1.t:
+
+    T.append(lif1.t)
+
+and we get the action potential voltages on lif1, lif2, and lif3:
+
+    V1a.append(lif1.get_v())
+    V1b.append(lif2.get_v())
+    V2.append(lif3.get_v())
+
+and we step the neurons (so that they do either Euler's method
+or RK4 method to update the dvdt to get lif1.v and lif2.v
+and lif3.v voltage values):
+
+    lif1.step()
+    lif2.step()
+    lif3.step()
+
+and we update the loop to have the time on lif3.t:
+
+    t = lif3.t
+
+and then we plot the results with matplotlib:
+
+# plot results
+fig,axs = plt.subplots(5)
+axs[4].set_xlabel('Time t')
+axs[4].set_ylabel('g10(t)')
+axs[3].set_ylabel('g00(t)')
+axs[2].set_ylabel('V2(t)')
+axs[1].set_ylabel('V1b(t)')
+axs[0].set_ylabel('V1a(t)')
+axs[0].set_title(f' LIF(2) - Dense(2,1) - LIF(1)')
+axs[0].plot(T, V1a)
+axs[1].plot(T, V1b)
+axs[2].plot(T, V2, 'b')
+axs[3].plot(T,G00)
+axs[4].plot(T,G10)
+plt.show()
+
+The input neurons have injection currents of:
+
+# create ni = 2 input leaky integrate and fire
+# neurons
+I1 = I_multi(q=[.1,.3],
+              T=[[1,3,5,7],[2,4,6]])
+I2 = I_multi(q=[.9],
+              T=[[7,9,11,13]])
+
+which means that there are multiple values q = .1 with
+T = [1,3,5,7] and q = .3 with T = [2,4,6]. This indicates
+that electrical current has electric charge q = .1
+at times ti in [1,3,5,7] and q = 0 elsewhere much like
+ions are discrete dirac-delta pulses that integrate to
+a injection current. Note that a dirac-delta function
+I_inj = Sum_{ti in T} q*diracdelta(t-ti).
+
+The excitatory synapses have on g_ex and inhibitory synapses
+have another g_in for a synapse, and so we could describe
+this somehow, but I just made all the synapses between i and j
+the values dense.get_g(i,j). We could possibly
+have dense.get_g_ex(i,j) and dense.get_g_in(i,j) to model
+that which return say two different conductances for time t
+stored in the dense(n,m) network of synapses.
+
+That is, injection current looks like:
+
+I1:
+       *      *    *    *    *    *    *
+       |      |    |    |    |    |    |
+       |      |    |    |    |    |    |
+t:-----1------2----3----4----5----6----7----8---9---10--->
+
+I2:
+                                       *        *
+                                       |        |
+                                       |        |
+t:-----1------2----3----4----5----6----7----8---9---10--->
+
+which integrates to at time t = 8:
+
+t = 8
+Integral(I1,0,t) = .1 + .3 + .1 + .3 + .1 + .3 + .1
+
+and time t = 10:
+
+t = 10
+Integral(I2,0,t) = .9 + .9 (note there are more pulses in I2)
+
+and current is being integrate in the Euler method or
+RK4 step function to find voltage v which solves the 
+above differential equation we started with by numerical
+analysis and finite difference equations.
+
+and so defining two input neurons with:
+
+lif1 = LIF(v_init=0,
+          vth=1.0, I = I1, dt=dt0, du=du0,
+           C=.1,
+           R=1)
+
+lif2 = LIF(v_init=0,
+          vth=1.0, I = I2, dt=dt0, du=du0,
+           C=.3,
+           R=2)
+
+described earlier in relation to lif3.
+
+
+[1] @book{Gabbiani10,
+author = "Gabbiani, Fabrizio  and  Cox, Steven J.",
+title = "Mathematics for Neuroscientists",
+publisher = "Academic Press",
+year = "2010"
+}
+
+[2] @book{Young16,
+author = "Young, Hugh D.  and  Freedman, Roger A.",
+title = "Sears & Zemanskys University Physics with Modern Physics, 14th Ed.",
+publisher = "Pearson",
+year = "2016"
+}
+
+[3] @book{Edwards82,
+author = "Edwards, C.H.  and  Penney, David E.",
+title = "Calculus and Analytic Geometry",
+publisher = "Prentice Hall",
+year = "1982"
+}
+
+======================== 2_use_LIF.py
+import numpy as np
+
+from math import cos,pi,fmod
+
+import matplotlib.pyplot as plt
+
+## Delta-Dirac function is d/dx H(x) where H(x) is
+## the Heaviside function. The integral of the Dirac-Delta
+## function should be always 1.0 for any dx.
+def DiracDelta(x,dx=0.1):
+     epsilon = 1.5*dx
+     if x < -epsilon:
+         return 0
+     elif (-epsilon <= x) and (x <= epsilon):
+         return 1.0/(2*epsilon) + \
+                1.0/(2*epsilon)*cos(pi*x/epsilon)
+     elif epsilon < x:
+         return 0
+
+################################################
+# solve_ode_system.py excerpt
+
+# https://en.wikipedia.org/wiki/Euler_method
+def Euler_step(f,t,y,h):
+    y = y + h*f(t,y)
+    t = t + h
+    return t,y
+
+# https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods
+# Runge-Kutta RK4
+def RK4_step(f,t,y,h):
+    k1 = f(t,y)
+    k2 = f(t + h/2, y + h*k1/2)
+    k3 = f(t + h/2, y + h*k2/2)
+    k4 = f(t + h, y + h*k3)
+    y = y + 1/6.*h*(k1+2*k2+2*k3+k4)
+    t = t + h
+    return t,y
+#####################################################
+
+class LIF:
+    def __init__(self, v_init, vth, I, dt, du, C, R):
+        self.C = C
+        self.R = R
+        self.v_init = np.array([v_init])
+        self.vth = vth
+        self.v = self.v_init
+        self.dt = dt
+        self.du = du # charge pulses width
+        self.t = 0
+        self.spike_out = np.zeros(self.v_init.shape)
+        self.I_inj = lambda t: I(self,t)
+    def get_v(self):
+        return self.v[0]
+    def f(self,t,y):
+        dvdt = np.zeros(y.shape)
+        v = y.copy()
+        current = self.I_inj(t)
+        for i in range(y.shape[0]):
+             dvdt = (-v/self.R +\
+                        current)/self.C
+        dydt = dvdt
+        return dydt
+    def step(self):
+        y = self.v
+        self.spike_out = np.zeros(y.shape)
+        t,y = RK4_step(self.f,self.t,y,self.dt)
+        self.t = t
+        self.v = y
+        flags = self.v >= self.vth
+        n = len(y)
+        if flags[0]:
+             self.spike_out[0] = 1
+             self.v[0] = self.v_init[0]
+        return
+
+class Dense:
+    def __init__(self,n,m):
+        self.g = np.zeros((n,m),dtype=np.float32)
+    def set_g(self,i,j,g):
+        self.g[i,j] = g
+    def unset_g(self,i,j):
+        self.g[i,j] = 0
+    def get_g(self,i,j):
+        return self.g[i,j]
+
+def I_helper(t,q,T,du):
+    val = 0
+    for i in range(len(T)):
+        ti = T[i]
+        val_i = DiracDelta(t-ti,du)
+        val = val + val_i
+    return val
+
+def I_multi(q,T):
+     def I(net,t):
+          vals = []
+          for i in range(len(q)):
+               val_i = I_helper(t,q[i],T[i],net.du)
+               vals.append(val_i)
+               vec = np.array(vals)
+          return vec
+     return I
+
+# the indicator function for I = [a,b]
+def indicator(I):
+    def f(t):
+        a,b  = I
+        if a <= t and t <= b:
+            return 1
+        else:
+            return 0
+    return f
+
+# simple function y = Sum_i a(i)*indicator_I(I_i)
+# where Js is a list of [a(i),I_i].
+def simple(Js):
+    def f(t):
+        val = 0
+        for i in range(len(Js)):
+            vs,Ii = Js[i]
+            vali = vs*indicator(Ii)(t)
+            val = val + vali
+        return val
+    return f
+     
+dt0 = .01
+du0 = .3
+tmax = 20
+ni = 2
+no = 1
+
+# create ni = 2 input leaky integrate and fire
+# neurons
+I1 = I_multi(q=[.1,.3],
+              T=[[1,3,5,7],[2,4,6]])
+I2 = I_multi(q=[.9],
+              T=[[7,9,11,13]])
+lif1 = LIF(v_init=0,
+          vth=1.0, I = I1, dt=dt0, du=du0,
+           C=.1,
+           R=1)
+
+lif2 = LIF(v_init=0,
+          vth=1.0, I = I2, dt=dt0, du=du0,
+           C=.3,
+           R=2)
+
+# create synaptic Dense(ni,no) network between ni = 2
+# input neurons and no = 1 output neurons
+dense = Dense(ni,no)
+
+# For the output neuron, sum up input neurons using
+# formula I3 = g00*V1 + g10*V2
+
+# Kirchoff's rule of additive currents
+I3 = lambda net,t: dense.get_g(0,0)*lif1.get_v() +\
+     dense.get_g(1,0)*lif2.get_v()
+
+# create output neuron using that current I3
+lif3 = LIF(v_init=0,
+          vth=1.0, I = I3, dt=dt0, du=du0,
+          C=.1,R=2)
+
+g00 = simple([(.05,[5,50]),(.1,[2,5])])
+g10 = simple([(.1,[0,8]),(.2,[8,11]),(.01,[11,40])])
+
+# simulate probing / monitoring data
+T = []
+V1a = []
+V1b = []
+V2 = []
+G00 = []
+G10 = []
+t = lif3.t
+while t < tmax:
+    dense.set_g(0,0,g00(t))
+    dense.set_g(1,0,g10(t))
+    G00.append(dense.get_g(0,0))
+    G10.append(dense.get_g(1,0))
+    T.append(lif1.t)
+    V1a.append(lif1.get_v())
+    V1b.append(lif2.get_v())
+    V2.append(lif3.get_v())
+    lif1.step()
+    lif2.step()
+    lif3.step()
+    t = lif3.t
+
+# plot results
+fig,axs = plt.subplots(5)
+axs[4].set_xlabel('Time t')
+axs[4].set_ylabel('g10(t)')
+axs[3].set_ylabel('g00(t)')
+axs[2].set_ylabel('V2(t)')
+axs[1].set_ylabel('V1b(t)')
+axs[0].set_ylabel('V1a(t)')
+axs[0].set_title(f' LIF(2) - Dense(2,1) - LIF(1)')
+axs[0].plot(T, V1a)
+axs[1].plot(T, V1b)
+axs[2].plot(T, V2, 'b')
+axs[3].plot(T,G00)
+axs[4].plot(T,G10)
+plt.show()
+
+====================================
