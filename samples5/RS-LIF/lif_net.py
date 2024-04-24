@@ -67,7 +67,7 @@ class LIF:
     def step(self):
         y = self.v
         self.spike_out = np.zeros(y.shape)
-        t,y = RK4_step(self.f,self.t,y,self.dt)
+        t,y = Euler_step(self.f,self.t,y,self.dt)
         self.t = t
         self.v = y
         flags = self.v >= self.vth
@@ -80,7 +80,8 @@ class LIF:
 
 class Dense:
     def __init__(self,n,m):
-        self.g = np.zeros((n,m),dtype=np.float32)
+        #self.g = np.zeros((n,m),dtype=np.float32)
+        self.g = np.random.rand(n,m)
     def set_g(self,i,j,g):
         self.g[i,j] = g
     def unset_g(self,i,j):
@@ -166,7 +167,7 @@ def grad(f,nabla_t = .2):
     return f1
 
 clamp0 = lambda x,a,b: max(a,min(x,b))
-c = lambda c_max: lambda x: clamp0(x,-c_max,c_max)
+c = lambda c_max: lambda x: clamp0(x,0,c_max)
 
 def myfmin(F,x0,gamma=10,xtol=1,maxiter=50,
            nabla_t = .2, c_max = 2,
@@ -184,10 +185,9 @@ def myfmin(F,x0,gamma=10,xtol=1,maxiter=50,
 ##          epsilon = 1e-3
 ##          if abs(g_mag) > epsilon:
 ##               g = g/np.linalg.norm(g)
-          if count_show < 10:
-               print(f"i = {i}, F(a) = {F(a)}")
+          if count_show <= maxiter:
                #print(f"a = {a}")
-               print(f"|da| = {np.linalg.norm(da)}")
+               print(f"i = {i}, F(a) = {F(a)}, |da| = {np.linalg.norm(da)}")
                count_show = count_show + 1
           a2 = a + da
           a2 = list(map(c(c_max),a2))
@@ -241,14 +241,16 @@ class Dense_solve:
           dtmax = (self.tmax-0)/n
           tt = np.arange(0,self.tmax+dtmax,dtmax)
           g = {}
+          c = 0
           for i in range(self.ni):
                for j in range(self.nm):
                     L00 = []
                     for k in range(self.g_n-2):
                          a = tt[k]
                          b = tt[k+1]
-                         tup = (X[k],[a,b])
+                         tup = (X[c],[a,b])
                          L00.append(tup)
+                         c = c + 1
                     
                     g[(i,j,0)] = simple(L00)
           for i in range(self.nm):
@@ -257,8 +259,9 @@ class Dense_solve:
                     for k in range(self.g_n-2):
                          a = tt[k]
                          b = tt[k+1]
-                         tup = (X[k],[a,b])
+                         tup = (X[c],[a,b])
                          L00.append(tup)
+                         c = c + 1
                     
                     g[(i,j,1)] = simple(L00)
           return g
@@ -330,15 +333,46 @@ class Dense_solve:
           print(f"Find_x: Results:")
           print(f"iterations = {iters}")
           f = self.F(y_a,verbose=True, plot=True)
+          X_opt = list(map(c(self.c_max),X_opt))
           val = f(X_opt)
+          g = self.build_g(X_opt)
+          print(f"Conductances:")
+          dtmax = (self.tmax-0)/self.g_n
+          tt = np.arange(0,self.tmax+dtmax,dtmax)
+          for i in range(self.ni):
+               for j in range(self.nm):
+                    G = []
+                    for k in range(self.g_n-2):
+                         a = tt[k]
+                         b = tt[k+1]
+                         tab = (a+b)*0.5
+                         tup = (i,j,0)
+                         val = g[tup](tab)
+                         G.append(val)
+                    print(f"tup = {tup}, g = {G}")
+          for i in range(self.nm):
+               for j in range(self.no):
+                    G = []
+                    for k in range(self.g_n-2):
+                         a = tt[k]
+                         b = tt[k+1]
+                         tab = (a+b)*0.5
+                         tup = (i,j,1)
+                         val = g[tup](tab)
+                         G.append(val)
+                    print(f"tup = {tup}, g = {G}")
+          print()
           x_a = [self.lif_in[i].get_nspikes() \
                       for i in range(self.ni)]
+          z_p = [self.lif_mid[i].get_nspikes() \
+                      for i in range(self.nm)]
           y_p = [self.lif_out[j].get_nspikes() \
                       for j in range(self.no)]
           x_a = np.array(x_a)
-          print(f"x_a = {x_a}")
-          print(f"y_a = {y_a}")
+          print(f"Input: x_a = {x_a}")
+          print(f"Middle: z_p = {z_p}")
+          print(f"Output Desired: y_a = {y_a}")
           y_p = np.array(y_p)
-          print(f"y_p = {y_p}")
+          print(f"Output: y_p = {y_p}")
           print(f"="*30)
           return X_opt
