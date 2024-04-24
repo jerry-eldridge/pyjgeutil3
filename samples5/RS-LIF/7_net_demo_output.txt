@@ -1,7 +1,6 @@
-Python 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
+Python 3.12
 
-= RESTART: C:\Users\jerry\Desktop\LIF\7_net_demo.py
+= RESTART: .\Desktop\LIF\7_net_demo.py
 Neuromorphic Computing simulation:
 i = 0, F(a) = 37.107950630558946, |da| = 77.54498872303944
 i = 1, F(a) = 7.280109889280518, |da| = 154.02691429434535
