@@ -1,0 +1,20 @@
+import abstract_types as adt
+
+f = adt.myfunc(lambda x: x**2)
+print(f"f = {f}")
+g = adt.myfunc(lambda x: x + 1)
+print(f"g = {g}")
+A = [-1,1]
+print(f"Interval: A = {A}")
+I = adt.myfunctional(adt.dform(A))
+print(f"I = {I}")
+x = adt.myreal('3')
+print(f"x = {x}")
+print(f"f*x = {f*x}")
+print(f"g*x = {g*x}")
+print(f"g*f*x = {g*f*x}")
+print(f"I*f = {I*f}")
+print(f"I*g = {I*g}")
+print(f"g*(I*f) = {g*(I*f)}")
+print(f"f*(g*(I*f)) = {f*(g*(I*f))}")
+print(f"(f*g)*(I*f) = {(f*g)*(I*f)}")

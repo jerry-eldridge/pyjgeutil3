@@ -1,0 +1,214 @@
+20240425 - Currency Type with Percentages with Mixed Number - zip
+
+In this essay, we implement a myucurrency type specifying
+a mixed number 'q r/b' such as $10 2/100 to mean 10 dollars and 2 pennies.
+And we implement a mypercent type also a mixed number 'q r/b'
+such that we allow adding two myucurrency and multiply a mypercent
+times a myucurrency to produce a myucurrency.
+
+Attached is use_currency_adt-02.zip (8 KB)
+
+So this is sort of a First Grade Math concept of balance of money
+growing at a certain percentage p = p2 = 2/10 percent growth.
+It is a beginning idea where the first grade math student wonders
+"What if my balance of money grew using mixed numbers?". We naively 
+might think this is possible until we simulate it realizing that we 
+should use a higher level concept of a myucurrency that of decimal 
+numbers or floating point numbers which might not be immediately 
+covered right away in the first grade math.
+
+===================== 6_use_currency.py output
+p1 = (((0 200/1000):mymixed):mypercent)
+p2 = (((1 200/1000):mymixed):mypercent)
+
+we we are using p = p1 and a random balance of $362 87/100 in this
+example. A random balance is randomly chosen and p2 is used as
+mypercent. The balance is updated:
+
+balance[0] = (((362 87/100):mymixed):myucurrency)
+balance[1] = (((435 111/250):mymixed):myucurrency)
+balance[2] = (((522 333/625):mymixed):myucurrency)
+balance[3] = (((627 123/3125):mymixed):myucurrency)
+balance[4] = (((752 6988/15625):mymixed):myucurrency)
+balance[5] = (((902 73178/78125):mymixed):myucurrency)
+balance[6] = (((1083 204693/390625):mymixed):myucurrency)
+balance[7] = (((1300 446908/1953125):mymixed):myucurrency)
+balance[8] = (((1560 2681448/9765625):mymixed):myucurrency)
+balance[9] = (((1872 16088688/48828125):mymixed):myucurrency)
+balance[10] = (((2246 194188378/244140625):mymixed):myucurrency)
+balance[11] = (((2696 188567768/1220703125):mymixed):myucurrency)
+balance[12] = (((3235 2352109733/6103515625):mymixed):myucurrency)
+balance[13] = (((3882 14112658398/30517578125):mymixed):myucurrency)
+balance[14] = (((4658 145711106638/152587890625):mymixed):myucurrency)
+balance[15] = (((5590 569090858578/762939453125):mymixed):myucurrency)
+balance[16] = (((6708 3414545151468/3814697265625):mymixed):myucurrency)
+balance[17] = (((8050 12857876377558/19073486328125):mymixed):myucurrency)
+balance[18] = (((9660 77147258265348/95367431640625):mymixed):myucurrency)
+balance[19] = (((11592 462883549592088/476837158203125):mymixed):myucurrency)
+balance[20] = (((13911 1346789822943153/2384185791015625):mymixed):
+myucurrency)
+
+but we find this a bit wacky keeping track of myucurrency using a
+mixed number as the fractions become unwieldly, so we should instead
+use some sort of floating point number of whichever precision we
+find to be best.
+===========================
+
+If we change abstract_types.py from:
+
+myucurrency = lambda q,r,b: MT(mymixed(q,r,b),
+                    "myucurrency")
+mypercent= lambda q,r,b: MT(mymixed(q,r*100,b*100),
+                    "mypercent")
+
+to have:
+
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 + x2
+            q = x3.q
+            r = x3.r
+            b = x3.b
+            precision = 10000
+            val = precision*r/b
+            r2 = int(val)
+            b2 = precision
+            return myucurrency(q,r2,b2) 
+        self.define_add(("myucurrency","myucurrency"),f)
+
+and
+
+        # define multiplication operators
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 * x2
+            q = x3.q
+            r = x3.r
+            b = x3.b
+            precision = 10000
+            val = precision*r/b
+            r2 = int(val)
+            b2 = precision
+            return myucurrency(q,r2,b2) 
+        self.define_mul(("mypercent","myucurrency"),f)
+
+instead of:
+
+...
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 + x2
+            return myucurrency(x3.q,x3.r,x3.b)
+        self.define_add(("myucurrency","myucurrency"),f)
+...
+        # define multiplication operators
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 * x2
+            return myucurrency(x3.q,x3.r,x3.b)
+        self.define_mul(("mypercent","myucurrency"),f)
+
+which should use myreal type instead of mymixed type.
+
+The output of this modification is:
+
+=========================== output (after the modification)
+p1 = (((0 200/1000):mymixed):mypercent)
+p2 = (((1 200/1000):mymixed):mypercent)
+balance[0] = (((53 57/100):mymixed):myucurrency)
+balance[1] = (((64 2840/10000):mymixed):myucurrency)
+balance[2] = (((77 1408/10000):mymixed):myucurrency)
+balance[3] = (((92 5689/10000):mymixed):myucurrency)
+balance[4] = (((111 826/10000):mymixed):myucurrency)
+balance[5] = (((133 2991/10000):mymixed):myucurrency)
+balance[6] = (((159 9589/10000):mymixed):myucurrency)
+balance[7] = (((191 9506/10000):mymixed):myucurrency)
+balance[8] = (((230 3407/10000):mymixed):myucurrency)
+balance[9] = (((276 4088/10000):mymixed):myucurrency)
+balance[10] = (((331 6905/10000):mymixed):myucurrency)
+balance[11] = (((398 286/10000):mymixed):myucurrency)
+balance[12] = (((477 6343/10000):mymixed):myucurrency)
+balance[13] = (((573 1611/10000):mymixed):myucurrency)
+balance[14] = (((687 7933/10000):mymixed):myucurrency)
+balance[15] = (((825 3519/10000):mymixed):myucurrency)
+balance[16] = (((990 4222/10000):mymixed):myucurrency)
+balance[17] = (((1188 5066/10000):mymixed):myucurrency)
+balance[18] = (((1426 2079/10000):mymixed):myucurrency)
+balance[19] = (((1711 4494/10000):mymixed):myucurrency)
+balance[20] = (((2053 7392/10000):mymixed):myucurrency)
+
+with precision set to 10000 though technically this
+is only precision with 4 digits of precision in the decimal
+places.
+==============================
+
+======================== 6_use_currency.py
+import abstract_types as adt
+import random
+
+def demo(N):
+    p1 = adt.mypercent(0,2,10) # 2/10
+    p2 = adt.mypercent(1,2,10) # 1 2/10
+    p = p2
+    print(f"p1 = {p1}")
+    print(f"p2 = {p2}")
+    dollarmax = 1000
+    pennymax = 100
+    dollars = int(random.uniform(0,dollarmax))
+    pennies = int(random.uniform(0,pennymax))
+    balance = adt.myucurrency(dollars,pennies,100)
+    for period in range(N):
+        print(f"balance[{period}] = {balance}")       
+        balance = p * balance
+    print(f"balance[{period+1}] = {balance}")
+    return
+
+demo(N=20)
+=============================
+
+======================== abstract_types.py excerpt
+class MT:
+    def __init__(self, x, t):
+...
+    def build(self):
+        # define addition operators
+...
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 + x2
+            return myucurrency(x3.q,x3.r,x3.b)
+        self.define_add(("myucurrency","myucurrency"),f)
+...
+        # define multiplication operators
+        def f(self,y):
+            x1 = self.x.val
+            x2 = y.x.val
+            x3 = x1 * x2
+            return myucurrency(x3.q,x3.r,x3.b)
+        self.define_mul(("mypercent","myucurrency"),f)
+...
+# define currency
+# Note: you cannot use a dictionary to define
+# mycurrency[name]. You must use a function
+# mycurrency(name) defining the all variables in MT
+# by bound variables.
+mycurrency_names = ['mypenny','mynickel','mydime',
+         'myquarter','myhalf','mydollar',
+         'myfive','myten','myhundred']
+mycurrency = lambda key: lambda s: MT(MTstr(s),key)
+
+myucurrency = lambda q,r,b: MT(mymixed(q,r,b),
+                    "myucurrency")
+mypercent= lambda q,r,b: MT(mymixed(q,r*100,b*100),
+                    "mypercent")
+=================================
+
+========================== abstract_types.py and
+mixed_fraction.py see .zip file ===========================
+
+

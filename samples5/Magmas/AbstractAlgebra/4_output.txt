@@ -1,0 +1,7 @@
+= \pyjgeutil3\samples5\Magmas\AbstractAlgebra\4_use_mymixed.py
+a = ((3 1/2):mymixed)
+b = ((5 1/2):mymixed)
+c = a + b = ((9 0/1):mymixed)
+d = a * b = ((19 1/4):mymixed)
+e = ((3 0/1):mymixed)
+f = e + e = ((6 0/1):mymixed)

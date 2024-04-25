@@ -1,0 +1,15 @@
+\pyjgeutil3\samples5\Magmas\AbstractAlgebra\2_calculus.py
+
+f = (<function myfunc.<locals>.F at 0x0000020A2E41B7E0>:myfunction)
+g = (<function myfunc.<locals>.F at 0x0000020A2E426F20>:myfunction)
+Interval: A = [-1, 1]
+I = (<function dform.<locals>.F at 0x0000020A2E426DE0>:myfunctional)
+x = (3:myreal)
+f*x = ((9.0:myreal):myreal)
+g*x = ((4.0:myreal):myreal)
+g*f*x = ((10.0:myreal):myreal)
+I*f = (0.7699999999999999:myreal)
+I*g = (2.0999999999999996:myreal)
+g*(I*f) = ((1.77:myreal):myreal)
+f*(g*(I*f)) = ((3.1329000000000002:myreal):myreal)
+(f*g)*(I*f) = ((3.1329000000000002:myreal):myreal)

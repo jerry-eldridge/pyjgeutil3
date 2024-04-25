@@ -1,0 +1,354 @@
+﻿20240424 - Abstract Algebra and Abstract Data Types - Application - COOL
+
+In the below essay, we work with Python IDLE shell typing in language
+strings:
+
+input: <string s>
+output: <semantics of s>
+
+where this is denoted:
+
+<string s>
+<semantics of s>
+
+in Python IDLE. When the string s is not accepted by the language
+of python or the string s has no semantics, then a semantic or syntax 
+error is displayed.
+
+Below, we are trying to define semantics for some Abstract Data
+Types we define. Namely, making sense of scalars, functions, operators,
+but the topic is much more general than that. We define only
+multiplication __mul__ operators here. Addition is __add__ for
+example.
+
+In this essay, we defined an Abstract Data Type (ADT) in python:
+
+from typing import TypeVar,NewType
+class MyType:
+    def __init__(self, x, t):
+        self.t = t
+        self.s = NewType(t, TypeVar(self.t))
+        self.x = self.s(x)
+    def __mul__(self, y):
+        if self.t == y.t:
+            return MyType(self.x * y.x, self.t)
+        elif self.t == 'function':
+            return MyType(self.x(y),'real')
+        elif self.t == 'operator':
+            return MyType(self.x(y),'function')
+    def __call__(self, y):
+        return self.x(y)
+    def __str__(self):
+        s = f'({self.x} : {self.s})'
+        return s
+    def __repr__(self):
+        return str(self)
+
+so that if we have a magma 'R' such that there is closure on the
+operation:
+
+x = MyType(3,'real')
+y = MyType(5,'real')
+
+x
+(3 : __main__.real)
+
+y
+(5 : __main__.real)
+
+x * y
+(15 : __main__.real)
+
+y * x
+(15 : __main__.real)
+
+define x * y and y * x (which just happen above to be commutative
+and associative because we choose the integer type for 3 and 5 but
+it need not for an arbitrary abstract data type).
+
+Next, an important feature for the mixed type with MyType of
+the type ('R','S') define it given a lambda expression
+mapping x : 'R' to x + 1 : 'S'.
+
+x = MyType(3,'real')
+f = MyType(lambda z: x * MyType(1,'real'),'function')
+
+f * x
+((3 : __main__.real) : __main__.real)
+f ( x )
+(3 : __main__.real)
+f
+(<function <lambda> at 0x000001D0936E2C00> : __main__.function)
+
+A = MyType(lambda g: MyType(lambda x: g(f(x)),'function'), 'operator')
+A * f * x
+((3 : __main__.real) : __main__.real)
+
+A * f * x
+((3 : __main__.real) : __main__.real)
+A
+(<function <lambda> at 0x000001D0936E2B60> : __main__.operator)
+f
+(<function <lambda> at 0x000001D0936E2C00> : __main__.function)
+x
+(3 : __main__.real)
+
+A * f * x * y
+Traceback (most recent call last):
+  File "<pyshell#327>", line 1, in <module>
+    A * f * x * y
+  File "<pyshell#314>", line 8, in __mul__
+    return MyType(self.x * y.x, self.t)
+  File "<pyshell#314>", line 7, in __mul__
+    if self.t == y.t:
+AttributeError: 'int' object has no attribute 't'
+
+A * f * (x * y)
+((3 : __main__.real) : __main__.real)
+
+x * y
+(15 : __main__.real)
+
+f * (x * y)
+((3 : __main__.real) : __main__.real)
+
+f = MyType(lambda z: z * MyType(1,'real'),'function')
+f * (x * y)
+((15 : __main__.real) : __main__.real)
+
+A * f * (x * y)
+((15 : __main__.real) : __main__.real)
+
+f * f * (x * y)
+Traceback (most recent call last):
+  File "<pyshell#334>", line 1, in <module>
+    f * f * (x * y)
+  File "<pyshell#314>", line 8, in __mul__
+    return MyType(self.x * y.x, self.t)
+TypeError: unsupported operand type(s) for *: 'function' and 'function'
+
+f * (f * (x * y))
+Traceback (most recent call last):
+  File "<pyshell#335>", line 1, in <module>
+    f * (f * (x * y))
+  File "<pyshell#314>", line 10, in __mul__
+    return MyType(self.x(y),'real')
+  File "<pyshell#331>", line 1, in <lambda>
+    f = MyType(lambda z: z * MyType(1,'real'),'function')
+  File "<pyshell#314>", line 8, in __mul__
+    return MyType(self.x * y.x, self.t)
+  File "<pyshell#314>", line 7, in __mul__
+    if self.t == y.t:
+AttributeError: 'int' object has no attribute 't'
+
+and we can define semantics for 'f * (f * (x * y))' using:
+
+class MyType:
+    def __init__(self, x, t):
+        self.t = t
+        self.s = NewType(t, TypeVar(self.t))
+        self.x = self.s(x)
+    def __mul__(self, y):
+        if self.t == y.t:
+            return MyType(self.x * y.x, self.t)
+        elif self.t == 'function' and \
+             type(y) == type(3):
+            return MyType(self.x(y),'real')
+        elif self.t == 'function' and \
+             y.t == 'real':
+            return MyType(self.x(y.x),'real')
+        elif self.t == 'operator':
+            return MyType(self.x(y),'function')
+    def __call__(self, y):
+        return self.x(y)
+    def __str__(self):
+        s = f'({self.x} : {self.s})'
+        return s
+    def __repr__(self):
+        return str(self)
+
+    
+x = MyType(3,'real')
+f = MyType(lambda z: x * MyType(1,'real'),'function')
+f * x
+((3 : __main__.real) : __main__.real)
+A = MyType(lambda g: MyType(lambda x: g(f(x)),'function'), 'operator')
+A * f * x
+((3 : __main__.real) : __main__.real)
+A * f * (x * y)
+((3 : __main__.real) : __main__.real)
+f * f * (x * y)
+Traceback (most recent call last):
+  File "<pyshell#360>", line 1, in <module>
+    f * f * (x * y)
+  File "<pyshell#353>", line 8, in __mul__
+    return MyType(self.x * y.x, self.t)
+TypeError: unsupported operand type(s) for *: 'function' and 'function'
+f * (f * (x * y))
+((3 : __main__.real) : __main__.real)
+
+and we can define semantics for 'f * f' using:
+
+class MyType:
+    def __init__(self, x, t):
+        self.t = t
+        self.s = NewType(t, TypeVar(self.t))
+        self.x = self.s(x)
+    def __mul__(self, y):
+        if self.t == y.t and self.t != 'function':
+            return MyType(self.x * y.x, self.t)
+        elif self.t == 'function' and \
+             type(y) == type(3):
+            return MyType(self.x(y),'real')
+        elif self.t == 'function' and \
+             y.t == 'real':
+            return MyType(self.x(y.x),'real')
+        elif self.t == 'operator':
+            return MyType(self.x(y),'function')
+        elif self.t == 'function' and \
+             y.t == 'function':
+            return MyType(lambda x: self.x(y.x(x)), 'function')
+    def __call__(self, y):
+        return self.x(y)
+    def __str__(self):
+        s = f'({self.x} : {self.s})'
+        return s
+    def __repr__(self):
+        return str(self)
+
+f = MyType(lambda z: x * MyType(1,'real'),'function')
+x = MyType(3,'real')
+A = MyType(lambda g: MyType(lambda x: g(f(x)),'function'), 'operator')
+
+so this makes sense and it is also associative for this example:
+
+f * f * (x * y)
+((3 : __main__.real) : __main__.real)
+f * (f * (x * y))
+((3 : __main__.real) : __main__.real)
+
+(f * f) * (x * y)
+((3 : __main__.real) : __main__.real)
+
+suppose f and g were:
+
+f = MyType(lambda z: x * MyType(2,'real'),'function')
+g = MyType(lambda z: x * MyType(3,'real'),'function')
+
+f * g
+(<function MyType.__mul__.<locals>.<lambda> at 0x000001D093705300> :
+ __main__.function)
+
+f * g * x
+((6 : __main__.real) : __main__.real)
+g * f * x
+((9 : __main__.real) : __main__.real)
+f * (g * x)
+((6 : __main__.real) : __main__.real)
+(f * g) * x
+((6 : __main__.real) : __main__.real)
+g * (f * x)
+((9 : __main__.real) : __main__.real)
+(g * f) * x
+((9 : __main__.real) : __main__.real)
+
+f = MyType(lambda z: z * MyType(2,'real'),'function')
+g = MyType(lambda z: z * MyType(3,'real'),'function')
+
+f * g
+(<function MyType.__mul__.<locals>.<lambda> at 0x000001D0937056C0> :
+ __main__.function)
+f * g * x
+
+Traceback (most recent call last):
+  File "<pyshell#402>", line 1, in <module>
+    f * g * x
+  File "<pyshell#381>", line 14, in __mul__
+    return MyType(self.x(y.x),'real')
+  File "<pyshell#381>", line 19, in <lambda>
+    return MyType(lambda x: self.x(y.x(x)), 'function')
+  File "<pyshell#400>", line 1, in <lambda>
+    g = MyType(lambda z: z * MyType(3,'real'),'function')
+TypeError: unsupported operand type(s) for *: 'int' and 'MyType'
+
+But if we do:
+
+g = MyType(lambda z: MyType(z,'real') * MyType(3,'real'),'function')
+x = MyType(3,'real')
+g * x
+((9 : __main__.real) : __main__.real)
+
+f = MyType(lambda z: MyType(z,'real') * MyType(2,'real'),'function')
+f * x
+((6 : __main__.real) : __main__.real)
+
+we have re-complicated the semanatics of f * g * x:
+
+(f * g) * x
+Traceback (most recent call last):
+  File "<pyshell#441>", line 1, in <module>
+    (f * g) * x
+  File "<pyshell#433>", line 14, in __mul__
+    return MyType(self.x(y.x),'real')
+  File "<pyshell#433>", line 19, in <lambda>
+    return MyType(lambda x: self.x(y.x(x)), 'function')
+  File "<pyshell#439>", line 1, in <lambda>
+    f = MyType(lambda z: MyType(z,'real') * MyType(2,'real'),'function')
+  File "<pyshell#433>", line 8, in __mul__
+    return MyType(self.x * y.x, self.t)
+  File "<pyshell#433>", line 7, in __mul__
+    if self.t == y.t and self.t != 'function':
+AttributeError: 'int' object has no attribute 't'
+
+class MyType:
+    def __init__(self, x, t):
+        self.t = t
+        self.s = NewType(t, TypeVar(self.t))
+        self.x = self.s(x)
+    def __mul__(self, y):
+        if type(y) == type(1):
+            return MyType(self.x*y, 'real')
+        elif self.t == y.t and self.t != 'function':
+            return MyType(self.x * y.x, self.t)
+        elif self.t == 'function' and \
+             type(y) == type(3):
+            return MyType(self.x(y),'real')
+        elif self.t == 'function' and \
+             y.t == 'real':
+            return MyType(self.x(y.x),'real')
+        elif self.t == 'operator':
+            return MyType(self.x(y),'function')
+        elif self.t == 'function' and \
+             y.t == 'function':
+            return MyType(lambda x: self.x(y.x(x)), 'function')
+    def __call__(self, y):
+        return self.x(y)
+    def __str__(self):
+        s = f'({self.x} : {self.s})'
+        return s
+    def __repr__(self):
+        return str(self)
+
+    
+g = MyType(lambda z: MyType(z,'real') * MyType(3,'real'),'function')
+f = MyType(lambda z: MyType(z,'real') * MyType(2,'real'),'function')
+x = MyType(3,'real')
+
+f * g * x
+(((18 : __main__.real) : __main__.real) : __main__.real)
+
+(f * g) * x
+(((18 : __main__.real) : __main__.real) : __main__.real)
+f * (g * x)
+(((18 : __main__.real) : __main__.real) : __main__.real)
+
+and
+
+A = MyType(lambda g: MyType(lambda x: g(f(x)),'function'), 'operator')
+A * f * x
+(((12 : __main__.real) : __main__.real) : __main__.real)
+
+A * g * x
+(((18 : __main__.real) : __main__.real) : __main__.real)
+
+
