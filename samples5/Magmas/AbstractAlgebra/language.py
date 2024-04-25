@@ -14,11 +14,11 @@ class Dipole:
             s = self.s + y.s
             return Dipole(s,t)
         if tup[0] == 's' and tup[1] == 's':
-            t = 'ss'
+            t = 'nn'
             s = self.s + self.sep + y.s
             return Dipole(s,t)
         if tup[0] == 'n' and tup[1] == 'n':
-            t = 'nn'
+            t = 'ss'
             s = self.s + self.sep + y.s
             return Dipole(s,t)
     def __str__(self):

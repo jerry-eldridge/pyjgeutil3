@@ -1,23 +1,23 @@
-= \pyjgeutil3\samples5\Magmas\AbstractAlgebra\7_use_language.py
-word = ('d c bdc dbcdba c acda b aad':ns:mydipole)
+= RESTART: .\pyjgeutil3\samples5\Magmas\AbstractAlgebra\7_use_language.py
+word = ('d cb dc d bcdba ca cda ba ad':ns:mydipole)
 
-word = ('cbd bdacb c bcadd abd a c b':ss:mydipole)
+word = ('cbd b dacb cb cadd a bd acb':sn:mydipole)
 
-word = ('a a bbbcabd ad dbb c bb b da':ns:mydipole)
+word = ('a ab bbcabd a d d bb cb b bd a':ss:mydipole)
 
-word = ('db bc adcac c c c c d ad bbaa':ns:mydipole)
+word = ('db b c a dcac ccccda d b baa':ns:mydipole)
 
-word = (' d bc cd c abac cbb a da ab c b':ss:mydipole)
+word = (' db c c d ca bac c bb ad a a b cb':sn:mydipole)
 
-word = ('aad b b d a ac cd c d badaac a':ss:mydipole)
+word = ('aad bbdaa c c d cdb adaac a':nn:mydipole)
 
-word = (' d abcddb baaac b b cdd a bd':ns:mydipole)
+word = (' da bcddb b aaac bbc dd ab d':ss:mydipole)
 
-word = (' d a b ca bc a acc d bb babc bc':ns:mydipole)
+word = (' dabc a b c aa cc db b b abc b c':ss:mydipole)
 
-word = (' b d dc d ba a c d a abd a b b b cd':ns:mydipole)
+word = (' bdd c db a acdaa bd abbbc d':ss:mydipole)
 
-word = ('cd cd c bd d bd cc dab a bab a':ss:mydipole)
+word = ('cd c d cb d db d c c d ab ab ab a':nn:mydipole)
 
 sent = 'happy birthday to you'
-sent2 = ('happy birthday to you':ns:mydipole)
+sent2 = ('happy  birthday  to  you':ns:mydipole)
