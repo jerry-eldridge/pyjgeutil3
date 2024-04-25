@@ -40,3 +40,11 @@ def demo2(sent):
 sent = "happy birthday to you"
 print(f"sent = '{sent}'")
 demo2(sent)
+print()
+adi = adt.myint
+adp = adt.mydipole
+a = adp('a','sn')
+b = adp('b', 'ns')
+for s in [a,b,a+a,a+b,b+a,b+b,a+a+a,a+a+b,a+b+a,
+          a+b+b,b+a+a,b+a+b,b+b+a,b+b+b]:
+    print(f"s = {s+s}")
