@@ -25,6 +25,9 @@ R_3 a_08:S -> 'e'
 R_2:S2 -> Rbracket S
 R_5 a_09:Rbracket -> ']'
 R_3 a_10:S -> 'e'
-('tags: ', [(1, '[/Lbracket'), (2, '[/Lbracket'), (3, 'e/S'), (4, ']/Rbracket'), (5, 'e/S'), (6, ']/Rbracket'), (7, '[/Lbracket'), (8, 'e/S'), (9, ']/Rbracket'), (10, 'e/S')])
+('tags: ', [(1, '[/Lbracket'), (2, '[/Lbracket'), (3, 'e/S'), 
+(4, ']/Rbracket'), (5, 'e/S'), (6, ']/Rbracket'), (7, '[/Lbracket'), 
+(8, 'e/S'), (9, ']/Rbracket'), (10, 'e/S')])
 accept
+
 
