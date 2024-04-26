@@ -16,7 +16,8 @@ R_13 a_02:Lparen -> '('
 R_2:S2 -> S Rparen
 R_3 a_03:S -> 'x'
 R_14 a_04:Rparen -> ')'
-('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'x/S'), (4, ')/Rparen')])
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'x/S'), 
+(4, ')/Rparen')])
 accept
 
 language: language = ::DyckLanguage::
@@ -35,7 +36,8 @@ R_13 a_04:Lparen -> '('
 R_2:S2 -> S Rparen
 R_3 a_05:S -> 'x'
 R_14 a_06:Rparen -> ')'
-('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), (4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen')])
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), 
+(4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen')])
 accept
 
 language: language = ::DyckLanguage::
@@ -60,6 +62,8 @@ R_13 a_04:Lparen -> '('
 R_2:S2 -> S Rparen
 R_3 a_05:S -> 'x'
 R_14 a_06:Rparen -> ')'
-('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), (4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen'), (8, '(/Lparen'), (9, 'y/S'), (10, ')/Rparen')])
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), 
+(4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen'), 
+(8, '(/Lparen'), (9, 'y/S'), (10, ')/Rparen')])
 accept
 
