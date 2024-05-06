@@ -1,0 +1,23 @@
+Python 3.12
+
+= RESTART: .\Desktop\semantics\5_function_semantics.py
+
+non_terminals = ['S', 'S1', 'S2', 'Alpha', 'AlphaDigit', 
+'Lparen', 'Rparen']
+
+parsing word = 'f(x)'
+t = accept
+p = ['f', 'x']
+process(p) = 101
+parsing word = 'f(g(x))'
+t = accept
+p = ['f', ['g', 'x']]
+process(p) = 201
+parsing word = 'h(g(x))(y)'
+t = accept
+p = [['h', ['g', 'x']], 'y']
+process(p) = 400
+parsing word = 'sin(cos(x))'
+t = accept
+p = ['sin', ['cos', 'x']]
+process(p) = 0.759353443181043

@@ -1,0 +1,22 @@
+Python 3.12
+
+= RESTART: .DyckLanguage\4_function_applications.py
+
+non_terminals = ['S', 'S1', 'S2', 'Alpha', 'AlphaDigit', 
+'Lparen', 'Rparen']
+
+parsing word = 'f(x)'
+t = accept
+p = ['f', 'x']
+
+parsing word = 'f(g(x))'
+t = accept
+p = ['f', ['g', 'x']]
+
+parsing word = 'f(g(x))(y)'
+t = accept
+p = [['f', ['g', 'x']], 'y']
+
+parsing word = 'sin(cos(x))'
+t = accept
+p = ['sin', ['cos', 'x']]

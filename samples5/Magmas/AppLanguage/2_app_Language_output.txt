@@ -1,0 +1,67 @@
+Python 3.12
+
+With app(f,x) := f(x) then a way to parse composition of
+these function applications:
+
+non_terminals = ['S', 'S1', 'S2', 'Lparen', 'Rparen']
+language: language = ::DyckLanguage::
+Parsing line = 'f(x)'
+Derivation:
+R_0:S -> S S1
+R_6 a_01:S -> 'f'
+R_1:S1 -> Lparen S2
+R_13 a_02:Lparen -> '('
+R_2:S2 -> S Rparen
+R_3 a_03:S -> 'x'
+R_14 a_04:Rparen -> ')'
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'x/S'), 
+(4, ')/Rparen')])
+accept
+
+language: language = ::DyckLanguage::
+Parsing line = 'f(g(x))'
+Derivation:
+R_0:S -> S S1
+R_6 a_01:S -> 'f'
+R_1:S1 -> Lparen S2
+R_13 a_02:Lparen -> '('
+R_2:S2 -> S Rparen
+R_0:S -> S S1
+R_14 a_07:Rparen -> ')'
+R_7 a_03:S -> 'g'
+R_1:S1 -> Lparen S2
+R_13 a_04:Lparen -> '('
+R_2:S2 -> S Rparen
+R_3 a_05:S -> 'x'
+R_14 a_06:Rparen -> ')'
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), 
+(4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen')])
+accept
+
+language: language = ::DyckLanguage::
+Parsing line = 'f(g(x))(y)'
+Derivation:
+R_0:S -> S S1
+R_0:S -> S S1
+R_1:S1 -> Lparen S2
+R_6 a_01:S -> 'f'
+R_1:S1 -> Lparen S2
+R_13 a_08:Lparen -> '('
+R_2:S2 -> S Rparen
+R_13 a_02:Lparen -> '('
+R_2:S2 -> S Rparen
+R_4 a_09:S -> 'y'
+R_14 a_10:Rparen -> ')'
+R_0:S -> S S1
+R_14 a_07:Rparen -> ')'
+R_7 a_03:S -> 'g'
+R_1:S1 -> Lparen S2
+R_13 a_04:Lparen -> '('
+R_2:S2 -> S Rparen
+R_3 a_05:S -> 'x'
+R_14 a_06:Rparen -> ')'
+('tags: ', [(1, 'f/S'), (2, '(/Lparen'), (3, 'g/S'), 
+(4, '(/Lparen'), (5, 'x/S'), (6, ')/Rparen'), (7, ')/Rparen'), 
+(8, '(/Lparen'), (9, 'y/S'), (10, ')/Rparen')])
+accept
+
