@@ -5,9 +5,9 @@ import time
 
 from math import pi,sin
 
-##c:\_Python312-64-tf>.\python -m pip install PyQt6
-##c:\_Python312-64-tf>.\python -m pip install pyvista
-##c:\_Python312-64-tf>.\python -m pip install pyvistaqt
+##>.\python -m pip install PyQt6
+##>.\python -m pip install pyvista
+##>.\python -m pip install pyvistaqt
 
 BIGDATA = r"C:/JGE_Universes/obj/"
 
