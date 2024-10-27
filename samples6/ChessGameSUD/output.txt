@@ -1,0 +1,156 @@
+Type "help" for instructions.
+
+= RESTART: \1_text_chess_SUD_game.py
+I = ['K', 'R', 'Q', 'k', 'p']
+C = ['a8', 'a7', 'a6', 'a5', 'a4', 'a3', 'a2', 'a1', 'b8', 'b7', 
+'b6', 'b5', 'b4', 'b3', 'b2', 'b1', 'c8', 'c7', 'c6', 'c5', 'c4', 
+'c3', 'c2', 'c1', 'd8', 'd7', 'd6', 'd5', 'd4', 'd3', 'd2', 'd1', 
+'e8', 'e7', 'e6', 'e5', 'e4', 'e3', 'e2', 'e1', 'f8', 'f7', 'f6', '
+f5', 'f4', 'f3', 'f2', 'f1', 'g8', 'g7', 'g6', 'g5', 'g4', 'g3', 
+'g2', 'g1', 'h8', 'h7', 'h6', 'h5', 'h4', 'h3', 'h2', 'h1']
+a1
+
+> look
+a1
+
+a1
+name = a1
+This room contains .
+> go E
+b1
+
+> look
+b1
+
+b1
+name = b1
+This room contains .
+> go N
+b2
+
+> look
+b2
+
+b2
+name = b2
+This room contains .
+> find K
+go E
+go W
+go S
+go N
+look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> get K
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> get K
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> go W
+c2
+
+> drop K
+> look
+c2
+
+c2
+name = c2
+This room contains .
+> go E
+d2
+
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> help
+
+Enter
+'i' (inventory),
+'l' (list) or 'list',
+'lk' (look) or 'look',
+'q' (quit),
+'go <direction> (combine with 'list')
+'get <item>' (get from a room)
+'drop <item>' (drop to a room)
+'find <item>' (search for item)
+
+> get K
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> i
+name = d2
+This room contains K.
+player_inventory = []
+> find K
+look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> get K
+> look
+d2
+
+d2
+name = d2
+This room contains ('K', 1).
+> find p
+go E
+look
+e2
+
+e2
+name = e2
+This room contains ('p', 1).
+> get p
+> look
+e2
+
+e2
+name = e2
+This room contains .
+> go N
+e3
+
+> go N
+e4
+
+> drop p
+> look
+e4
+
+e4
+name = e4
+This room contains ('p', 1).
+> q
+
+# King K was probably too heavy to get
+
+
