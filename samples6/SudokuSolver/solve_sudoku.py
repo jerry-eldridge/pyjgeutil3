@@ -121,9 +121,6 @@ def get_square(z,x0,x):
 
 def solve_sudoku(design):
     # https://en.wikipedia.org/wiki/Block_design
-
-    # m*b must equal to n*a, so they must use same
-    # primes and product the same prime exponents.
     n1 = 9 # rows
     m1 = 1 # one unique digit in each row
 
