@@ -224,7 +224,4 @@ bend(P,"L wrist","flexor",50.0)
 bend(P,"L knee","flexor",50.0)
 bend(P,"L hip","flexor",50.0)
 
-# bend truck forward rotating on x-axis by 10 degrees
-#pose(P,["trunk","neck"],R=[45,0,0])
-
 display(P)
