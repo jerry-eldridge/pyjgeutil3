@@ -1,0 +1,6 @@
+= RESTART: .\ConformalTheory\3_volume_of_AT_BasicShapes.py
+
+Sphere: r = 30, vol(G1) = 111961.43328313038 using div.
+Sphere: r = 30, vol(G1) = 113097.33552923254 using formula.
+Cylinder: rho = 30, h = 60, vol(G2) = 162517.65169246122 using div.
+Cylinder: rho = 30, h = 60, vol(G2) = 169646.00329384883 using formula.
