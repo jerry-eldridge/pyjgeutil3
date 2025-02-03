@@ -17,11 +17,14 @@ def area(pts):
 def get_polygon(G,face):
      polygon1 = []
      for v in face:
-         if v[0] == '':
+        if type(v) == type([]):
+           if v[0] == '':
               continue
-         n = int(v[0])-1
-         pt = G['pts'][n]
-         polygon1.append(pt)
+           n = int(v[0])-1
+        elif type(v) == type(1):
+           n = v
+        pt = G['pts'][n]
+        polygon1.append(pt)
      return polygon1
 
 def AddNormals(G):
@@ -84,7 +87,12 @@ def area3d(G,i):
      V1 = A-B
      V2 = C-B
      N = np.cross(V1,V2)
-     normal1 = list(N/np.linalg.norm(N))
+     N_mag = np.linalg.norm(N)
+     epsilon = 1e-8
+     if N_mag < epsilon:
+          normal1 = [1,0,0]
+     else:
+          normal1 = list(N/N_mag)
 
      polygon2 = Transform_3D_to_2D(polygon1,normal1)
      A = area(polygon2)
