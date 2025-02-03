@@ -1,6 +1,6 @@
 import sys
 sys.path.append(\
-    r"C:/Users/jerry/Desktop/_Art/my_universes")
+    r"C:/_Art/my_universes")
 import universes
 from copy import deepcopy
 import universes.shapes.common.QuaternionGroup as cog

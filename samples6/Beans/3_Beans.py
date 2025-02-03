@@ -1,6 +1,6 @@
 import sys
 sys.path.append(\
-    r"C:_Art/my_universes")
+    r"C:/_Art/my_universes")
 import universes
 import universes.scene_object as so
 import universes.shapes.primitives as ps
