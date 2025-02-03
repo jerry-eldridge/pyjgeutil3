@@ -1,6 +1,7 @@
 from .shapes import geometrical_object as geoj
 from .shapes import extrusion as ext
 from . import transform_shape as ts
+from copy import deepcopy
 
 import numpy as np
 
@@ -104,6 +105,20 @@ class Scene:
                     self.txts2[self.selected],
                     R,S,T,\
                     self.range[self.selected])
+        return
+    def bbox(self):
+        if self.selected is not None:
+            obj = self.objects[self.selected]
+            G = obj.G
+            pts = deepcopy(G['pts'])
+            P = np.array(pts)
+            Pmin = np.min(P,axis=0)
+            Pmax = np.max(P,axis=0)
+            dims = Pmax - Pmin
+            Pmin = list(map(float,list(Pmin.flatten())))
+            Pmax = list(map(float,list(Pmax.flatten())))
+            dims = list(map(float,list(dims.flatten())))
+            return (Pmin,Pmax,dims)
         return
     def get_G(self):
         G = {}
