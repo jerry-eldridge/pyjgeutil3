@@ -107,7 +107,7 @@ def create_cylinder(rho,h,ns=30,nt=30,path=None):
         phi = 2*pi*t # phi is in [0,2*pi)
         x = rho*cos(phi)
         y = rho*sin(phi)
-        z = h*(2*s-1)
+        z = (h/2)*(2*s-1)
         pt = [x,y,z]
         return pt
     S = np.linspace(0,1,ns)
