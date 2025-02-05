@@ -6,7 +6,6 @@ import numpy as np
 
 from copy import deepcopy
 
-use_tripy = True
 def AT_Cylinder(path, cross_sections,
         bcap=True,ecap=True,closed=False):
     m = len(cross_sections[0])
