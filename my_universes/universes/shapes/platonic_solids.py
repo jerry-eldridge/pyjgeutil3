@@ -8,7 +8,7 @@ import scipy.spatial as ss
 from copy import deepcopy
 from math import sqrt
 
-# tetrahedron (fire)
+# tetrahedron
 def create_tetrahedron0(pts):
     assert(len(pts) == 4)
     V = list(range(4))
@@ -36,7 +36,7 @@ def create_tetrahedron():
     G = create_tetrahedron0(pts)
     return G
 
-# cube (Earth)
+# cube
 def create_cube0(pts):
     assert(len(pts) == 8)
     V = list(range(8))
@@ -68,7 +68,7 @@ def create_cube():
     G = create_cube0(pts)
     return G
 
-# air (octahedron)
+# octahedron
 def create_octahedron():
     # create top
     a = 1
