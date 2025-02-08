@@ -1,6 +1,7 @@
 from .common import affine as aff
 from .common import graph as gra
 from . import alg_topo as topo
+from .common import triangulate_polygon as tpo
 
 import numpy as np
 from copy import deepcopy
@@ -217,20 +218,12 @@ def create_AT_annulus(n,
     P1 = P0
     
     G0 = gra.GraphUnion(G1,G2)
-    G0['F'] = []
-    for s in range(m2):
-        u = s % m1
-        v = s % m2
-        u1 = u
-        v1 = v + m1
-        u2 = (u + 1)%m1
-        v2 = (v+1)%m2 + m1
-        f1 = [v1,u1,u2]
-        if f1 not in G0['F']:
-            G0['F'].append(f1)
-        f2 = [v2,v1,u2]
-        if f2 not in G0['F']:
-            G0['F'].append(f2)
+    Q_pts1 = [[pt[0],pt[2]] for pt in pts1]
+    Q_pts2 = [[pt[0],pt[2]] for pt in pts2]
+    Q = [(Q_pts1,1),(Q_pts2,-1)]
+    F,F_pts = tpo.triangulate_polygons(Q)
+    G0['F'] = deepcopy(F)
+    G0['pts'] = deepcopy(F_pts)
     G0['OR'] = [1]*len(G1['E'])+[-1]*len(G2['E'])
 
     def cross_section(P0,P1,t):
