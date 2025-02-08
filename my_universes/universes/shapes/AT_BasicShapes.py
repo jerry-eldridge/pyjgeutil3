@@ -185,7 +185,12 @@ def create_torus(r1,r2,ns=30,nt=30,path=None):
     return G
 
 def create_AT_annulus(n,
-        a1=100,b1=200,a2=50,b2=100,h=100):
+        a_outer=100,b_outer=200,a_inner=50,b_inner=100,height=100):
+    a1 = a_outer
+    b1 = b_outer
+    a2 = a_inner
+    b2 = b_inner
+    h = height
     n1 = n
     n2 = n
     m1 = n1+1
