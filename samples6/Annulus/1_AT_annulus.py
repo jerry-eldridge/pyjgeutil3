@@ -41,7 +41,9 @@ fn_save = BIGDATA+"AT_annulus.obj"
 g = open(fn_save,'w')
 Sce = so.Scene()
 G = atbs.create_AT_annulus(n=20,
-        a1=300,b1=300,a2=50,b2=50,h=50)
+        a_outer=300,b_outer=300,
+        a_inner=50,b_inner=50,
+        height=50)
 Sce.add(G,"AT_annulus","AT_annulus.mtl","AT_annulus")
 Sce.select("AT_annulus")
 T = [0,0,0]
