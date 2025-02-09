@@ -10,8 +10,9 @@ import numpy as np
 # contain -1 polygons. And polygon -1 cannot
 # contain any polygons.
 
-lerp = lambda A,B,t: list(map(float,\
-            list((1-t)*np.array(A)-t*np.array(B))))
+lerp = lambda A,B,t: \
+       list(map(float,list(\
+           np.array(A)*(1-t) + np.array(B)*t)))
 
 def triangulate_polygons_helper(Q):
     pts_Q = []
@@ -29,26 +30,37 @@ def triangulate_polygons_helper(Q):
         u,v,w = list(map(int,[u,v,w]))
         f = [u,v,w]
         F.append(f)
-    return tri,F,pts_Q
+    return F,pts_Q,tri
 
 def triangulate_polygons(Q,t=0.0001):
-    tri,F,pts = triangulate_polygons_helper(Q)
+    tt = t
+    #print(f"|Q| = {len(Q)}")
     # filter interior faces
+    F,pts_Q,tri = triangulate_polygons_helper(Q)
     I = []
+    G = []
     for i in range(len(Q)):
         tup = Q[i]
         pts_i,sgn_i = tup
         if sgn_i == -1:
-            pts_i = np.array(pts_i)
-            C = np.mean(pts_i,axis=0)
-            pts_i_2 = []
+            pts_i2 = np.array(pts_i)
+            C_i = np.mean(pts_i2,axis=0)
+            pts_i3 = []
             for j in range(len(pts_i)):
-                pt = lerp(pts_i[j],C,t)
-                pts_i_2.append(pt)
-            pts_i_2 = np.array(pts_i_2)
-            tri_i = tri.find_simplex(pts_i_2)
-            F_i = [idx for idx in tri_i if idx != -1]
-            I = F_i
-    F3 = [F[i] for i in range(len(F)) if i not in I]
-    return F3,pts
+                A = pts_i[j]
+                B = C_i
+                pt = lerp(A,B,tt)
+                pts_i3.append(pt)
+            pts_i3a = np.array(pts_i3)
+                
+            Ii = []
+            Ii = tri.find_simplex(pts_i3a)
+            Ii = list(map(int,list(Ii)))
+            Ii = list(set(Ii))
+            Ii2 = [idx for idx in Ii if idx != -1]
+            I = I + Ii2
+
+    F3 = [F[i] for i in range(len(F)) \
+                  if i not in I]
+    return F3,pts_Q
 
