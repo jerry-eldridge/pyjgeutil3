@@ -253,3 +253,85 @@ def create_AT_annulus(n,
                 bcap = True, ecap = True, closed=False)
     return G3
 
+def create_AT_annulus_holes(n,k,
+        a_outer=300,b_outer=300,r_hole=30,height=100):
+    k_min = 2
+    k_max = 7
+    k = min(k_max,max(k_min,k))
+    assert(r_hole < a_outer)
+    assert(r_hole < b_outer)
+    a1 = a_outer
+    b1 = b_outer
+    h = height
+    n1 = n
+    m1 = n1+1
+    pts1 = []
+    for i in range(m1):
+        t = i/(m1-1)
+        x = a1*cos(2*pi*t)
+        z = b1*sin(2*pi*t)
+        pt = [x,0,z]
+        pts1.append(pt)
+    O = np.mean(pts1,axis=0)
+    O = list(map(float,list(O)))
+    G1 = gra.Cn(m1)
+    P0 = deepcopy(pts1)
+    G0 = copy_graph(G1)
+    Q_pts1 = [[pt[0],pt[2]] for pt in pts1]
+    Q = [(Q_pts1,1)]
+    OR = [1]*len(G1['E'])
+    r_hole = min(r_hole,a1/10)
+    for j in range(k):
+        m2 = 10
+        pts_k = []
+        t2 = 2*pi*j/k
+        cx = 0.5*a1*cos(t2) - O[0]
+        cz = 0.5*b1*sin(t2) - O[2]
+        for i in range(m2):
+            t = i/(m2-1)
+            x = r_hole*cos(2*pi*t)+cx
+            y = 0
+            z = r_hole*sin(2*pi*t)+cz
+            pt = [x,y,z]
+            pts_k.append(pt)
+        G_k = gra.Cn(m2)
+        P0 = P0 + pts_k
+        G0 = gra.GraphUnion(G0,G_k)
+        Q_pts_k = [[pt[0],pt[2]] for pt in \
+                   pts_k]
+        Q = Q + [(Q_pts_k,-1)]
+        OR = OR+[-1]*len(G_k['E'])
+        
+    P1 = P0
+    F = []
+    F,F_pts = tpo.triangulate_polygons(Q,t=0.001)
+    G0['F'] = deepcopy(F)
+    G0['pts'] = deepcopy(P0)
+    G0['OR'] = deepcopy(OR)
+
+    def cross_section(P0,P1,t):
+        assert(len(P0)==len(P1))
+        P2 = []
+        for i in range(len(P0)):
+            A = P0[i]
+            B = P1[i]
+            C = lerp(A,B,t)
+            P2.append(C)
+        return P2
+
+    smin = 0
+    smax = 1
+    ds = .1
+    s = smin
+    cross_sections = []
+    path = []
+    while s < smax+ds:
+        cross_section_s = cross_section(P0,P1,s)
+        cross_sections.append(cross_section_s)
+        s = s + ds
+        pt = [0,h*s,0]
+        path.append(pt)
+        s = s + ds
+    G3 = topo.AT_Graph_Cylinder(path,G0,cross_sections,
+                bcap = True, ecap = True, closed=False)
+    return G3
