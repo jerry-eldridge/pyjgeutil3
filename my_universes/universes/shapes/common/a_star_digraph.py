@@ -1,6 +1,6 @@
-"""
-http:#en.wikipedia.org/wiki/A*_search_algorithm
-"""
+##"""
+##http:#en.wikipedia.org/wiki/A*_search_algorithm
+##"""
 from math import sqrt
 
 def neighbor_nodes(G,current):
