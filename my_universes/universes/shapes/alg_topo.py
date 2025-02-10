@@ -244,3 +244,34 @@ def AT_Graph_Cylinder(path, G, cross_sections,
     H['F'] = F
     H['N'] = N
     return H
+
+class String_Particle:
+    def __init__(self,G, x_func, section_func, ds):
+        self.s = 0
+        self.ds = ds
+        self.xf = x_func
+        self.G = copy_graph(G)
+        self.sectionf = section_func
+    def get_world_sheet(self,bcap=True,ecap=True):
+        path = []
+        cross_sections = []
+        smin = 0
+        smax = self.s + 2*self.ds
+        s = smin
+        while s < smax + self.ds:
+            x = self.xf(s)
+            section = self.sectionf(s)
+            path.append(x)
+            cross_sections.append(section)
+            s = s + self.ds
+        G2 = AT_Graph_Cylinder(path, self.G,
+                    cross_sections,
+                    bcap=bcap,ecap=ecap,
+                    closed=False)
+        return G2
+    def propagate(self):
+        self.s = min(1,self.s + self.ds)
+    def reset(self):
+        self.s = 0
+    
+        
