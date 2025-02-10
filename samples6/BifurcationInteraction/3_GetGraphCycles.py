@@ -26,14 +26,14 @@ G3 = gra.Cn(4)
 print(f"G1 = {G1}")
 print(f"G2 = {G2}")
 print(f"G3 = {G3}")
-print("Computing graph union, \/ Gi = G1 \/ G2 \/ G3")
+print("Computing graph union, \\/ Gi = G1  G2 \\/ G3")
 G = deepcopy(G1)
 G = gra.GraphUnionPseudo(G,G2)
 G = gra.GraphUnionPseudo(G,G3)
 G = gra.PseudoToGraph(G)
 print(f"""
 G is kept as an undirected graph to reduced |E| count
-G = PseudoToGraph(\/ Gi) = {G}
+G = PseudoToGraph(\\/ Gi) = {G}
 Adding edges [0,6] and [1,7] to G['E']
 """)
 Es = [[0,4],[1,5],[4,5]]
@@ -43,7 +43,7 @@ for e in Es:
      f = [v,u]
      if not (e in G['E'] or f in G['E']):
          G['E'].append(e)
-print(f"G = G \/ Es = {G}")
+print(f"G = G \\/ Es = {G}")
 CC = gmat.GraphCycles(G)
 w = 600
 h = 600
