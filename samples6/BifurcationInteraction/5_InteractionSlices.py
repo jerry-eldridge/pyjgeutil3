@@ -77,6 +77,7 @@ z = 0
 for i in range(depth):
     ax = axes[i // m, i % m]
     ax.contour(X,Y,dataset[i,:,:],levels=[z])
+    #ax.axis("off")
 
 plt.tight_layout()
 plt.show()
