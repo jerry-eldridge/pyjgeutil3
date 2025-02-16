@@ -502,7 +502,7 @@ def ExtrudeGraph(doc,k):
 # [1] https://github.com/linuxlewis/tripy
 # installed by 'pip install tripy' in WinPython27 command shell.
 # set 'use_tripy = True' for putting caps on ends of extrusions
-use_tripy = True
+use_tripy = False
 if use_tripy:
      import tripy
 
