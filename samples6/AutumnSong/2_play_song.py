@@ -6,6 +6,8 @@ import sounddevice as sd
 import time
 import random
 
+# libraries used: scipy,matplotlib,numpy,sounddevice
+
 seed0 = 12345
 random.seed(seed0)
 
