@@ -1,5 +1,5 @@
 from scipy.integrate import quad
-from math import sqrt,pi,acos,cos,sin,pi,fmod
+from math import sqrt,pi,acos,cos,sin,pi,fmod,ceil
 import matplotlib.pyplot as plt
 import numpy as np
 import sounddevice as sd
@@ -211,6 +211,7 @@ def song_array(fn,sr):
     lines = txt.split('\n')
     L = []
     total_dur = 0
+    s_t = 0
     for line in lines:
         if len(line) == 0:
             continue
@@ -224,7 +225,6 @@ def song_array(fn,sr):
         dur = t_end2-t_start2
         total_dur = total_dur + dur
         tup = (t_start2,t_end2,freq)
-        #print(tup)
         L.append(tup)
     s_t = 0
     for tup in L:
@@ -262,6 +262,6 @@ def song_array(fn,sr):
     time.sleep(max(0,total_dur-dt))
     return
 
-fn = "./jerry_dances_to_autumn_in_paradise.txt"
+fn = "./jerry_bean_march.txt"
 song_array(fn,sr)
 
