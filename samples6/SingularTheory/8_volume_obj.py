@@ -42,12 +42,9 @@ def create_torus(r1,r2,ns=30,nt=30,path=None):
     print(f"vol(G) = {voo.volume(G)}")
     pts = deepcopy(G['pts'])
     F = deepcopy(G['F'])
-    # sum of tetrahedrons based on adding a point O
-    # to list of points of each face in F.
+    # sum of faces
     for i in range(len(F)):
         tri = F[i]
-        # create a tetrahedron by adding
-        # the centroid O to pts to each triangle
         pts_tet = [pts[i] for i in tri]
         q = 2
         val = atst.S_q(q, atst.func(pts_tet))*atst.R(-1)
