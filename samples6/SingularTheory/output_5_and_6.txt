@@ -1,0 +1,132 @@
+Python 3.13
+
+========= RESTART: .\AlgTopo\6_SurfaceIntegral.py =========
+omega_1q = 
+<singular_q_chain>
+<term index = 1>
+<sqs>
+n edge
+v 1 0.0 0.0 0.0
+v 2 1.0 0.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 2>
+<sqs>
+n edge
+v 1 1.0 0.0 0.0
+v 2 1.0 1.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 3>
+<sqs>
+n edge
+v 1 1.0 1.0 0.0
+v 2 0.0 1.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 4>
+<sqs>
+n edge
+v 1 0.0 1.0 0.0
+v 2 0.0 0.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+</singular_q_chain>
+
+I0 = line_integral(omega_1q,f0) = 4.0
+==============================
+omega_2q = 
+<singular_q_chain>
+<term index = 1>
+<sqs>
+n face
+v 1 0.0 0.0 0.0
+v 2 10.0 0.0 0.0
+v 3 10.0 10.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 2>
+<sqs>
+n face
+v 1 0.0 0.0 0.0
+v 2 10.0 10.0 0.0
+v 3 0.0 10.0 0.0
+</sqs>
+<scalar>1</scalar>
+</term>
+</singular_q_chain>
+
+I1 = surface_integral(omega_2q,f2) = 100.0
+==============================
+omega_3q = 
+<singular_q_chain>
+<term index = 1>
+<sqs>
+n tetra
+v 1 -1.0 -1.5 -2.0
+v 2 1.0 -1.5 -2.0
+v 3 -1.0 1.5 -2.0
+v 4 1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 2>
+<sqs>
+n tetra
+v 1 -1.0 -1.5 -2.0
+v 2 -1.0 1.5 -2.0
+v 3 -1.0 -1.5 2.0
+v 4 1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 3>
+<sqs>
+n tetra
+v 1 1.0 -1.5 -2.0
+v 2 1.0 1.5 -2.0
+v 3 -1.0 1.5 -2.0
+v 4 1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 4>
+<sqs>
+n tetra
+v 1 1.0 -1.5 -2.0
+v 2 -1.0 1.5 -2.0
+v 3 1.0 -1.5 2.0
+v 4 1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 5>
+<sqs>
+n tetra
+v 1 -1.0 1.5 -2.0
+v 2 -1.0 -1.5 2.0
+v 3 1.0 -1.5 2.0
+v 4 -1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 6>
+<sqs>
+n tetra
+v 1 -1.0 1.5 -2.0
+v 2 1.0 -1.5 2.0
+v 3 1.0 1.5 2.0
+v 4 -1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+</singular_q_chain>
+
+I3 = volume(omega_3q) = 24.0
+Formula for Cube, Vol = w*h*d = 24
+==============================
