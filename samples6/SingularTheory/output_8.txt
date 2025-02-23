@@ -7,4 +7,4 @@ R = 10
 r = 20
 Formula: V = pi * r**2 * 2 * pi * R = 78956.83520871487
 vol(G) = 72477.61088033053
-singular q-chains: vol(omega_3q) = 72477.61088032754
+singular q-chains: vol(omega_2q) = 72477.61088032754
