@@ -63,13 +63,19 @@ omega_3q = create_cube(w,h,d)
 V2 = sqm.volume_3q(omega_3q)
 print(f"singular q-chains: vol(omega_3q) = {float(V2)}")
 
-R = 10
-r = 20
-print(f"R = {R}")
-print(f"r = {r}")
-V1 = pi * r**2 * 2 * pi * R
+r1 = 10
+r2 = 20
+#################################################
+# [1] formula R and V1 by Microsoft Copilot, a
+# large language model.
+R = (r1 + r2)/2.0
+V1 = 2*pi**2*(r2**2 - r1**2)*R
+#################################################
+
+print(f"r1 = {r1}")
+print(f"r2 = {r2}")
 print(f"Formula: V = pi * r**2 * 2 * pi * R = {V1}")
-omega_2q = create_torus(R,r,ns=7,nt=7,path=None)
+omega_2q = create_torus(r1,r2,ns=8,nt=8,path=None)
 V2 = sqm.volume_2q(omega_2q)
 print(f"singular q-chains: vol(omega_2q) = {float(V2)}")
 

@@ -2,9 +2,9 @@
 
 Formula: w * h * d = 24
 singular q-chains: vol(omega_3q) = 24.0
+r1 = 10
+r2 = 20
 
-R = 10
-r = 20
-Formula: V = pi * r**2 * 2 * pi * R = 78956.83520871487
-vol(G) = 72477.61088033053
-singular q-chains: vol(omega_2q) = 72477.61088032754
+Formula: V = pi * r**2 * 2 * pi * R = 88826.43960980422
+vol(G) = 81269.70674341741
+singular q-chains: vol(omega_2q) = 81269.70674342357
