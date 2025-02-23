@@ -60,7 +60,7 @@ def Indices(sigma):
         L.append((Q,v.x))
     return L
 
-def volume(omega_3q):
+def volume_3q(omega_3q):
     s = 0
     for i in range(len(omega_3q.S)):
         # omega_3d contains tetrahedrons so
@@ -82,5 +82,21 @@ def volume(omega_3q):
             F = C/3.0
             val = -np.inner(F,dA)*orientation
             s = s + abs(val)
+    val = np.linalg.norm(s)
+    return s
+
+def volume_2q(omega_2q):
+    s = 0
+    for i in range(len(omega_2q.S)):
+        tau = omega_2q.S[i]
+        if tau.q != 2:
+            continue
+        P = tau.P()
+        orientation = omega_2q.V[i].x
+        dA,n = vector_area_triangle(P)
+        C = np.mean(P,axis=0)
+        F = C/3.0
+        val = -np.inner(F,dA)*orientation
+        s = s + val
     val = np.linalg.norm(s)
     return s

@@ -33,7 +33,7 @@ d = 4
 print(f"Forming cube {w} x {h} x {d} of volume {w*h*d}")
 omega_3q = create_cube(w,h,d)
 print(f"omega_3q = \n{omega_3q}")
-I = sqm.volume(omega_3q)
+I = sqm.volume_3q(omega_3q)
 print(f"singular q-chains: vol(cube) = {float(I)}")
 
 
