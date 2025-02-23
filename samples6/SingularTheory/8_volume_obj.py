@@ -74,7 +74,8 @@ V1 = 2*pi**2*(r2**2 - r1**2)*R
 
 print(f"r1 = {r1}")
 print(f"r2 = {r2}")
-print(f"Formula: V = pi * r**2 * 2 * pi * R = {V1}")
+print(f"R = (r1 + r2)/2.0 = {R}")
+print(f"Formula: V = 2*pi**2*(r2**2 - r1**2)*R = {V1}")
 omega_2q = create_torus(r1,r2,ns=8,nt=8,path=None)
 V2 = sqm.volume_2q(omega_2q)
 print(f"singular q-chains: vol(omega_2q) = {float(V2)}")
