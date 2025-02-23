@@ -1,0 +1,129 @@
+Python 3.13
+
+============ .\AlgTopo\7_volume_obj.py ===========
+Forming cube 2 x 3 x 4 of volume 24.0 .
+
+omega_3q = 
+<singular_q_chain>
+<term index = 1>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 -2.0
+v 3 1.0 -1.5 -2.0
+v 4 1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 2>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 -2.0
+v 3 1.0 -1.5 2.0
+v 4 -1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 3>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 1.0 -1.5 -2.0
+v 3 1.0 1.5 -2.0
+v 4 1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 4>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 1.0 -1.5 -2.0
+v 3 1.0 1.5 2.0
+v 4 1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 5>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 1.5 2.0
+v 3 1.0 1.5 2.0
+v 4 1.0 1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 6>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 1.5 2.0
+v 3 1.0 1.5 -2.0
+v 4 -1.0 1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 7>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 2.0
+v 3 -1.0 1.5 2.0
+v 4 -1.0 1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 8>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 2.0
+v 3 -1.0 1.5 -2.0
+v 4 -1.0 -1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 9>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 1.5 2.0
+v 3 -1.0 -1.5 2.0
+v 4 1.0 -1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 10>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 1.5 2.0
+v 3 1.0 -1.5 2.0
+v 4 1.0 1.5 2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 11>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 -2.0
+v 3 -1.0 1.5 -2.0
+v 4 1.0 1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+<term index = 12>
+<sqs>
+n tetra
+v 1 0.0 0.0 0.0
+v 2 -1.0 -1.5 -2.0
+v 3 1.0 1.5 -2.0
+v 4 1.0 -1.5 -2.0
+</sqs>
+<scalar>1</scalar>
+</term>
+</singular_q_chain>
+singular q-chains: vol(cube) = 24.0
