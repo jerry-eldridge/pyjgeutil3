@@ -49,10 +49,10 @@ def create_torus(r1,r2,ns=30,nt=30,path=None):
         q = 2
         val = atst.S_q(q, atst.func(pts_tet))*atst.R(-1)
         if i == 0:
-            omega_3q = val
+            omega_2q = val
         else:
-            omega_3q = omega_3q + val
-    return omega_3q
+            omega_2q = omega_2q + val
+    return omega_2q
 
 w = 2
 h = 3
