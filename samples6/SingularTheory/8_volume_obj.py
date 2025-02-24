@@ -2,7 +2,7 @@ import numpy as np
 import singular_q_chain_measures as sqm
 import AT_singular_theory as atst
 
-from math import pi
+from math import pi,sin,cos,sqrt
 from copy import deepcopy
 
 import sys
@@ -63,21 +63,35 @@ omega_3q = create_cube(w,h,d)
 V2 = sqm.volume_3q(omega_3q)
 print(f"singular q-chains: vol(omega_3q) = {float(V2)}")
 
+ns = 9
+print(f"ns = {ns}")
+nt = 7
+print(f"nt = {nt}")
 r1 = 10
 r2 = 20
-#################################################
-# [1] formula R and V1 by Microsoft Copilot, a
-# large language model.
-R = (r1 + r2)/2.0
-V1 = 2*pi**2*(r2**2 - r1**2)*R
-#################################################
-
 print(f"r1 = {r1}")
 print(f"r2 = {r2}")
-print(f"R = (r1 + r2)/2.0 = {R}")
-print(f"Formula: V = 2*pi**2*(r2**2 - r1**2)*R = {V1}")
-omega_2q = create_torus(r1,r2,ns=8,nt=8,path=None)
-V2 = sqm.volume_2q(omega_2q)
-print(f"singular q-chains: vol(omega_2q) = {float(V2)}")
+C = 0
+for i in range(nt):
+    t = i/(nt-1)
+    x = r2*cos(2*pi*t)
+    y = r2*sin(2*pi*t)
+    if i == 0:
+        x_lst = x
+        y_lst = y
+    val = sqrt((x-x_lst)**2 + (y-y_lst)**2)
+    x_lst = x
+    y_lst = y
+    C = C + val
+print(f"C = {C}")
+
+# [1] https://en.wikipedia.org/wiki/Regular_polygon
+# for area of convex regular n-sided polygon
+V3 = (0.5*ns*r1**2*sin(2*pi/ns)) * C
+
+print(f"Formula: V3 = (0.5*ns*r1**2*sin(2*pi/ns)) * C = {V3}")
+omega_2q = create_torus(r1,r2,ns=9,nt=4,path=None)
+V4 = sqm.volume_2q(omega_2q)
+print(f"singular q-chains: V4 = vol(omega_2q) = {float(V4)}")
 
 
