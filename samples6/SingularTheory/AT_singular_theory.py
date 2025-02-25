@@ -93,8 +93,6 @@ class singular_q_simplex:
     def __eq__(self, y):
         P1 = deepcopy(self.P())
         P2 = deepcopy(y.P())
-        P1.sort()
-        P2.sort()
         flag = P1 == P2
         return flag
     def __ne__(self, y):
@@ -203,7 +201,7 @@ class singular_q_chain:
                 S.append(s)
                 V.append(v)
             else:
-                idx = self.find(s)
+                idx = self.S.index(s)
                 v2 = V[idx]
                 V[idx] = v2 + v
         for i in range(len(y.S)):
@@ -213,7 +211,7 @@ class singular_q_chain:
                 S.append(s)
                 V.append(v)
             else:
-                idx = self.find(s)
+                idx = self.S.index(s)
                 v2 = V[idx]
                 V[idx] = v2 + v
         return singular_q_chain(V,S)
