@@ -91,7 +91,11 @@ class singular_q_simplex:
     def P(self):
         return [self.sigma(e) for e in self.E]
     def __eq__(self, y):
-        flag = self.P() == y.P()
+        P1 = deepcopy(self.P())
+        P2 = deepcopy(y.P())
+        P1.sort()
+        P2.sort()
+        flag = P1 == P2
         return flag
     def __ne__(self, y):
         return not(self == y)
@@ -145,6 +149,14 @@ class singular_q_chain:
         self.n = len(S)
         self.S = deepcopy(S)
         self.V = deepcopy(V)
+    def __eq__(self, y):
+        flag = str(self - y) == '0'
+        return flag
+    def find(self, s):
+        for i in range(len(self.S)):
+            if self.S[i] == s:
+                return i
+        return None
     def zero(self):
         return singular_q_chain([],[])
     def term(self, i):
@@ -191,7 +203,7 @@ class singular_q_chain:
                 S.append(s)
                 V.append(v)
             else:
-                idx = S.index(s)
+                idx = self.find(s)
                 v2 = V[idx]
                 V[idx] = v2 + v
         for i in range(len(y.S)):
@@ -201,7 +213,7 @@ class singular_q_chain:
                 S.append(s)
                 V.append(v)
             else:
-                idx = S.index(s)
+                idx = self.find(s)
                 v2 = V[idx]
                 V[idx] = v2 + v
         return singular_q_chain(V,S)

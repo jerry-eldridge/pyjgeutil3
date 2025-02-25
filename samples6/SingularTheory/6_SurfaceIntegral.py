@@ -113,7 +113,7 @@ for i in range(len(tets)):
 
 print(f"omega_3q = \n{omega_3q}")
 print()
-I3 = sqm.volume(omega_3q)
-print(f"I3 = volume(omega_3q) = {I3}")
+I3 = sqm.volume_3q(omega_3q)
+print(f"I3 = volume_3q(omega_3q) = {I3}")
 print(f"Formula for Cube, Vol = w*h*d = {w*h*d}")
 print(f"="*30)
