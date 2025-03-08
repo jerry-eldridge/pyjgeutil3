@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Another Homotopy on an Algebraic Expression using lerp</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html><head>
+
+    <meta http-equiv="content-type" content="text/html; ">
+  </head>
+  <body><div class="moz-text-html" lang="x-unicode">
+    <pre>20250308 - Another Homotopy on an Algebraic Expression using lerp
+
+A homotopy is a string that is one shape at time t = 0 of f(x) where
+the string is another shape at time t = 1 of g(x).
+
+A homotopy H(x,t) is a map such that H(x,0) = f(x) and H(x,1) = g(x)
+such that the parameter t = 0 is f and t = 1 is g. That is,
+H : X x [0,1] -&gt; Y.
+
+[1] <a class="moz-txt-link-freetext" href="https://en.wikipedia.org/wiki/Homotopy">https://en.wikipedia.org/wiki/Homotopy</a>
+See the animated .gif file at [1].
+
+Previous essay mentioned the expression a*a*b as {a:2,b:1} being
+morphed into expression a as {a:1,b:0}.
+
+So in this essay, we present an even simpler morphing or homotopy between
+the algebraic expressions.
+
+In Python3 IDLE,
+
+import numpy as np
+e = lambda n,m: f"a**{n}*b**{m}"
+e = lambda x,y: f"a**{x}*b**{y}"
+lerp = lambda A,B,t: list(map(float,list(np.array(A)*(1-t)+np.array(B)*t)))
+tmin = 0
+tmax = 1
+N = 10
+dt = (tmax-tmin)/N
+
+t = tmin
+while t &lt; tmax:
+    x = lerp([2],[1], t)[0]
+    y = lerp([1],[0], t)[0]
+    expr = e(x,y)
+    print(f"{t}: {expr}")
+    t = t + dt
+
+where note our implementation of lerp required us to at least have
+a list of numbers and since we use just one we need [2] instead of 2.
+Also lerp returns a list of numbers and so we need x = lerp(x0,x1,t)[0]
+and y = lerp(y0,y1,t)[0] where x0 = [2] and x1 = [1], and y0 = [1]
+and y1 = [0] and where x is x(t) and y is y(t).
+
+0: a**2.0*b**1.0
+0.1: a**1.9000000000000001*b**0.9
+0.2: a**1.8*b**0.8
+0.30000000000000004: a**1.7*b**0.7
+0.4: a**1.6*b**0.6
+0.5: a**1.5*b**0.5
+0.6: a**1.4*b**0.4
+0.7: a**1.3*b**0.30000000000000004
+0.7999999999999999: a**1.2000000000000002*b**0.20000000000000007
+0.8999999999999999: a**1.1*b**0.10000000000000009
+0.9999999999999999: a**1.0*b**1.1102230246251565e-16
+
+where the above shows f"{t}, {expression}" for parameter t and
+algebraic expression a**x(t) * b**y(t) such that x(0) = 2
+and y(0) = 1 and x(1) = 1 and y(1) = 0 morphing a**2 * b**1 into
+a**1 * b**0 or a*a*b into a.
+
+So in this essay and the previous one, we have a smooth transformation
+from one algebraic expression to another one. In Biology, the previous
+essay using ODEs (Ordinary Differential Equations) is usually preferred.
+
+</pre>
+  
+
+
+</div></body></html></body>
+</html>
+</table></div>
