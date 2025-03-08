@@ -23,10 +23,10 @@ def Demo1():
              ("NP",["she"]),
              ("V",["eats"]),
              ("P",["with"]),
-             ("N",["fish"]),
-             ("N",["fork"]),
+             ("N",["pizza"]),
+             ("N",["spoon"]),
              ("Det",["a"])],
-        "she eats a fish with a fork".split(' '),
+        "she eats a pizza with a spoon".split(' '),
         ["S","VP","PP","NP","V","P","N","Det"]
         ]
 
