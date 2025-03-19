@@ -1,5 +1,13 @@
 README_mathematics_song.txt
 
+[1] https://www.youtube.com/shorts/5gXij5AHhnU
+"Jerry Turn on the Lights", @jerryeldridge1690,
+
+synthesized song "Mathematics built this song"
+mentioned below with added Reverb using Audacity
+and using a speech sung version recorded with
+a webcam microphone with Audacity.
+
 The script 7_play_synth_music.py was run in python3
 with audio in  root_A or the ./audio2/ subfolder
 of me singing "Mathematics built this song. 
