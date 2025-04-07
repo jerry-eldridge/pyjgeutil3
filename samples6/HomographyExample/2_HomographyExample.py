@@ -128,7 +128,7 @@ def image_space_to_3D(cam1,pts1,cam2,pts2):
 # four corners of large bookshelves in pixels
 
 tri1 = [[85.8,50,172],[10.3,50,172],
-      [85.8,10,172],[10.3,10,172]]
+      [85.8,10,172],[10.3,10,142]]
 print(tri1)
 
 ##########################
