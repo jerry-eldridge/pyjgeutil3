@@ -100,11 +100,6 @@ def replace_color_jit(dx,x1,x2,y1,y2):
         dx[i,j][0] = H2
     return
 
-
-#fn = r"C:/Users/jerry/Desktop/_pics/ar62 (18).jpg"
-
-#im = cv2.imread(fn,1)
-
 def bgr_to_hsv(x):
     dx = cuda.to_device(x) # copy to GPU from CPU
     dy = cuda.to_device(np.zeros(dx.shape,dtype=np.uint16))
