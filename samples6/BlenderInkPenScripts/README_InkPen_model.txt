@@ -8,3 +8,7 @@ or texture and the stored vt texture coordinates map the
 3D object to a 2D image texture atlas of charts using Blender
 API and Blender.
 
+The results are the Jerry Body writes "apple", "L", and
+a line at:
+
+[1] https://www.youtube.com/@jerryeldridge1690
