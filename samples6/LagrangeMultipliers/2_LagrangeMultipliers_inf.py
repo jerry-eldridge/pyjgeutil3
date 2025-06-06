@@ -29,7 +29,8 @@ def g(X):
     return X[0]**2/9 + (X[1]/5 - 1)**2 - 1
 
 
-
+# A = {x: g(x) = 0}, inf_{x in A} f(x),
+# with initial guess x = X0.
 def inf(g):
     def F(f):
         def G(X0):
@@ -62,6 +63,8 @@ def inf(g):
         return G
     return F
 
+# sup_{x in A} f(x) with A = {x: g(x) = 0}
+# and initial guess x = X0.
 sup = lambda g: lambda f: lambda X0:\
       inf(g)(lambda X: -f(X))(X0)
 
