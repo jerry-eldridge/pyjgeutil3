@@ -37,7 +37,26 @@ class WedgeProductTerm:
         Ls = list(set(list(range(x.n)))-set(L))
         Ls.sort()
         return WedgeProductTerm(x.expr,Ls,x.n,x.names)
-        
+    def deg(self):
+        L2 = deepcopy(self.L)
+        L3 = deepcopy(list(set(self.L)))
+        L2.sort()
+        L3.sort()
+        if L2 != L3:
+            return 0
+        else:
+            I = deepcopy(self.L)
+            pi = list(range(self.n))
+            c = 0
+            for i in range(self.n):
+                if i not in I:
+                    continue
+                else:
+                    pi[i] = I[c]
+                    c = c + 1
+            pi = perm(pi)
+            s = pi.signature()
+            return s
     def reduce(self):
         L2 = deepcopy(self.L)
         L3 = deepcopy(list(set(self.L)))
@@ -50,17 +69,7 @@ class WedgeProductTerm:
         else:
             n = self.n
             L = L2
-            I = deepcopy(self.L)
-            pi = list(range(n))
-            c = 0
-            for i in range(n):
-                if i not in I:
-                    continue
-                else:
-                    pi[i] = I[c]
-                    c = c + 1
-            pi = perm(pi)
-            s = pi.signature()
+            s = self.deg()
             expr = s*self.expr
             return WedgeProductTerm(expr,L,
                         n,self.names)
@@ -193,6 +202,7 @@ d = exterior_derivative
 def curvature(A):
     dA = exterior_derivative(A)
     return (dA + A * A).reduce()
+
 # The hodge star "*form".
 def hodge_star(form):
     form2 = form.reduce()
@@ -205,71 +215,56 @@ def hodge_star(form):
 
 star = hodge_star
 
-var_names = sp.symbols('t,x,y,z')
-t,x,y,z = var_names
+var_names = sp.symbols('x,y,z')
+x,y,z = var_names
 wpt = WedgeProductTerm
-
-n0 = 4
+n0 = 3
 names0 = ["d"+str(var_names[i]) \
           for i in range(len(var_names))]
-phi = 2 # sp.Function('phi')(t,x,y,z)
-Ax = y # sp.Function('Ax')(t,x,y,z)
-Ay = z # sp.Function('Ay')(t,x,y,z)
-Az = x # sp.Function('Az')(t,x,y,z)
 
-A0 = wpt(phi,[0],n0,names0)
-A1 = wpt(Ax,[1],n0,names0)
-A2 = wpt(Ay,[2],n0,names0)
-A3 = wpt(Az,[3],n0,names0)
-A = Form([A0,A1,A2,A3],n=n0,names=names0)
-#print(f"A (potential) = {A.reduce()}")
-F = d(A)
-#print(f"F (field strength) = {F.reduce()}")
+# book{Tu17,
+# author = "Tu, Loring W.",
+# title = "Differential Geometry: Connections,
+# Curvature, and Characteristic Classes (GTM)",
+# publisher = "Springer",
+# year = "2017"
+# }
 
-A0, A1, A2, A3 = [sp.Function(f'A{i}')(t,x,y,z) \
-                  for i in range(4)]
-A0 = 1
-A1 = 0
-A2 = x**2*y/2+-y*t
-A3 = -y+x**2*z/2
+# where d(F) <-> grad(F) for F a 0-form
+# d(F) <-> curl(F) for F a 1-form
+# d(F) <-> div(F) for F a 2-form
 
-A_form = Form([
-    wpt(A0, [0], n0, names0),
-    wpt(A1, [1], n0, names0),
-    wpt(A2, [2], n0, names0),
-    wpt(A3, [3], n0, names0)
-], n=n0, names=names0)
+g = lambda expr,s: sp.diff(expr,s)
 
-F_2 = exterior_derivative(A_form)
-# Compare F_guess with your known F and solve for A_i
-dF2 = d(F_2)
+f = lambda x,y,z: x**2 + y*x*z + z**2
+a = wpt(f(x,y,z),[],n0,names0) # 0-form
+F = Form([a],n0,names0)
+print(f"F = {F} a 0-form")
+print(f"grad(F) = {d(F)} a 1-form")
+grad_F = [g(f(x,y,z),x),g(f(x,y,z),y),g(f(x,y,z),z)]
+print(f"grad_F = {grad_F} the usual way")
 
-print(f"F = E_x*dt w dx + E_y*dt w dy + E_z*dt w dz "+\
-      "+ B_x*dy w dz + B_y*dz w dx + B_z*dx w dy")
-E_x = 0
-E_y = y
-E_z = 0
-B_x = 1
-B_y = z*x
-B_z = -y*x
-F0 = wpt(E_x, [0], n0, names0)
-F1 = wpt(E_y, [0,2], n0, names0)
-F2 = wpt(E_z, [0,3], n0, names0)
-F3 = wpt(B_x, [2,3], n0, names0)
-F4 = wpt(B_y, [3,1], n0, names0)
-F5 = wpt(B_z, [1,2], n0, names0)
-F = Form([F0,F1,F2,F3,F4,F5],n=n0,names=names0)
-dF = d(F)
-starF = star(F)
-d_starF = d(starF)
-kappa = curvature(A)
-print(f"kappa = curvature(A) = {kappa}")
-print(f"F (field strength) = {F.reduce()}")
-print(f"F_2 = {F_2}")
-print(f"d(F) (should vanish) = {dF.reduce()} == 0")
-print(f"d(F_2) (should vanish) = {dF.reduce()} == 0")
-print(f"*F (Hodge dual) = {starF.reduce()}")
-print(f"d(*F) (inhomogeneous equation) = "+\
-      f"{d_starF.reduce()} == J")
-L = (F * star(F))*(-1/2)
-print(f"L (lagrangian) = {L}")
+f = lambda x,y,z: [x**2,y*x*z,x*z**2]
+F = Form([wpt(f(x,y,z)[i],[i],n0,names0) \
+          for i in range(n0)],n0,names0)
+print(f"F = {F} a 1-form")
+print(f"curl(F) = {d(F)} a 2-form")
+
+e = f(x,y,z)
+curl_F = [(g(e[2],y)-g(e[1],z)),
+          -(g(e[2],x)-g(e[0],z)),
+          (g(e[1],x)-g(e[0],y))]
+print(f"curl_F = {curl_F} via usual way")
+
+
+f = lambda x,y,z: [x**2,y*x*z,z**2]
+pi = perm(list(range(n0))[1:]+[0])
+F = Form([wpt(f(x,y,z)[i],[(i+1)%n0,(i+2)%n0],
+        n0,names0) \
+        for i in range(n0)],n0,names0)
+print(f"F = {F} a 2-form")
+print(f"div(F) = {d(F)} a 3-form")
+div_F = sum([g(f(x,y,z)[0],x),g(f(x,y,z)[1],y),
+             g(f(x,y,z)[2],z)])
+print(f"div_F = {div_F} the usual way")
+

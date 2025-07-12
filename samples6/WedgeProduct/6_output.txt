@@ -1,0 +1,18 @@
+F = (x**2 + x*y*z + z**2)*() a 0-form
+
+grad(F) = (2*x + y*z)*(dx) + (x*z)*(dy) + (x*y + 2*z)*(dz) a 1-form
+
+grad_F = [2*x + y*z, x*z, x*y + 2*z] the usual way
+
+F = (x**2)*(dx) + (x*y*z)*(dy) + (x*z**2)*(dz) a 1-form
+
+curl(F) = (y*z)*(dx w dy) + (z**2)*(dx w dz) + (-x*y)*(dy w dz) 
+a 2-form
+
+curl_F = [-x*y, -z**2, y*z] via usual way
+
+F = (x**2)*(dy w dz) + (x*y*z)*(dz w dx) + (z**2)*(dx w dy) a 2-form
+
+div(F) = (x*z + 2*x + 2*z)*(dx w dy w dz) a 3-form
+
+div_F = x*z + 2*x + 2*z the usual way
