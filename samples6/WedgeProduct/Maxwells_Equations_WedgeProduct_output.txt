@@ -1,0 +1,24 @@
+F = E_x*dt w dx + E_y*dt w dy + E_z*dt w dz + B_x*dy w dz + 
+B_y*dz w dx + B_z*dx w dy
+
+kappa = curvature(A) = (1)*(dx w dy) + (-1)*(dx w dz) + 
+(1)*(dy w dz)
+
+F (field strength) = (y)*(dt w dy) + (-x*y)*(dx w dy) + 
+(-x*z)*(dx w dz) + (1)*(dy w dz)
+
+F_2 = (y)*(dt w dy) + (-x*y)*(dx w dy) + (-x*z)*(dx w dz) + 
+(1)*(dy w dz)
+
+d(F) (should vanish) = (0)*() == 0
+
+d(F_2) (should vanish) = (0)*() == 0
+
+*F (Hodge dual) = (1)*(dt w dx) + (-x*z)*(dt w dy) + 
+(-x*y)*(dt w dz) + (y)*(dx w dz)
+
+d(*F) (inhomogeneous equation) = (z)*(dt w dx w dy) + 
+(y)*(dt w dx w dz) + (-1)*(dx w dy w dz) == J
+
+L (lagrangian) = (-0.5*x**2*y**2 + 0.5*x**2*z**2 + 
+0.5*y**2 - 0.5)*(dt w dx w dy w dz)
