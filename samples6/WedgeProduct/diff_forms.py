@@ -171,7 +171,76 @@ class Form:
                 self.n,
                 self.names) for i in range(len(self.L))]
         return Form(L,self.n,self.names).reduce()
-        
+    def get_coords(self):
+        omega = {}
+        for i in range(len(self.L)):
+            x = self.L[i]
+            e = x.expr
+            w = x.L
+            omega[tuple(w)] = e
+        return omega
+    ## omega.get_coords()
+    ## {(0, 1): y, (1, 2): z}
+    ##
+    ## omega.eval_coords(['x','y','z'],[3,1,4])          
+    ## {(0, 1): 1, (1, 2): 4}
+    def eval_coords(self,symbols,values):
+        c = self.get_coords()
+        c2 = {}
+        K = list(c.keys())
+        for key in K:
+            c2[key] = c[key]
+        d = dict(zip(symbols,values))
+        for key in K:
+            c2[key] = c2[key].subs(d)
+        return c2
+    def get_symbols(self):
+        names = [self.names[i][1:] \
+                 for i in range(len(self.names))]
+        symbols = sp.symbols(names)
+        return symbols
+    # value of form at point pt
+    # for names = ['dx','dy','dz'] then with
+    # pt = [3,2,1] self.value(pt) will substitute
+    # x = 3, y = 2, and z = 1.
+    def value(self,pt):
+        symbols = self.get_symbols()
+        return self.eval_coords(symbols,pt)
+    # Call with a vector field written as a form's
+    # get_coords() dictionary definition
+    #
+    ##omega          
+    ##(y)*(dx w dy) + (z)*(dy w dz)
+    ##
+    ##omega.get_coords()             
+    ##{(0, 1): y, (1, 2): z}
+    ##
+    ##omega({(0,1): x, (1,2): y})
+    ##                
+    ##x*y + y*z
+    ##omega({(0,): x, (1,2): y})
+    ##y*z
+    ##
+    ##omega(omega.get_coords())        
+    ##y**2 + z**2
+    ##
+    ##g_k(omega,omega)       
+    ##(y**2 + z**2)*(dx w dy w dz)
+    def __call__(self, X):
+        c = self.get_coords()
+        # X = X0.get_coords(), instead assume X0 is
+        # a dictionary like c.
+        K1 = list(c.keys())
+        K2 = list(X.keys())
+        L = list(set(K1)&set(K2))
+        if len(L) == 0:
+            return 0
+        else:
+            key = L[0]
+            s = c[key] * X[key]
+            for key in L[1:]:
+                s = s + c[key] * X[key]
+            return s            
     def __str__(self):
         s = ' + '.join(list(map(str,self.L)))
         return s
@@ -235,8 +304,9 @@ Delta = lambda A: hodge_dirac(hodge_dirac(A))
 
 # inner g
 # https://en.wikipedia.org/wiki/Hodge_star_operator
-inner_k =lambda a,b: a * star(b)
+inner_k = lambda a,b: a * star(b)
 g_k = inner_k
+g0 = lambda a,b: a(b.get_coords())
 
 # F_map : M -> N, omega is differential form on N
 # and names0 is the names on N. See [2]. 
@@ -284,3 +354,13 @@ def pullback(F_map,names_M,names_N):
         return expr6
     return f
 
+
+
+def interior_product(form_1):
+    def f(form_p):
+        Xi = form_1.get_coords()
+        omega = form_p.get_coords()
+        print(f"Xi = {Xi}")
+        print(f"omega = {omega}")
+        return None
+    return f
