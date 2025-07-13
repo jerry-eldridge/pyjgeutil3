@@ -3,10 +3,17 @@ import numpy as np
 from sympy.combinatorics import Permutation as perm
 from copy import deepcopy
 from collections import Counter
+from functools import reduce
 
-# [1] Microsoft Copilot, a large language model,
-# (as a helpful guide to check solutions and some
-# wedge product axioms)
+# [1] Microsoft Copilot, a large language model
+
+# [2] book{Lee12,
+# author = "Lee, John",
+# title = "Introduction to Smooth Manifolds
+# (Graduate Texts in Mathematics, Vol 218)",
+# publisher = "Springer",
+# year = "2012"
+# }
 
 def convolve(x,y):
     n1 = len(x)
@@ -230,3 +237,47 @@ Delta = lambda A: hodge_dirac(hodge_dirac(A))
 # https://en.wikipedia.org/wiki/Hodge_star_operator
 inner_k =lambda a,b: a * star(b)
 g_k = inner_k
+
+# F_map : M -> N, omega is differential form on N
+# and names0 is the names on N. See [2]. 
+def pullback(F_map,names_M,names_N):
+    v_M = sp.symbols(','.join(names_M))
+    v_N = sp.symbols(','.join(names_N))
+    def f(omega):
+        L = omega.L
+        n = omega.n
+        names=omega.names
+        M2 = []
+        L_F = F_map(*v_M)
+        print(f"F_map({','.join(names_M)}) = "+\
+              f"({','.join(list(map(str,L_F)))})")
+        for term in L:
+            expr2 = term.expr
+            L2 = term.L
+            for k in range(len(v_M)):
+                expr2 = expr2.replace(v_N[k],\
+                            L_F[k]).expand()
+            L3 = [L_F[i] for i in L2]
+            names1 = ["d"+names_N[i] \
+                      for i in range(len(names_N))]
+            names2 = ["d"+names_M[i] \
+                      for i in range(len(names_M))]
+            L4 = [d(Form([WedgeProductTerm(\
+                L_F[i],[],len(names2),names2)], \
+                len(names2),names2))
+                for i in L2]
+            one = Form([WedgeProductTerm(1,[],\
+                    len(names2),names2)],len(names2),\
+                    names2)
+            expr3 = reduce(lambda s,v: s*v,L4,one)
+            expr4 = Form([WedgeProductTerm(\
+                expr2,[],len(names2),names2)],\
+                len(names2),names2)
+            expr5 = expr4 * expr3
+            M2.append(expr5)
+        expr6 = M2[0]
+        for x in M2[1:]:
+            expr6 = expr6 + x
+        return expr6
+    return f
+

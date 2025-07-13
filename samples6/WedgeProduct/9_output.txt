@@ -1,0 +1,3 @@
+omega = (y)*(dx w dy) + (z)*(dy w dz)
+F_map(u,v) = (u**2,v,u - v**2)
+pullback(F)(omega) = Fs(omega) = (2*u*v - z)*(du w dv)
