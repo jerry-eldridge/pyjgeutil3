@@ -1,3 +1,9 @@
 omega = (y)*(dx w dy) + (z)*(dy w dz)
 F_map(u,v) = (u**2,v,u - v**2)
-pullback(F)(omega) = Fs(omega) = (2*u*v - z)*(du w dv)
+expr2 = v
+(2*u)*(du w dv) e3
+(v)*() e4
+expr2 = u - v**2
+(-1)*(du w dv) e3
+(u - v**2)*() e4
+pullback(F)(omega) = Fs(omega) = (2*u*v - u + v**2)*(du w dv)
