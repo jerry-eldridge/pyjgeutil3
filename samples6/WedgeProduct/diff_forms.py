@@ -213,5 +213,20 @@ def hodge_star(form):
           range(len(form2.L))]
     return Form(Ls, n, names).reduce()
 
+# hodge star
 star = hodge_star
 
+# codifferential
+# https://en.wikipedia.org/wiki/Hodge_star_operator#Codifferential
+delta = lambda A: star(d(star(A)))
+
+# Laplace-de Rham operator
+# https://en.wikipedia.org/wiki/Laplace%E2%80%93Beltrami_operator
+# (Laplace-Beltrami operator), see Laplace-de Rham operator
+hodge_dirac = lambda A: d(A) + delta(A)
+Delta = lambda A: hodge_dirac(hodge_dirac(A))
+
+# inner g
+# https://en.wikipedia.org/wiki/Hodge_star_operator
+inner_k =lambda a,b: a * star(b)
+g_k = inner_k

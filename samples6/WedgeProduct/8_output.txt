@@ -1,0 +1,29 @@
+A0 = (t**2*z + 2*t*x*y + x**2 + z)*()
+
+F0 = d(A0) = (2*t*z + 2*x*y)*(dt) + (2*t*y + 2*x)*(dx) + 
+(2*t*x)*(dy) + (t**2 + 1)*(dz)
+
+omega1 = (t*z)*(dx)
+
+A2 = F0 + omega1 = (2*t*z + 2*x*y)*(dt) + (2*t*y + t*z + 2*x)*(dx) + 
+(2*t*x)*(dy) + (t**2 + 1)*(dz)
+
+F2 = d(A2) = (z)*(dt w dx) + (-t)*(dx w dz)
+
+omega2 = (x*z)*(dx w dy)
+
+A4 = F2 + omega2 = (z)*(dt w dx) + (x*z)*(dx w dy) + (-t)*(dx w dz)
+
+F4 = d(A4) = (x)*(dx w dy w dz)
+
+omega3 = (t**2*x + y**3)*(dt w dz w dx)
+
+A6 = F4 + omega3 = (-t**2*x - y**3)*(dt w dx w dz) + 
+(x)*(dx w dy w dz)
+
+F6 = d(A6) = (-3*y**2)*(dt w dx w dy w dz)
+
+e = A0.L[0].expr = t**2*z + 2*t*x*y + x**2 + z
+
+box(e) = 2*z - 2
+Delta(A0) = (2*z - 2)*()
