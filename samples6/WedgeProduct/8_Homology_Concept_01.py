@@ -8,6 +8,7 @@ n0 = len(vn)
 d = dff.d
 Form = dff.Form
 star = dff.star
+curvature = dff.curvature
 
 wpt = dff.WedgeProductTerm
 names0 = ["d"+str(vn[i]) for i in range(len(vn))]
