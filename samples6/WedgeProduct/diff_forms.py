@@ -257,7 +257,7 @@ def pullback(F_map,names_M,names_N):
             for k in range(len(v_N)):
                 expr2 = expr2.replace(v_N[k],\
                             L_F[k]).expand()
-            print(f"expr2 = {expr2}")
+            #print(f"expr2 = {expr2}")
             L3 = [L_F[i] for i in L2]
             names1 = ["d"+names_N[i] \
                       for i in range(len(names_N))]
@@ -271,11 +271,11 @@ def pullback(F_map,names_M,names_N):
                     len(names2),names2)],len(names2),\
                     names2)
             expr3 = reduce(lambda s,v: s*v,L4,one)
-            print(expr3,'e3')
+            #print(expr3,'e3')
             expr4 = Form([WedgeProductTerm(\
                 expr2,[],len(names2),names2)],\
                 len(names2),names2)
-            print(expr4,'e4')
+            #print(expr4,'e4')
             expr5 = expr4 * expr3
             M2.append(expr5)
         expr6 = M2[0]
