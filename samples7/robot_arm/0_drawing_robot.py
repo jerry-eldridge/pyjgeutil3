@@ -54,7 +54,7 @@ def DrawShape(P,shape):
 def LoadChar(ch):
     n = ord(ch)
     #root = "C:/emma/fonts/font3/"
-    root = "./font3/"
+    root = "../font3/"
     fn = root+"%d.txt" % n
     
     f = open(fn,'r')
