@@ -36,7 +36,7 @@ def PlotGraph(gr,G,color,thickness=40):
 class Page:
     def __init__(self, name, width_in,height_in,
                  sx = 1, sy = 1,
-                 font = "./font3/",
+                 font = "../font3/",
                  dpi=180):
         self.dpi = dpi
         self.name = name
@@ -88,7 +88,7 @@ class Page:
             f.close()
         except:
             txt = None
-            fn2 = f"./font3/{s}.txt"
+            fn2 = f"../font3/{s}.txt"
             try:
                 g = open(fn2,'r')
                 txt = g.read()
