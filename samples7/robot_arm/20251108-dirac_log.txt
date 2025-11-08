@@ -1,0 +1,73 @@
+
+
+logging:
+
+ s t a r t   ; 
+ p r i n t   "   P r o g r a m   i s   s t a r t i n g .   "   ; 
+ w h i l e   s t a t e   <   1 0 
+ { 
+       s t a t e   : =   s t a t e   +   1   ; 
+       i f   s t a t e   > =   6   { 
+               p r i n t   "   - >   E a t !   "   ; 
+       }   e l s e   { 
+               p r i n t   "   - >   P l a y !   "   ; 
+       } 
+       p r i n t   s t a t e   ; 
+ } 
+ p r i n t   "   P r o g r a m   i s   h a l t i n g .   "   ; 
+ f i n i s h   ; 
+ 
+
+logging:
+
+ s t a r t   ; 
+ p r i n t   "   P r o g r a m   i s   s t a r t i n g .   "   ; 
+ w h i l e   s t a t e   <   1 0 
+ { 
+       s t a t e   : =   s t a t e   +   1   ; 
+       i f   s t a t e   > =   6   { 
+               p r i n t   "   - >   E a t !   "   ; 
+       }   e l s e   { 
+               p r i n t   "   - >   P l a y !   "   ; 
+       } 
+       p r i n t   s t a t e   ; 
+ } 
+ p r i n t   "   P r o g r a m   i s   h a l t i n g .   "   ; 
+ f i n i s h   ; 
+ 
+
+logging:
+
+ s t a r t   ; 
+ p r i n t   "   P r o g r a m   i s   s t a r t i n g .   "   ; 
+ w h i l e   s t a t e   <   1 0 
+ { 
+       s t a t e   : =   s t a t e   +   1   ; 
+       i f   s t a t e   > =   6   { 
+               p r i n t   "   - >   E a t !   "   ; 
+       }   e l s e   { 
+               p r i n t   "   - >   P l a y !   "   ; 
+       } 
+       p r i n t   s t a t e   ; 
+ } 
+ p r i n t   "   P r o g r a m   i s   h a l t i n g .   "   ; 
+ f i n i s h   ; 
+ 
+
+logging:
+
+ s t a r t   ; 
+ p r i n t   "   P r o g r a m   i s   s t a r t i n g .   "   ; 
+ w h i l e   s t a t e   <   1 0 
+ { 
+       s t a t e   : =   s t a t e   +   1   ; 
+       i f   s t a t e   > =   6   { 
+               p r i n t   "   - >   E a t !   "   ; 
+       }   e l s e   { 
+               p r i n t   "   - >   P l a y !   "   ; 
+       } 
+       p r i n t   s t a t e   ; 
+ } 
+ p r i n t   "   P r o g r a m   i s   h a l t i n g .   "   ; 
+ f i n i s h   ; 
+ 
