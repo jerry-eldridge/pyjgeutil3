@@ -62,8 +62,12 @@ def LinearProgramming(G,s,t):
     #print("b=",b)
     c = deepcopy(G['W'])
     #print("c=",c)
-    res = list(so.linprog(c,A_ub=A,b_ub=b,bounds=[(0,1)]*len(G['E']),
-                          method='simplex').x)
+    res = so.linprog(c,A_ub=A,b_ub=b,bounds=[(0,1)]*len(G['E']),
+                          method='highs').x
+    if res is None:
+        return []
+    else:
+        res = list(res)
     #print("res = ",res)
     Es = []
     for i in range(len(res)):

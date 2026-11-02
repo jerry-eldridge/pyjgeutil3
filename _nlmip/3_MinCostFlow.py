@@ -62,8 +62,12 @@ def LinearProgramming(G,s,t):
     #print("b=",b)
     c = deepcopy(G['W'])
     #print("c=",c)
-    res = list(so.linprog(c,A_ub=A,b_ub=b,bounds=[(0,None)]*len(G['E']),
-                          method='simplex').x)
+    res = so.linprog(c,A_ub=A,b_ub=b,bounds=[(0,None)]*len(G['E']),
+                          method='highs').x
+    if res is None:
+        return []
+    else:
+        res = list(res)
     return list(zip(G['E'],res))
 
 # assume positive weights G['W'] except when

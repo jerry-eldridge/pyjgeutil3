@@ -30,8 +30,7 @@ def Optimize_x(m,n,C,X):
     b_eq = outputs + allocations
     res = so.linprog(c,A_eq=A_eq,b_eq=b_eq,
                      bounds=[0,None],
-                     method='revised simplex',
-                options={'rr':False})
+                     method='highs')
     x_opt = list(res.x)
     return outputs,allocations,x_opt
 

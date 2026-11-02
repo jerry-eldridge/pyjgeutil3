@@ -362,7 +362,7 @@ def LinearProgramming(G,s,t):
     c = deepcopy(G['W'])
     print("c=",c)
     res = list(so.linprog(c,A_ub=A,b_ub=b,bounds=[(0,1)]*len(G['E']),
-                          method='simplex').x)
+                          method='highs').x)
     print("res = ",res)
     pred = {}
     for i in range(len(res)):

@@ -16,6 +16,8 @@ def CMP(x,y):
         return False
 
 def Feasible(x,J):
+    if x is None:
+        return []
     y = list(map(round,x))
     I = []
     for i in range(len(y)):
@@ -26,11 +28,31 @@ def Feasible(x,J):
             I.append(i)
     return I
 
+##def Solve(c,A,b,bounds0):
+##    res = so.linprog(c,A_ub=A,b_ub=b,bounds = bounds0, method='highs')
+##    flag = res.success
+##    x = list(res.x)
+##    return x, flag
+
 def Solve(c,A,b,bounds0):
-    res = so.linprog(c,A_ub=A,b_ub=b,bounds = bounds0, method='simplex')
-    flag = res.success
-    x = list(res.x)
-    return x, flag
+    res = so.linprog(
+        c,
+        A_ub=A,
+        b_ub=b,
+        bounds=bounds0,
+        method='highs'
+    )
+
+    print("Solve:")
+    print("success =", res.success)
+
+    if res.success:
+        print("x =", res.x)
+    else:
+        print("LP INFEASIBLE")
+
+    x = res.x
+    return x,res.success
 
 def Iter(c,A,b,bounds, J, x,flag0):
     if len(J) == 0:
@@ -86,13 +108,18 @@ def Iter(c,A,b,bounds, J, x,flag0):
         else:
             print("Error")
             return a1,flag1
-    return a1,flag1
+    return None,False
 
 def IP(c,A,b,bounds):
     print("IP")
     J = range(len(c))
     a,flag0 = Solve(c,A,b,bounds)
     x,flag = Iter(c,A,b,bounds, J, a, flag0)
+    if not flag:
+        print("No integer feasible solution found")
+        return None
+    if x is None:
+        return None
     print("success =",flag)
     I1 = Feasible(x, J)
     print("Nonfeasible: ",I1)
